@@ -1,0 +1,11 @@
+#Team:
+Clara Quintela - frontend
+Nabil Djerroud - design et base de données
+René de Montigny - backend
+
+#GitHub 
+https://github.com/582-41E-MA/projet-web-2-CollRen
+
+
+#Backlog
+https://docs.google.com/spreadsheets/d/17cYhfyF4xp-bm3sV5QNE7LC87-A3jlAk3-C3awjZAAE/edit?usp=sharing
