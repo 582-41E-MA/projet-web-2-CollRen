@@ -13,7 +13,7 @@ function Entete (){
         (t, { i18n }) => <p>{t('test2')}</p>
       }
     </Translation>
-            
+           
         </header>
         
     )
