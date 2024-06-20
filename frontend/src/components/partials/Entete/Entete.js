@@ -1,12 +1,12 @@
 import React from 'react';
 import "./Entete.css";
 
-function Entete({ t }) {
+function Entete({ t}) {
    
 
     return (
         <header>
-            <h1>{t('title')}</h1>
+            <h1>{t("titre")}</h1>
         </header>
     );
 }
