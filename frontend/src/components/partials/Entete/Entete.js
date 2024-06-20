@@ -1,22 +1,14 @@
-import { Translation } from 'react-i18next';
+import React from 'react';
 import "./Entete.css";
 
-
-function Entete (){
+function Entete({ t }) {
    
 
     return (
         <header>
-            <h1>Entete</h1>
-            <Translation>
-      {
-        (t, { i18n }) => <p>{t('test2')}</p>
-      }
-    </Translation>
-            
+            <h1>{t('title')}</h1>
         </header>
-        
-    )
+    );
 }
 
 export default Entete;

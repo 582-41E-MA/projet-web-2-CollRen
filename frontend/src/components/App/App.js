@@ -18,19 +18,16 @@ function App() {
       i18n.changeLanguage(code);
     };
 
+    const boutonTraduction= lngs.map((lng, i) => {
+      const { code, native } = lng;
+      return <button key={'langue_'+ i} onClick={() => handleTrans(code)}>{native}</button>;
+    })
+
     return (
         <Router>
-           <Entete/>
+          {boutonTraduction}
+           <Entete t={t}/>
            
-           <div style={{padding: '50px'}}>
-      <h1>{t("test")}</h1>
-
-      {lngs.map((lng, i) => {
-        const { code, native } = lng;
-        return <button onClick={() => handleTrans(code)}>{native}</button>;
-      })}
-
-    </div>
             <Routes>
                 <Route path='/' element={<Accueil/>}/>
             </Routes>
