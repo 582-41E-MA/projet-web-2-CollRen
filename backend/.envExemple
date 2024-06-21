@@ -1,7 +1,0 @@
-PORT=5001
-
-JWT_SECRET=shhh
-DBHOST=localhost
-DBUSER=root
-DBPASSWORD=root
-DBDATABASE=vehiculeOccasion

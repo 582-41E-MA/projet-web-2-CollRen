@@ -1,0 +1,16 @@
+const dbConfig = require('../config/db.config.js')
+const Sequelize = require('sequelize')
+const connex = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
+    host: dbConfig.HOST,
+    dialect: dbConfig.dialect,
+    port: 3306,
+    operatorAliases: false
+})
+const db = {}
+db.Sequelize = Sequelize
+db.connex = connex
+db.privileges = require('./privilege.model.js')(connex, Sequelize)
+db.utilisateurs = require('./utilisateur.model.js')(connex, Sequelize)
+db.villes = require('./ville.model.js')(connex, Sequelize)
+db.provinces = require('./province.model.js')(connex, Sequelize)
+module.exports = db
