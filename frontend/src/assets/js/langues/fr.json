@@ -1,5 +1,7 @@
 {
     "translation": {
-     "titre": "Entete entete entete nwete"       
+     "titre": "Entete entete entete nwete",
+     "navItem.catalogue": "Voitures",
+     "navItem.apropos": "À propos"      
     }
   }

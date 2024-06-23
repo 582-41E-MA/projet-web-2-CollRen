@@ -1,6 +1,8 @@
 {
     "translation": {
-       "titre" : "title"
+       "titre" : "title",
+       "navItem.catalogue": "Cars",
+       "navItem.apropos": "About us"
        
     }
   }
