@@ -1,8 +1,11 @@
 {
     "translation": {
       "titre" : "Beaux Bazous",
+
+
       "navItem.catalogue": "Cars",
       "navItem.apropos": "About us",
+      "navItem.home": "Home",
 
       "login.titre": "Welcome back!",
       "login.courriel": "E-mail", 

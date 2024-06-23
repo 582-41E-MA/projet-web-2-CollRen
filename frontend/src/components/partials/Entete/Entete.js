@@ -5,9 +5,10 @@ function Entete({ t}) {
    
 
     return (
-        <header>
-            <Navigation t={t}/>
+        <header className='flex items-baseline justify-around'>
             <h1>{t("titre")}</h1>
+            <Navigation t={t}/>
+            
         </header>
     );
 }

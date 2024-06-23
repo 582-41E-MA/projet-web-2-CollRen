@@ -1,9 +1,9 @@
 function Navigation ({t}) {
 
     return (
-        <nav className="font-sen text-gray-800">
+        <nav className= " flex font-sen text-gray-800">
         <a href="/" className="py-2 px-6 flex3">
-            Home
+        {t("navItem.home")}
         </a>
         <a href="#" className="py-2 px-6 flex color-red">
            {t("navItem.catalogue")}
