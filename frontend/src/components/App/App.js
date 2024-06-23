@@ -6,6 +6,7 @@ import Entete from '../partials/Entete/Entete';
 import { useTranslation } from 'react-i18next';
 import Login from '../site/Login/Login';
 import UserCreate from '../users/UserCreate/UserCreate';
+import APropos from '../site/APropos/APropos';
 
 const lngs = [
     { code: "en", native: "English" },
@@ -47,6 +48,8 @@ function App() {
             <Entete t={t} />
             <Routes>
                 <Route path='/' element={<Accueil t={t} />} />
+                <Route path='/apropos' element={<APropos t={t} />} />
+
                 <Route path='/login' element={<Login t={t} />} />
                 <Route path='/usercreate' element={<UserCreate t={t} />} />
 

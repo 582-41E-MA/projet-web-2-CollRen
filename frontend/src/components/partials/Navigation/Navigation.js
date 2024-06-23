@@ -8,7 +8,7 @@ function Navigation ({t}) {
         <a href="#" className="py-2 px-6 flex color-red">
            {t("navItem.catalogue")}
         </a>
-        <a href="#" className="py-2 px-6 flex">
+        <a href="/apropos" className="py-2 px-6 flex">
         {t("navItem.apropos")}
         </a>
         <a href="#" className="py-2 px-6 flex">
