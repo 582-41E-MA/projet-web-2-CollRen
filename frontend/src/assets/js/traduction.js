@@ -1,30 +1,23 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import en from "./langues/en.json";
+import fr from "./langues/fr.json";
+
+// Recupera a língua salva na sessão, se houver
+const langueChoisie = sessionStorage.getItem('langueChoisie') || 'fr';
 
 i18n
   .use(initReactI18next)
   .init({
-    debug: true,
-    fallbackLng: 'en',
+    debug: false,
+    lng: langueChoisie,  // Define a língua inicial a partir do sessionStorage ou usa 'fr' como padrão
+    fallbackLng: 'fr',
     interpolation: {
-      escapeValue: false, 
+      escapeValue: false,
     },
-    // language resources
     resources: {
-      en: {
-        translation: {
-         test: "This is a test",
-         test2:"hey ho"
-       
-        }
-      },
-      fr: {
-        translation: {
-         test: "Ceci est un test",
-         test2: "salut salut"
-        
-        }
-      },
+      en: en,
+      fr: fr
     }
   });
 
