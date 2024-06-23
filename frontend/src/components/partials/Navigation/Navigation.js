@@ -1,11 +1,11 @@
 function Navigation ({t}) {
 
     return (
-        <nav className="font-sen text-gray-800 dark:text-white uppercase text-lg lg:flex items-center hidden">
-        <a href="/" className="py-2 px-6 flex">
+        <nav className="font-sen text-gray-800">
+        <a href="/" className="py-2 px-6 flex3">
             Home
         </a>
-        <a href="#" className="py-2 px-6 flex">
+        <a href="#" className="py-2 px-6 flex color-red">
            {t("navItem.catalogue")}
         </a>
         <a href="#" className="py-2 px-6 flex">
@@ -14,8 +14,8 @@ function Navigation ({t}) {
         <a href="#" className="py-2 px-6 flex">
             Contact
         </a>
-        <a href="#" className="py-2 px-6 flex">
-            Carrer
+        <a href="/login" className="py-2 px-6 flex">
+            Login
         </a>
     </nav>
     )

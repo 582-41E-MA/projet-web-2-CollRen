@@ -1,5 +1,4 @@
 import React from 'react';
-import "./Entete.css";
 import Navigation from '../Navigation/Navigation';
 
 function Entete({ t}) { 
@@ -9,7 +8,6 @@ function Entete({ t}) {
         <header>
             <Navigation t={t}/>
             <h1>{t("titre")}</h1>
-            <Nav/>
         </header>
     );
 }

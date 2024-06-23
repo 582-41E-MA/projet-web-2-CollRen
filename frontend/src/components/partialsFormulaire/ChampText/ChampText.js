@@ -1,19 +1,25 @@
 
 
-function ChampText (props) {
+function ChampText ({ label, type, placeholder, mandatory, whenChanged} ) {
 
     const handleTyping = (event) => {
-        props.whenChanged(event.target.value);
+        whenChanged(event.target.value);
+    
     }
 
     return (
 
         <div className="text-field"> 
             <label>
-                {props.label}
+                {label}
             </label>
-            <input value={props.content} onChange={handleTyping} required={props.mandatory} placeholder = {props.placeholder}/>
-        </div>
+            <input 
+                onChange={handleTyping} 
+                required={mandatory} 
+                placeholder = {placeholder}
+                type={type}
+                className="mb-4 p-2 appearance-none block w-full bg-gray-200 placeholder-gray-900 rounded border focus:border-teal-500" />
+            </div>
 
     )
 }

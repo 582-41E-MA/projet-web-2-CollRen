@@ -1,8 +1,15 @@
 {
     "translation": {
-       "titre" : "title",
-       "navItem.catalogue": "Cars",
-       "navItem.apropos": "About us"
+      "titre" : "Beaux Bazous",
+      "navItem.catalogue": "Cars",
+      "navItem.apropos": "About us",
+
+      "login.titre": "Welcome back!",
+      "login.courriel": "E-mail", 
+      "login.mdp": "Password",
+      "login.btn": "Log in" ,
+      "login.courrielPlaceHolder": "Please, enter your e-mail",
+      "login.mdpPlaceHolder": "Your password"    
        
     }
   }

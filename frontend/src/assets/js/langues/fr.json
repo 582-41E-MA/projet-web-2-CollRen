@@ -1,7 +1,14 @@
 {
     "translation": {
-     "titre": "Entete entete entete nwete",
+     "titre": "Beaux Bazous",
      "navItem.catalogue": "Voitures",
-     "navItem.apropos": "À propos"      
+     "navItem.apropos": "À propos",
+     
+     "login.titre": "Bienvenue à nouveau!",
+     "login.courriel": "Courriel", 
+     "login.mdp": "Mot de passe",
+     "login.btn": "Entrez",
+     "login.courrielPlaceHolder": "SVP, entrez votre courriel", 
+     "login.mdpPlaceHolder":  "Votre mot de passe"
     }
   }
