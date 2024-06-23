@@ -1,4 +1,4 @@
-function Navigation ({t}) {
+function Nav({t}) {
 
     return (
         <nav className= " flex font-sen text-gray-800">
@@ -26,4 +26,4 @@ function Navigation ({t}) {
     )
 }
 
-export default Navigation;
+export default Nav;

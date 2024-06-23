@@ -39,12 +39,14 @@ function App() {
 
     const boutonTraduction = lngs.map((lng, i) => {
         const { code, native } = lng;
-        return <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full flex-end m-3" key={'langue_' + i} onClick={() => handleTrans(code)}>{native}</button>;
+        return <button className="bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full flex-end m-3" key={'langue_' + i} onClick={() => handleTrans(code)}>{native}</button>;
     });
 
     return (
         <Router>
+            <div className='flex justify-end'> 
             {boutonTraduction}
+            </div>
             <Entete t={t} />
             <Routes>
                 <Route path='/' element={<Accueil t={t} />} />
