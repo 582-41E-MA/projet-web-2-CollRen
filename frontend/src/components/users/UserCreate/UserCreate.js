@@ -10,31 +10,20 @@ function UserCreate () {
     const [mdp, setMDP] = useState('')
     const [utilisateur, setUtilisateurs] = useState("")
 
-  const onAddChar = (character) => {
-    setCharacters([...characters, character])
+  const addUser = () => {
+    console.log("function AddUser");
   }
 
    function createUser (event) {
-        event.preventDefault();
-        props.addedChar({
-            character,
-            role,
-            img,
-            race,
-            faction
-        })
-        setCharacter('')
-        setRole('')
-        setImage('')
-        setRace('')
-        event.currentTarget.reset()
+       console.log("createUser");
     }
   
     return (
 
-        <section className='UserCreateulaire'>
+        <section className='UserCreate'>
             <form onSubmit={createUser}>
-                <h2>Inform character, class and race</h2>
+                <h2> {t("CreateUser.soustitre")}</h2>
+
                 <ChampText
                     mandatory={true} 
                     label="Character" 
@@ -43,44 +32,26 @@ function UserCreate () {
                     content={character} 
                     whenChanged={ content => setCharacter(content)}/>
 
-        
-                <TextField 
-                    label="Image" 
-                    name="img"
-                    placeholder="Place an image's url"
-                    content = {img}
-                    whenChanged = { content => setImage(content)}
-                /> 
+                <ChampText
+                    mandatory={true} 
+                    label="Character" 
+                    name="character"
+                    placeholder="Character's name"
+                    content={character} 
+                    whenChanged={ content => setCharacter(content)}/>
+                        
+                    <ChampText
+                    mandatory={true} 
+                    label="Character" 
+                    name="character"
+                    placeholder="Character's name"
+                    content={character} 
+                    whenChanged={ content => setCharacter(content)}/>
+                          
 
-                <Dropdown 
-                    mandatory={true}
-                    label="Race"
-                    name="race"
-                    list={props.racesList}
-                    content = {race}
-                    whenChanged = {content => setRace(content)}
-                    />
-
-                <Dropdown 
-                    mandatory={true}
-                    label="Class"
-                    name="role"
-                    list={props.rolesList}
-                    content = {role}
-                    whenChanged = {content => setRole(content)}
-                    />
-
-                <Dropdown 
-                    mandatory={true}
-                    label="Faction"
-                    name="faction"
-                    list={props.factionsList}
-                    content = {faction}
-                    whenChanged = {content => setFaction(content)}
-                    />
                     
                 <Bouton>
-                    {this("CreateUser.btnSubmit")}
+                    {t("CreateUser.btnSubmit")}
                 </Bouton>
             </form>
         </section>
