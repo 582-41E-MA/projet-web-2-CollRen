@@ -16,11 +16,11 @@ function APropos({t}){
               </div>
             </div>
             <div className="w-full lg:w-1/2 px-4 mb-5 lg:mb-0">
-            <p className="mb-6 text-lg font-medium leading-7 text-coolGray-500">{t("apropos.p1")}</p>
-              <p className="mb-6 text-lg font-medium leading-7 text-coolGray-500">{t("apropos.p2")}</p>
-              <p className="mb-6 text-lg font-medium leading-7 text-coolGray-500">{t("apropos.p3")}</p>
-              <p className="mb-6 text-lg font-medium leading-7 text-coolGray-500">{t("apropos.p4")}</p>
-              <p className="mb-6 text-lg font-medium leading-7 text-coolGray-500">{t("apropos.p5")}</p>
+              <p className="mb-6 text-lg leading-7 text-coolGray-500">{t("apropos.p1")}</p>
+              <p className="mb-6 text-lg leading-7 text-coolGray-500">{t("apropos.p2")}</p>
+              <p className="mb-6 text-lg leading-7 text-coolGray-500">{t("apropos.p3")}</p>
+              <p className="mb-6 text-lg leading-7 text-coolGray-500">{t("apropos.p4")}</p>
+              <p className="mb-6 text-lg leading-7 text-coolGray-500">{t("apropos.p5")}</p>
             
             </div>
             <div className="w-full lg:w-1/2 px-4">
