@@ -6,13 +6,29 @@
       "navItem.catalogue": "Cars",
       "navItem.apropos": "About us",
       "navItem.home": "Home",
+      "navItem.signup": "Sign up",
 
       "login.titre": "Welcome back!",
       "login.courriel": "E-mail", 
       "login.mdp": "Password",
       "login.btn": "Log in" ,
       "login.courrielPlaceHolder": "Please, enter your e-mail",
-      "login.mdpPlaceHolder": "Your password"    
+      "login.mdpPlaceHolder": "Your password",
+
+      "accueil.titre1": "25% OFF",
+      "accueil.titre2": "SUMMER SALE",
+      "accueil.titre3": "For limited time only!",
+      "accueil.btnCta": "Shop now",
+
+     
+      "CreateUser.soustitre": "Be part of our car lovers community!",
+      "CreateUser.nomLabel": "Name",
+      "CreateUser.nomPlaceHolder": "Inform your name",
+       "CreateUser.courrielLabel": "E-mail",
+      "CreateUser.courrielPlaceHolder": "Inform your e-mail",
+       "CreateUser.mdpLabel": "Password",
+      "CreateUser.mdpPlaceHolder": "Enter your password",
+      "CreateUser.btnSubmit": "Save"
        
     }
   }

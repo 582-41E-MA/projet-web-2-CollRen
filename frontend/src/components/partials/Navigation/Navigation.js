@@ -14,6 +14,11 @@ function Navigation ({t}) {
         <a href="#" className="py-2 px-6 flex">
             Contact
         </a>
+
+        <a href="/usercreate" className="py-2 px-6 flex">
+        {t("navItem.signup")}
+        </a>
+
         <a href="/login" className="py-2 px-6 flex">
             Login
         </a>

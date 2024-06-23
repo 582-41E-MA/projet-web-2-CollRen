@@ -4,12 +4,30 @@
      "navItem.catalogue": "Voitures",
      "navItem.apropos": "À propos",
      "navItem.home": "Accueil",
+     "navItem.signup": "S'inscrire",
      
-     "login.titre": "Bienvenue à nouveau!",
+     "login.titre": "Bienvenue à nouveau!", 
      "login.courriel": "Courriel", 
      "login.mdp": "Mot de passe",
      "login.btn": "Entrez",
      "login.courrielPlaceHolder": "SVP, entrez votre courriel", 
-     "login.mdpPlaceHolder":  "Votre mot de passe"
+     "login.mdpPlaceHolder":  "Votre mot de passe",
+
+     "accueil.titre1": "25% de rabais",
+     "accueil.titre2": "Spécial d'été",
+     "accueil.titre3": "Pour une durée limitée!",
+     "accueil.btnCta": "Achetez dès maintenant",
+
+
+     "CreateUser.soustitre": "Faites partie de notre communauté de fans de voitures!",
+     "CreateUser.nomLabel": "Nom",
+     "CreateUser.nomPlaceHolder": "Informez votre nom",
+     "CreateUser.courrielLabel": "Courriel",
+     "CreateUser.courrielPlaceHolder": "Informez votre",
+     "CreateUser.mdpLabel": "Mot de passe",
+     "CreateUser.mdpPlaceHolder": "Entrez votre mot de passe",
+     "CreateUser.btnSubmit": "Submit"
+
+  
     }
   }
