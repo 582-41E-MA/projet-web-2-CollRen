@@ -3,15 +3,18 @@ import {useState} from 'react';
 import ChampText from '../../partialsFormulaire/ChampText/ChampText';
 
 
-const Form = (props) => {
+function UserCreate () {
 
-    const [character, setCharacter] = useState('')
-    const [role, setRole] = useState('')    
-    const [img, setImage] = useState('')
-    const [race, setRace] = useState('')
-    const [faction, setFaction] = useState('')
+    const [nom, setNom] = useState('')
+    const [courriel, setCourriel] = useState('')    
+    const [mdp, setMDP] = useState('')
+    const [utilisateur, setUtilisateurs] = useState("")
 
-    const whenSubmiting = (event) => {
+  const onAddChar = (character) => {
+    setCharacters([...characters, character])
+  }
+
+   function createUser (event) {
         event.preventDefault();
         props.addedChar({
             character,
@@ -29,8 +32,8 @@ const Form = (props) => {
   
     return (
 
-        <section className='formulaire'>
-            <form onSubmit={whenSubmiting}>
+        <section className='UserCreateulaire'>
+            <form onSubmit={createUser}>
                 <h2>Inform character, class and race</h2>
                 <ChampText
                     mandatory={true} 
@@ -77,11 +80,11 @@ const Form = (props) => {
                     />
                     
                 <Bouton>
-                    Save
+                    {this("CreateUser.btnSubmit")}
                 </Bouton>
             </form>
         </section>
     )
 }
 
-export default Form;    	
+export default UserCreate ;    	
