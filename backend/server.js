@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
 const corsOption = {
-    origin: 'http://localhost:8081'
+    origin: '*'
 }
 require('dotenv').config()
 console.log(process.env)
