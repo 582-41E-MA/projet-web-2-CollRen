@@ -22,7 +22,9 @@
 
      
       "CreateUser.soustitre": "Be part of our car lovers community!",
-      "CreateUser.nomLabel": "Name",
+      "CreateUser.prenomLabel": "Name",
+      "CreateUser.prenomPlaceHolder": "Inform your family name",
+      "CreateUser.nomLabel": "Family name",
       "CreateUser.nomPlaceHolder": "Inform your name",
        "CreateUser.courrielLabel": "E-mail",
       "CreateUser.courrielPlaceHolder": "Inform your e-mail",
