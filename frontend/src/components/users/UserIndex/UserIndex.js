@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MenuDashboardAdmin from "../../dashboards/MenuDashboardAdmin/MenuDashboardAdmin";
+import { Link } from 'react-router-dom';
 
 function UserIndex({ t }) {
     const [users, setUsers] = useState([]);
@@ -47,7 +48,9 @@ function UserIndex({ t }) {
                                 <td className="px-6 py-4 whitespace-nowrap">{user.cellulaire}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{user.privilege}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <button className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 transition duration-150 ease-in-out">Edit</button>
+
+                                    <Link to={`/usershow/${user.id}`} > <button className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 transition duration-150 ease-in-out">Edit</button></Link>
+
                                     <button className="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out">Delete</button>
                                 </td>
                             </tr>

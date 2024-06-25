@@ -9,6 +9,7 @@ import UserCreate from '../users/UserCreate/UserCreate';
 import APropos from '../site/APropos/APropos';
 import DashboardAdmin from '../dashboards/DashboardAdmin/DashboardAdmin';
 import UserIndex from '../users/UserIndex/UserIndex';
+import UserShow from '../users/UserShow/UserShow';
 
 
 const lngs = [
@@ -59,6 +60,7 @@ function App() {
 
                 <Route path='/usercreate' element={<UserCreate t={t} />} />
                 <Route path='/user' element={<UserIndex t={t} />} />
+                <Route path="/user/:id" element={<UserShow t={t} />} />
 
             </Routes>
         </Router>
