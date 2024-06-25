@@ -1,21 +1,26 @@
-function Nav() {
+function Nav({t}) {
 
     return (
-        <nav className="font-sen text-gray-800 dark:text-white uppercase text-lg lg:flex items-center hidden">
-        <a href="#" class="py-2 px-6 flex">
-            Home
+        <nav className= " flex font-sen text-gray-800">
+        <a href="/" className="py-2 px-6 flex3 text-lg">
+        {t("navItem.home")}
         </a>
-        <a href="#" class="py-2 px-6 flex">
-            Watch
+        <a href="#" className="py-2 px-6 flex color-red text-lg">
+           {t("navItem.catalogue")}
         </a>
-        <a href="#" class="py-2 px-6 flex">
-            Product
+        <a href="/apropos" className="py-2 px-6 flex text-lg">
+        {t("navItem.apropos")}
         </a>
-        <a href="#" class="py-2 px-6 flex">
+        <a href="#" className="py-2 px-6 flex text-lg">
             Contact
         </a>
-        <a href="#" class="py-2 px-6 flex">
-            Carrer
+
+        <a href="/usercreate" className="py-2 px-6 flex text-lg">
+        {t("navItem.signup")}
+        </a>
+
+        <a href="/login" className="py-2 px-6 flex text-lg">
+            Login
         </a>
     </nav>
     )

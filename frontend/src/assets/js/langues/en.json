@@ -1,6 +1,43 @@
 {
     "translation": {
-       "titre" : "title"
+      "titre" : "Beaux Bazous",
+
+
+      "navItem.catalogue": "Cars",
+      "navItem.apropos": "About us",
+      "navItem.home": "Home",
+      "navItem.signup": "Sign up",
+
+      "login.titre": "Welcome back!",
+      "login.courriel": "E-mail", 
+      "login.mdp": "Password",
+      "login.btn": "Log in" ,
+      "login.courrielPlaceHolder": "Please, enter your e-mail",
+      "login.mdpPlaceHolder": "Your password",
+
+      "accueil.titre1": "25% OFF",
+      "accueil.titre2": "SUMMER SALE",
+      "accueil.titre3": "For limited time only!",
+      "accueil.btnCta": "Shop now",
+
+     
+      "CreateUser.soustitre": "Be part of our car lovers community!",
+      "CreateUser.nomLabel": "Name",
+      "CreateUser.nomPlaceHolder": "Inform your name",
+       "CreateUser.courrielLabel": "E-mail",
+      "CreateUser.courrielPlaceHolder": "Inform your e-mail",
+       "CreateUser.mdpLabel": "Password",
+      "CreateUser.mdpPlaceHolder": "Enter your password",
+      "CreateUser.btnSubmit": "Save",
+
+      "apropos.titre": "Welcome to Beaux Bazous",
+      "apropos.soustitre": "Quality, Trust, and Personalized Service at the Heart of Every Transaction",
+      "apropos.p1": "Welcome to Beaux Bazous, your best choice for purchasing quality used cars in Montreal, QC. We are committed to offering an exceptional vehicle-buying experience, combining superior quality, trust, and personalized service.",
+      "apropos.p2": "Located in Montreal, at Beaux Bazous, we take pride in offering only the finest used vehicles. Every car in our showroom undergoes rigorous inspection to ensure it meets the highest standards of performance and safety, providing our customers with peace of mind in their choice.",
+      "apropos.p3": "We understand that buying a car is a significant decision. Our experienced team is here to guide you through every step of the process, from selecting the perfect vehicle to financing tailored to your needs. Our commitment to transparency means you will always receive clear and detailed information about every car in our inventory.",
+      "apropos.p4": "Furthermore, at Beaux Bazous, we place great importance on long-term relationships with our customers. We offer ongoing support and aftersales maintenance services to ensure your car continues to deliver exceptional performance over the years.",
+      "apropos.p5": "Visit us today at Beaux Bazous and discover why we are the preferred choice for those seeking quality, integrity, and exceptional service in used cars in Montreal."
+      
        
     }
   }
