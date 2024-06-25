@@ -17,7 +17,7 @@ module.exports = (connex, Sequelize) => {
             type: Sequelize.STRING
         },
         telephone: {
-            type: Sequelize.TEXT('long')
+            type: Sequelize.INTEGER
         },
         telephone: {
             type: Sequelize.INTEGER

@@ -2,7 +2,7 @@
 module.exports = (connex, Sequelize) => {
     const Constructeur = connex.define('constructeur', {
         type: {
-            type: Sequelize.TEXT('long')
+            type: Sequelize.TEXT
         }
 
     })
