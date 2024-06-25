@@ -2,7 +2,7 @@
 module.exports = (connex, Sequelize) => {
     const Model = connex.define('model', {
         type: {
-            type: Sequelize.TEXT('long')
+            type: Sequelize.TEXT
         },
         constructeur_id: {
             type: Sequelize.INTEGER,
