@@ -7,6 +7,8 @@ import { useTranslation } from 'react-i18next';
 import Login from '../site/Login/Login';
 import UserCreate from '../users/UserCreate/UserCreate';
 import APropos from '../site/APropos/APropos';
+import DashboardAdmin from '../dashboards/DashboardAdmin/DashboardAdmin';
+import UserIndex from '../users/UserIndex/UserIndex';
 
 
 const lngs = [
@@ -52,9 +54,11 @@ function App() {
             <Routes>
                 <Route path='/' element={<Accueil t={t} />} />
                 <Route path='/apropos' element={<APropos t={t} />} />
-
+                <Route path='/admin' element={<DashboardAdmin t={t} />} />
                 <Route path='/login' element={<Login t={t} />} />
+
                 <Route path='/usercreate' element={<UserCreate t={t} />} />
+                <Route path='/user' element={<UserIndex t={t} />} />
 
             </Routes>
         </Router>
