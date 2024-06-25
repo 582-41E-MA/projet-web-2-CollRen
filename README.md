@@ -5,7 +5,6 @@ Technologies utilisées: JavaScript (React & Node)
 Base de données: MySql
 
 
-
 ## Responsables
 
  Responsable Git -> René
@@ -27,5 +26,7 @@ Les membres de l'équipe communique via Discussion de Github et les rencontres a
 2. Meeting sprint 1 - le 2 juillet 8hrs
 3. Meeting sprint 2 - le 16 juillet 9hrs
 4. Présentation finale : le 09 aout 12hs
+
+
 
 
