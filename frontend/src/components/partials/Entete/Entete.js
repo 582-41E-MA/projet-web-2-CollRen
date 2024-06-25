@@ -1,14 +1,14 @@
 import React from 'react';
-import Nav from '../Nav/Nav';
+import Navigation from '../Navigation/Navigation';
 
-function Entete({t}) {
+function Entete({ t}) { 
    
 
     return (
-        <header>
-
+        <header className='flex items-baseline justify-around'>
             <h1>{t("titre")}</h1>
-            <Nav/>
+            <Navigation t={t}/>
+            
         </header>
     );
 }
