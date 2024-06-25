@@ -9,6 +9,10 @@ const lngs = [
     { code: "en", native: "English" },
     { code: "fr", native: "French" },
   ];
+const lngs = [
+    { code: "en", native: "English" },
+    { code: "fr", native: "French" },
+  ];
 
 function App() {
     //pour possibiliter le site en deux langues
