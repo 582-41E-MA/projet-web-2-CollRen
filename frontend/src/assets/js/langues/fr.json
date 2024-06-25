@@ -20,6 +20,8 @@
 
 
      "CreateUser.soustitre": "Faites partie de notre communauté de fans de voitures!",
+     "CreateUser.prenomLabel": "Prènom",
+     "CreateUser.prenomPlaceHolder": "Informez votre prènom",
      "CreateUser.nomLabel": "Nom",
      "CreateUser.nomPlaceHolder": "Informez votre nom",
      "CreateUser.courrielLabel": "Courriel",
