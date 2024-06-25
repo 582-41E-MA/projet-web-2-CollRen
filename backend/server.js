@@ -1,56 +1,45 @@
-const http = require("http");
-const fs = require("fs");
-const path = require("path");
-const express = require("express");
-const server = express();
-const db = require("./data/db"); 
-const cors = require("cors");
+const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const app = express()
+const corsOption = {
+    origin: 'http://localhost:8081'
+}
+require('dotenv').config()
+console.log(process.env)
 
-// Doit être défini au début de l'application
-const dotenv = require("dotenv");
+app.use(cors(corsOption))
 
-/**
- * Gestion static ou dynamique dans un server
- */
-dotenv.config();
-server.use(cors()); // Ajouter IP ou domaine, sinon bar open à toutes demandes
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
-/**
- * req.body pour récupérer le body du fetch..? à suivre
- */
-server.use(express.json()); // Permet d'envoyer des json dans le body
-server.use(express.urlencoded({extended:true})); // Permet de récupérer des formulaire html qui contiennent des fichiers
+const db = require('./app/models')
+db.connex.sync()
+//test
+app.get('/', (req, res) => {
+    res.json({ message: 'Welcome' })
+})
 
-/**
- * On informe le server de l'endroit où se trouve nos fichiers
- * Cherchera là-dedans avant de chercher plus loin ici
- * La route "/", n'a donc pas besoin d'être ici
- */
-server.use(express.static(path.join(__dirname, "public")));
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}.`)
+})
 
-/**  --- __DÉBUT DES ROUTES__ --- */
-
-// 1. BD en place (.env) 2.Table vehicule -> voir /routes/vehicule
-const recettesRoutes = require("./routes/vehicule");
-server.use("/api/vehicule", recettesRoutes);
-
-
-
-// Middleware -> Message d'erreur en cas... d'erreur
-server.use((req, res) => {
-  res.statusMessage = "Ressource non trouvée";
-  res.status(404).json("Ressource non trouvée");
-});
-
-/**
- * npm run dev
- * Start server grâce au script ("dev": "nodemon server.js") /package.json
- * Doit être défini à la fin de l'application
- */
-server.listen(process.env.PORT, () => {
-  console.log("Vous êtes connecté au port" + process.env.PORT);
-});
+require('./app/routes/utilisateur/utilisateur.routes')(app);
+require('./app/routes/privilege/privilege.routes')(app);
+require('./app/routes/ville/ville.routes')(app);
+require('./app/routes/province/province.routes')(app);
+require('./app/routes/statut/statut.routes')(app);
+require('./app/routes/expedition/expedition.routes')(app);
+require('./app/routes/corp/corp.routes')(app);
+require('./app/routes/carburant/carburant.routes')(app);
+require('./app/routes/motopropulseur/motopropulseur.routes')(app);
+require('./app/routes/transmission/transmission.routes')(app);
+require('./app/routes/constructeur/constructeur.routes')(app);
+require('./app/routes/model/model.routes')(app);
+require('./app/routes/image/image.routes')(app);
+require('./app/routes/mode_paiement/mode_paiement.routes')(app);
+require('./app/routes/voiture/voiture.routes')(app);
+require('./app/routes/commande/commande.routes')(app);
 
 
-
-module.exports = server;

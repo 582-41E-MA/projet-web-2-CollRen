@@ -6,6 +6,7 @@ function Entete({ t}) {
    
 
     return (
+
         <header className='flex items-center gap-[rem] justify-center my-4 '>
            <Link to="/">
                 <div>
@@ -13,6 +14,7 @@ function Entete({ t}) {
                 </div>
             </Link>
             <Nav t={t}/>
+
             
         </header>
     );
