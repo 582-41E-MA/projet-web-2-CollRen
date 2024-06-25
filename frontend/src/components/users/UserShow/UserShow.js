@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import MenuDashboardAdmin from '../../dashboards/MenuDashboardAdmin/MenuDashboardAdmin';
 
 function UserShow({ t }) {
     const { id } = useParams();
@@ -35,7 +36,13 @@ function UserShow({ t }) {
     };
 
     return (
-        <form className="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md">
+        <div className="flex">
+            <div>
+                <MenuDashboardAdmin t={t}   />
+            </div>
+
+            <div className="w-[65%] mx-[4rem] mt-24">
+            <form className="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md">
             <div className="grid grid-cols-1 gap-6">
                 <div>
                     <label className="block text-sm font-medium text-gray-700">{t("user.prenom")}</label>
@@ -146,6 +153,9 @@ function UserShow({ t }) {
                 </button>
             </div>
         </form>
+            </div>
+        </div>
+
     );
 }
 
