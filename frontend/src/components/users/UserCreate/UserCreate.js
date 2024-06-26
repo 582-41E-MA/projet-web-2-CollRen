@@ -8,7 +8,7 @@ function UserCreate ({t}) {
     const [nom, setNom] = useState('');
     const [courriel, setCourriel] = useState('');    
     const [mdp, setMdp] = useState('');
-    const [privilegeId, setPrivilegeId] = useState('');
+    const [privilegeId, setPrivilegeId] = useState('3');
 
     function createUser (e) {
         e.preventDefault();
@@ -19,7 +19,7 @@ function UserCreate ({t}) {
             nom: nom,
             courriel: courriel,
             mdp: mdp,
-            privilege_id: 3
+            privilege_id: privilegeId
         };
 
         fetch('http://localhost:5000/api/utilisateurs', {
@@ -59,8 +59,8 @@ function UserCreate ({t}) {
                     type="text"
                     name="prenom"
                     placeholder={t("CreateUser.prenomPlaceHolder")}
-                    content={nom} 
-                    whenChanged={setNom}/>
+                    content={prenom} 
+                    whenChanged={setPrenom}/>
 
                 <ChampText
                     mandatory={true} 
