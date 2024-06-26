@@ -6,7 +6,6 @@ const corsOption = {
     origin: '*'
 }
 require('dotenv').config()
-console.log(process.env)
 
 app.use(cors(corsOption))
 
