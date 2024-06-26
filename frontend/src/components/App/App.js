@@ -10,8 +10,9 @@ import APropos from '../site/APropos/APropos';
 import DashboardAdmin from '../dashboards/DashboardAdmin/DashboardAdmin';
 import UserIndex from '../users/UserIndex/UserIndex';
 import UserShow from '../users/UserShow/UserShow';
-import {jwtDecode} from "jwt-decode";
-import PrivateRoute from '../dashboards/PrivateRoute/PrivateRoute';
+import PrivilegeCreate from '../dashboards/dashboardParts/PrivilegeCreate/PrivilegeCreate';
+// import {jwtDecode} from "jwt-decode";
+// import PrivateRoute from '../dashboards/PrivateRoute/PrivateRoute';
 export const AppContext = React.createContext();
 
 
@@ -52,7 +53,7 @@ function App() {
     });
 
     //Pour le login
-    const [user, setUser] = useState({isLogged: false, usager:{}})
+    // const [user, setUser] = useState({isLogged: false, usager:{}})
 
 
     return (
@@ -70,6 +71,8 @@ function App() {
                 <Route path='/usercreate' element={<UserCreate t={t} />} />
                 <Route path='/user' element={<UserIndex t={t} />} />
                 <Route path="/user/:id" element={<UserShow t={t} />} />
+
+                <Route path="/privilege-create" element={<PrivilegeCreate t={t} />} />
 
             </Routes>
         </Router>
