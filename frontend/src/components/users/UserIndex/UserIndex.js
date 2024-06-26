@@ -9,7 +9,6 @@ function UserIndex({ t }) {
         fetch('http://localhost:5000/api/utilisateurs')
             .then(response => response.json())
             .then(data => {
-                console.log("data", data);
                 setUsers(data)
             })
             .catch(error => console.error('Error fetching users:', error));
@@ -43,15 +42,15 @@ function UserIndex({ t }) {
                                 <td className="px-6 py-4 whitespace-nowrap">{user.anniversaire}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{user.courriel}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{user.adresse}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{user.codepostal}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{user.code_postal}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{user.telephone}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{user.cellulaire}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{user.privilege}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{user.privilege_id}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
 
-                                    <Link to={`/usershow/${user.id}`} > <button className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 transition duration-150 ease-in-out">Edit</button></Link>
+                                    <Link to={`/user/${user.id}`} > <button className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 transition duration-150 ease-in-out">Edit</button></Link>
 
-                                    <button className="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out">Delete</button>
+                                    
                                 </td>
                             </tr>
                         ))}
