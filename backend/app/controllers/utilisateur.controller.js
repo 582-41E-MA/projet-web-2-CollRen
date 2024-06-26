@@ -1,18 +1,42 @@
 const db = require("../models");
+const bcrypt = require("bcrypt");
 const Utilisateur = db.utilisateurs;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Utilisateur
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
     // Validate request
-    /*     if (!req.body.title) {
-            res.status(400).send({
-                message: "Content can not be empty!"
-            });
-            return;
-        } */
+    if (!req.body.nom_utilisateur || !req.body.mot_de_passe) {
+        res.status(400).send({
+            message: "Le nom d'utilisateur ou le mot de passe doit être présent"
+        });
+        return;
+    }
 
-    // Save Utilisateur in the database
+    //Récupération de données nécessaire à la création d'un compte    
+    const nom_de_l_utilisateur = req.body.nom_utilisateur;
+    const mot_de_passe = req.body.mot_de_passe;
+
+    // Vérifier si nom_utilisateur existe déjà dans la BD
+    //const condition = nom_utilisateur ? { attributes: ['nom_utilisateur'], nom_utilisateur: { [Op.is]: `${nom_utilisateur}` } } : null;
+    
+    const references = await Utilisateur.findAll({
+        where: {
+            nom_utilisateur: nom_de_l_utilisateur,
+        },
+    });
+    console.log(await references.length);
+    if (references.length != 0) {
+
+                return res.json({ message: "Ce nom d'utilisateur existe déjà" });
+            }
+
+    // hash le mot de passe
+    const hash = await bcrypt.hash(mot_de_passe, 10);
+    req.body.mot_de_passe = hash;
+
+
+    // Savegarder Utilisateur dans la db
     Utilisateur.create(req.body)
         .then(data => {
             res.send(data);
