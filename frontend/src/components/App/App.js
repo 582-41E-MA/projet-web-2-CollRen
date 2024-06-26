@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Accueil from "../Accueil/Accueil";
 import "./App.css";
@@ -10,6 +10,9 @@ import APropos from '../site/APropos/APropos';
 import DashboardAdmin from '../dashboards/DashboardAdmin/DashboardAdmin';
 import UserIndex from '../users/UserIndex/UserIndex';
 import UserShow from '../users/UserShow/UserShow';
+import {jwtDecode} from "jwt-decode";
+import PrivateRoute from '../dashboards/PrivateRoute/PrivateRoute';
+export const AppContext = React.createContext();
 
 
 const lngs = [
@@ -19,6 +22,8 @@ const lngs = [
 
 
 function App() {
+
+    // pour faire la traduction du site
     const { t, i18n } = useTranslation();
 
     useEffect(() => {
@@ -45,6 +50,10 @@ function App() {
         const { code, native } = lng;
         return <button className="bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full flex-end m-3" key={'langue_' + i} onClick={() => handleTrans(code)}>{native}</button>;
     });
+
+    //Pour le login
+    const [user, setUser] = useState({isLogged: false, usager:{}})
+
 
     return (
         <Router>
