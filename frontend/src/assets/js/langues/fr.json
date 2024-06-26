@@ -36,7 +36,20 @@
      "apropos.p2": "Situés à Montréal, chez Beaux Bazous, nous sommes fiers de ne proposer que les meilleurs véhicules d'occasion. Chaque voiture dans notre showroom est soumise à une inspection rigoureuse pour garantir qu'elle réponde aux normes les plus élevées en matière de performance et de sécurité, offrant ainsi à nos clients une tranquillité d'esprit lors de leur choix.",
      "apropos.p3": "Nous comprenons que l'achat d'une voiture est une décision importante. Notre équipe expérimentée est là pour vous guider à chaque étape du processus, de la sélection du véhicule idéal au financement adapté à vos besoins. Notre engagement envers la transparence signifie que vous recevrez toujours des informations claires et détaillées sur chaque voiture de notre inventaire.",
      "apropos.p4": "De plus, chez Beaux Bazous, nous attachons une grande importance aux relations à long terme avec nos clients. Nous offrons un soutien continu et des services d'entretien après-vente pour assurer que votre voiture continue de vous offrir des performances exceptionnelles au fil des ans.",
-     "apropos.p5": "Visitez-nous aujourd'hui chez Beaux Bazous et découvrez pourquoi nous sommes le choix préféré de ceux qui recherchent qualité, intégrité et service exceptionnel en matière de voitures d'occasion à Montréal."
+     "apropos.p5": "Visitez-nous aujourd'hui chez Beaux Bazous et découvrez pourquoi nous sommes le choix préféré de ceux qui recherchent qualité, intégrité et service exceptionnel en matière de voitures d'occasion à Montréal.",
   
+      "MenuDashboardAdmin.itemUser": "Utilisateurs",
+      "MenuDashboardAdmin.itemProduct": "Produits",
+
+      "user.prenom": "Prènom",
+      "user.nom": "Nom",
+      "user.anniversaire": "Anniversaire" ,
+      "user.courriel": "E-mail",
+      "user.adresse": "Adresse",
+      "user.codepostal": "Code postal",
+      "user.telephone": "Phone",
+      "user.cellulaire": "Cellulaire",
+      "user.privilege": "Privilege"
+
     }
   }
