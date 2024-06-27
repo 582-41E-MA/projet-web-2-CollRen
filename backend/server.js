@@ -43,4 +43,9 @@ require('./app/routes/mode_paiement/mode_paiement.routes')(app);
 require('./app/routes/voiture/voiture.routes')(app);
 require('./app/routes/commande/commande.routes')(app);
 
+app.use((req, res) => {
+    res.statusMessage = "Ressource non trouvée";
+    res.status(404).json("Ressource non trouvée");
+});
+
 
