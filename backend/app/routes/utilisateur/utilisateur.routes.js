@@ -2,6 +2,12 @@ module.exports = app => {
     const utilisateurs = require("../../controllers/utilisateur.controller.js");
 
     var router = require("express").Router();
+    
+    router.post('/login', utilisateurs.findParNomUtilisateur)
+
+    router.get('/auth', utilisateurs.auth)
+
+    router.get('/logout', utilisateurs.logout)
 
     // Create a new Utilisateur
     router.post("/", utilisateurs.create);
@@ -19,7 +25,7 @@ module.exports = app => {
     router.delete("/:id", utilisateurs.delete);
 
     // Delete all Utilisateurs
-    router.delete("/", utilisateurs.deleteAll);
+    //router.delete("/", utilisateurs.deleteAll);
 
     app.use('/api/utilisateurs', router);
     

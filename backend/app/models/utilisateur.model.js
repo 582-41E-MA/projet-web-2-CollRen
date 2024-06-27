@@ -1,5 +1,7 @@
 // import { DataTypes } from '@sequelize/core';
 module.exports = (connex, Sequelize) => {
+/*     const queryInterface = connex.getQueryInterface();
+    queryInterface.addColumn('utilisateurs', 'token', { type: Sequelize.STRING }); */
     const Utilisateur = connex.define('utilisateur', {
         nom: {
             type: Sequelize.STRING
@@ -32,6 +34,9 @@ module.exports = (connex, Sequelize) => {
             type: Sequelize.STRING
         },
         mot_de_passe: {
+            type: Sequelize.STRING
+        },
+        token: {
             type: Sequelize.STRING
         },
         privilege_id: {
