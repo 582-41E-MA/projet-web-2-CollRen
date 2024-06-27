@@ -20,9 +20,11 @@ function PrivilegeCreate({ t }) {
     e.preventDefault();
 
     const payload = {
-      type: `{en: ${formData.privilege_en}, fr: ${formData.privilege_fr}}`
+      type: JSON.stringify({
+          en: formData.privilege_en,
+          fr: formData.privilege_fr
+      })
     };
-    console.log(payload);
 
     try {
       const response = await fetch('http://localhost:5000/api/privileges', {
@@ -33,9 +35,6 @@ function PrivilegeCreate({ t }) {
         body: JSON.stringify(payload)
       });
 
-      console.log(response.body);
-
-
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Network response was not ok');
@@ -44,11 +43,17 @@ function PrivilegeCreate({ t }) {
       const data = await response.json();
       console.log('Success:', data);
       alert('Privilege created successfully!');
+
+      // Resetando os campos do formulário após envio bem-sucedido
+      setFormData({
+        privilege_en: '',
+        privilege_fr: ''
+      });
+
     } catch (error) {
       console.error('Error:', error);
       alert(`Failed to create privilege: ${error.message}`);
     }
-    e.target.reset();
   };
 
   return (
