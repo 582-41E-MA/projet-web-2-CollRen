@@ -1,6 +1,6 @@
 module.exports = {
     PORT: 3308,
-    JWT_SECRET: "shhh",
+    JWT_SECRET: "secret",
     HOST: 'localhost',
     USER: "root",
     PASSWORD: "",
