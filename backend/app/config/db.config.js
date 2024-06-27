@@ -1,9 +1,9 @@
 module.exports = {
-    PORT: 3306,
+    PORT: 3308,
     JWT_SECRET: "shhh",
     HOST: 'localhost',
     USER: "root",
-    PASSWORD: "root",
-    DB: "bobazou",
+    PASSWORD: "",
+    DB: "vehiculeoccasion",
     dialect: 'mysql'
 }

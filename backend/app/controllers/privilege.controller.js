@@ -3,20 +3,29 @@ const Privilege = db.privileges;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Privilege
+
 exports.create = (req, res) => {
+    // Verificar se o campo 'type' é uma string
+    if (typeof req.body.type !== 'string') {
+        return res.status(400).send({
+            message: "Type must be a string."
+        });
+    }
 
     // Save Privilege in the database
     Privilege.create(req.body)
         .then(data => {
+            console.log(data);
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message:
-                    err.message || "Some error occurred while creating the Privilege."
+                message: err.message || "Some error occurred while creating the Privilege."
             });
         });
 };
+
+
 
 // Retrieve all Privileges from the database.
 exports.findAll = (req, res) => {

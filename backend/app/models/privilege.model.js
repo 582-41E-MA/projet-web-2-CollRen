@@ -2,10 +2,11 @@
 module.exports = (connex, Sequelize) => {
     const Privilege = connex.define('privilege', {
         type: {
-            type: Sequelize.TEXT('long')
-        }
+            type: Sequelize.STRING
+        }    
 
     });
+    
     Privilege.associate = function (models) {
         Privilege.hasMany(models.Utilisateur, { as: 'utilisateurs' })
     };
