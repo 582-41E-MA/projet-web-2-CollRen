@@ -2,13 +2,15 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
+const cookieParser = require('cookie-parser')
 const corsOption = {
+    credentials: true,
     origin: '*'
 }
 require('dotenv').config()
 
 app.use(cors(corsOption))
-
+app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -40,5 +42,10 @@ require('./app/routes/image/image.routes')(app);
 require('./app/routes/mode_paiement/mode_paiement.routes')(app);
 require('./app/routes/voiture/voiture.routes')(app);
 require('./app/routes/commande/commande.routes')(app);
+
+app.use((req, res) => {
+    res.statusMessage = "Ressource non trouvée";
+    res.status(404).json("Ressource non trouvée");
+});
 
 

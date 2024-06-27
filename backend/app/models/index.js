@@ -6,6 +6,7 @@ const connex = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     port: dbConfig.PORT,
     operatorAliases: false
 })
+
 const db = {}
 db.Sequelize = Sequelize
 db.connex = connex
@@ -25,6 +26,7 @@ db.images = require('./image.model.js')(connex, Sequelize)
 db.voitures = require('./mode_paiement.model.js')(connex, Sequelize)
 db.voitures = require('./voiture.model.js')(connex, Sequelize)
 db.voitures = require('./commande.model.js')(connex, Sequelize)
+// db.sig = require('./connexion.model.js')(connex, Sequelize)
 
 
 module.exports = db
