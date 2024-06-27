@@ -13,6 +13,7 @@ import UserShow from '../users/UserShow/UserShow';
 import PrivilegeCreate from '../dashboards/dashboardParts/PrivilegeCreate/PrivilegeCreate';
 import PrivilegeIndex from '../dashboards/dashboardParts/PrivilegeIndex/PrivilegeIndex';
 import Bouton from '../partialsFormulaire/Bouton/Bouton';
+import PrivilegeEdit from '../dashboards/dashboardParts/PrivilegeEdit/PrivilegeEdit';
 
 const lngs = [
     { code: "en", native: "English" },
@@ -40,13 +41,15 @@ function App() {
         sessionStorage.setItem('langueChoisie', code);
     };
 
+    const btnTraduction =  lngs.map((lng, i) => ( <Bouton key={'langue_' + i} onClick={() => handleTrans(lng.code)}>{lng.native}</Bouton> ))
+
+
     return (
         <Router>
             <div className='flex justify-end'> 
-                {lngs.map((lng, i) => (
-                    <Bouton key={'langue_' + i} onClick={() => handleTrans(lng.code)}>{lng.native}</Bouton>
-                ))}
+                {btnTraduction}
             </div>
+
             <Entete t={t} />
             <Routes>
                 <Route path='/' element={<Accueil t={t} />} />
@@ -58,6 +61,7 @@ function App() {
                 <Route path="/user/:id" element={<UserShow t={t} />} />
                 <Route path="/privilege-create" element={<PrivilegeCreate t={t} />} />
                 <Route path="/privileges" element={<PrivilegeIndex t={t} changeLanguage={handleTrans} />} />
+                <Route path="/privilege-edit/:id" element={<PrivilegeEdit t={t} changeLanguage={handleTrans} />} />
             </Routes>
         </Router>
     );
