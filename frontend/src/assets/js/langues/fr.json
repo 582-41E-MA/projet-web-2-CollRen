@@ -20,15 +20,17 @@
 
 
      "CreateUser.soustitre": "Faites partie de notre communauté de fans de voitures!",
-     "CreateUser.prenomLabel": "Prènom",
+     "CreateUser.prenom": "Prènom",
      "CreateUser.prenomPlaceHolder": "Informez votre prènom",
-     "CreateUser.nomLabel": "Nom",
+     "CreateUser.nom": "Nom",
      "CreateUser.nomPlaceHolder": "Informez votre nom",
-     "CreateUser.courrielLabel": "Courriel",
+     "CreateUser.courriel": "Courriel",
      "CreateUser.courrielPlaceHolder": "Informez votre",
-     "CreateUser.mdpLabel": "Mot de passe",
+     "CreateUser.mdp": "Mot de passe",
      "CreateUser.mdpPlaceHolder": "Entrez votre mot de passe",
      "CreateUser.btnSubmit": "Soumettre",
+     "CreateUser.nomUtilisateur": "Nom utilisateur",
+     "CreateUser.nomUtilisateurPlaceHolder": "Informez votre nom utilisateur",
 
      "apropos.titre": "Bienvenue chez Beaux Bazous",
      "apropos.soustitre": "Qualité, confiance et service personnalisé au cœur de chaque transaction",
@@ -50,6 +52,7 @@
       "user.telephone": "Phone",
       "user.cellulaire": "Cellulaire",
       "user.privilege": "Privilege",
+      "user.selectprivilege": "Choisir un privilège", 
 
       "privilegeEdit.titre": "Editer privilège",
       "privilegeIndex.btnEditer": "Éditer",

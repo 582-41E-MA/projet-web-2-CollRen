@@ -5,7 +5,8 @@ import ChampText from '../../partialsFormulaire/ChampText/ChampText';
 function UserCreate({ t }) {
     const [prenom, setPrenom] = useState('');
     const [nom, setNom] = useState('');
-    const [courriel, setCourriel] = useState('');    
+    const [courriel, setCourriel] = useState('');   
+    const [nomUtilisateur, setNomUtilisateur] = useState('') 
     const [mdp, setMdp] = useState('');
     const [privilegeId, setPrivilegeId] = useState('3');
     const [error, setError] = useState('');
@@ -16,6 +17,7 @@ function UserCreate({ t }) {
         if (name === 'nom') setNom(value);
         if (name === 'courriel') setCourriel(value);
         if (name === 'mdp') setMdp(value);
+        if (name === 'nomUtilisateur') setNomUtilisateur(value);
        
     }
 
@@ -27,7 +29,8 @@ function UserCreate({ t }) {
             prenom: prenom,
             nom: nom,
             courriel: courriel,
-            mdp: mdp,
+            nom_utilisateur: nomUtilisateur,
+            mot_de_passe: mdp,
             privilege_id: privilegeId
         };
 
@@ -53,6 +56,7 @@ function UserCreate({ t }) {
             setCourriel('');
             setMdp('');
             setPrivilegeId('3');
+            setNomUtilisateur('');
             setError('');
         })
         .catch((error) => {
@@ -73,7 +77,7 @@ function UserCreate({ t }) {
             <form onSubmit={createUser} className="w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12 mb-6">
                 <ChampText
                     mandatory={true} 
-                    label={t("CreateUser.prenomLabel")}
+                    label={t("CreateUser.prenom")}
                     type="text"
                     name="prenom"
                     placeholder={t("CreateUser.prenomPlaceHolder")}
@@ -83,7 +87,7 @@ function UserCreate({ t }) {
 
                 <ChampText
                     mandatory={true} 
-                    label={t("CreateUser.nomLabel")}
+                    label={t("CreateUser.nom")}
                     type="text"
                     name="nom"
                     placeholder={t("CreateUser.nomPlaceHolder")}
@@ -93,7 +97,17 @@ function UserCreate({ t }) {
 
                 <ChampText
                     mandatory={true} 
-                    label={t("CreateUser.courrielLabel")}
+                    label={t("CreateUser.nomUtilisateur")}
+                    type="text"
+                    name="nomUtilisateur"
+                    placeholder={t("CreateUser.nomUtilisateurPlaceHolder")}
+                    value={nomUtilisateur} 
+                    onChange={handleChange}
+                />
+
+                <ChampText
+                    mandatory={true} 
+                    label={t("CreateUser.courriel")}
                     type="email"
                     name="courriel"
                     placeholder={t("CreateUser.courrielPlaceHolder")}
@@ -103,7 +117,7 @@ function UserCreate({ t }) {
                         
                 <ChampText
                     mandatory={true} 
-                    label={t("CreateUser.mdpLabel")}
+                    label={t("CreateUser.mdp")}
                     type="password"
                     name="mdp"
                     placeholder={t("CreateUser.mdpPlaceHolder")}

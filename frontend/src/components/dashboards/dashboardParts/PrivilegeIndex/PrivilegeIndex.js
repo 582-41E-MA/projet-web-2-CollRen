@@ -4,8 +4,9 @@ import MenuDashboardAdmin from '../../MenuDashboardAdmin/MenuDashboardAdmin';
 
 function PrivilegeIndex({ t, changeLanguage }) {
     const [privileges, setPrivileges] = useState([]);
-    const [language, setLanguage] = useState(localStorage.getItem('langueChoisie') || '');
+    const [language, setLanguage] = useState(localStorage.getItem('langueChoisie'));
 
+   
     useEffect(() => {
         // Function to fetch privileges based on language
         const fetchPrivileges = async () => {
