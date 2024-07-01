@@ -9,10 +9,10 @@
       "navItem.signup": "Sign up",
 
       "login.titre": "Welcome back!",
-      "login.courriel": "E-mail", 
+      "login.nomUtilisateur": "Username", 
       "login.mdp": "Password",
       "login.btn": "Log in" ,
-      "login.courrielPlaceHolder": "Please, enter your e-mail",
+      "login.nomUtilisateurPlaceHolder": "Please, enter your username",
       "login.mdpPlaceHolder": "Your password",
 
       "accueil.titre1": "25% OFF",
