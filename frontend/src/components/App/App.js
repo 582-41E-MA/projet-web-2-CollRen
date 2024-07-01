@@ -65,10 +65,6 @@ function App() {
       e.preventDefault();
       const form = e.target;
   
-      console.log(form.nomUtilisateur.value);
-
-
-
       const body = {
         nom_utilisateur: form.nomUtilisateur.value,
         mot_de_passe:form.mdp.value,
@@ -91,6 +87,7 @@ function App() {
           usager:{}
         }
         setUser(userData);
+        console.log(user);
         localStorage.setItem("user-token", token.accessToken);
         return { success: true, userId: token.id };
       } else{

@@ -6,7 +6,22 @@ function Login({ t, user, handleLogin, handleLogout }) {
     async function handleLoginWithRedirect(e) {
         const result = await handleLogin(e);
         if (result.success) {
-            navigate(`/client/${result.userId}`);
+            const userId = result.userId;
+            try {
+                const response = await fetch(`http://localhost:5000/api/utilisateurs/${userId}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const user = await response.json();
+    
+                if ([3].includes(user.privilege_id)) {
+                    navigate(`/client/${userId}`);
+                } else {
+                     navigate(`/admin`)
+                }
+            } catch (error) {
+                console.error('Erro ao buscar dados do usuário:', error);
+            }
         }
     }
 
