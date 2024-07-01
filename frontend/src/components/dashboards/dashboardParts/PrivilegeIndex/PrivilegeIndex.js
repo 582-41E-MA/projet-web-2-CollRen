@@ -81,13 +81,13 @@ function PrivilegeIndex({ t, changeLanguage }) {
                                 <td className="px-6 py-4 whitespace-nowrap">{privilege.type[language]}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <Link to={`/privilege-edit/${privilege.id}`} className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 transition duration-150 ease-in-out">
-                                        Edit
+                                        {t("privilegeIndex.btnEditer")}
                                     </Link>
                                     <button
                                         onClick={() => handleDeletePrivilege(privilege.id)}
                                         className="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out"
                                     >
-                                        Delete
+                                         {t("privilegeIndex.btnDeleter")}
                                     </button>
                                 </td>
                             </tr>

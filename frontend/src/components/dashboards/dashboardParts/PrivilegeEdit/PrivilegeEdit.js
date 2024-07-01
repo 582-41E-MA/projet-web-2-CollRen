@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import MenuDashboardAdmin from '../../MenuDashboardAdmin/MenuDashboardAdmin';
+import ChampText from '../../../partialsFormulaire/ChampText/ChampText';
+import Bouton from '../../../partialsFormulaire/Bouton/Bouton';
 
 function PrivilegeEdit({ t, changeLanguage }) {
     const { id } = useParams(); 
@@ -26,8 +28,8 @@ function PrivilegeEdit({ t, changeLanguage }) {
 
                 if (data.type) {
                     const parsedType = JSON.parse(data.type);
-                    privilegeData.privilege_en = parsedType.en || '';
-                    privilegeData.privilege_fr = parsedType.fr || '';
+                    privilegeData.privilege_en = parsedType.en;
+                    privilegeData.privilege_fr = parsedType.fr;
                 }
 
                 setFormData(privilegeData);
@@ -92,12 +94,12 @@ function PrivilegeEdit({ t, changeLanguage }) {
             </div>
 
             <div className="w-[30%] mx-[4rem] mt-24">
-                <h2 className="p-3">Edit Privilege</h2>
+                <h2 className="p-3">{t("privilegeEdit.titre")}</h2>
 
                 <form onSubmit={handleSubmit} className="p-3">
                     <div className="mb-3">
-                        <label htmlFor="privilege_en" className="form-label">Privilege in English</label>
-                        <input
+                        <ChampText
+                            label={"Privilege in English"}
                             type="text"
                             className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
                             id="privilege_en"
@@ -107,8 +109,8 @@ function PrivilegeEdit({ t, changeLanguage }) {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="privilege_fr" className="form-label">Privilege in French</label>
-                        <input
+                        <ChampText
+                        label={"Privilege in French"}
                             type="text"
                             className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
                             id="privilege_fr"
@@ -117,12 +119,12 @@ function PrivilegeEdit({ t, changeLanguage }) {
                             onChange={handleChange}
                         />
                     </div>
-                    <button
+                    <Bouton
                         type="submit"
                         className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"
                     >
-                        Save
-                    </button>
+                        {t("CreateUser.btnSubmit")}
+                    </Bouton>
                 </form>
             </div>
         </div>

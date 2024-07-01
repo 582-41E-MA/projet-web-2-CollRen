@@ -28,7 +28,7 @@
      "CreateUser.courrielPlaceHolder": "Informez votre",
      "CreateUser.mdpLabel": "Mot de passe",
      "CreateUser.mdpPlaceHolder": "Entrez votre mot de passe",
-     "CreateUser.btnSubmit": "Submit",
+     "CreateUser.btnSubmit": "Soumettre",
 
      "apropos.titre": "Bienvenue chez Beaux Bazous",
      "apropos.soustitre": "Qualité, confiance et service personnalisé au cœur de chaque transaction",
@@ -49,7 +49,11 @@
       "user.codepostal": "Code postal",
       "user.telephone": "Phone",
       "user.cellulaire": "Cellulaire",
-      "user.privilege": "Privilege"
+      "user.privilege": "Privilege",
+
+      "privilegeEdit.titre": "Editer privilège",
+      "privilegeIndex.btnEditer": "Éditer",
+      "privilegeIndex.btnDeleter": "Éffacer"
 
     }
   }

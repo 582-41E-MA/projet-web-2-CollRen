@@ -52,7 +52,11 @@
       "user.codepostal": "Postal Code",
       "user.telephone": "Phone",
       "user.cellulaire": "Mobile",
-      "user.privilege": "Privilege"
+      "user.privilege": "Privilege",
+
+      "privilegeEdit.titre": "Edit privilege",
+      "privilegeIndex.btnEditer": "Edit",
+      "privilegeIndex.btnDeleter": "Delete"
      
        
     }
