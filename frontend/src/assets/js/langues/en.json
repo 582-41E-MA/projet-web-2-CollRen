@@ -22,6 +22,7 @@
 
       "btnEditer": "Edit",
       "btnDeleter": "Delete",
+      "btnSubmit": "Save",
 
      
       "CreateUser.soustitre": "Be part of our car lovers community!",
@@ -79,7 +80,14 @@
       "modeleUpdate_titre": "Model - edit",
       "modeleCreate_titre": "Model - create",
       "modeleType_label": "Enter the type",
-      "modelIndex_create": "Create a new model"
+      "modelIndex_create": "Create a new model",
+
+      "constructeurIndex_titre": "Brands",
+      "constructeurUpdate_titre": "Brand - edit",
+      "constructeurCreate_titre": "Brand - create",
+      "constructeurType_label": "Enter a new brand",
+      "constructeurIndex_create": "Create a new brand"
+       
        
     }
   }

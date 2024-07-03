@@ -21,6 +21,9 @@ import VoituresIndex from '../voitures/VoituresIndex/VoituresIndex';
 import ModeleIndex from '../voitures/ModeleIndex/ModeleIndex';
 import ModeleUpdate from '../voitures/ModeleUpdate/ModeleUpdate';
 import ModeleCreate from '../voitures/ModeleCreate/ModeleCreate';
+import ConstructeurIndex from '../voitures/ConstructeurIndex/ConstructeurIndex';
+import ConstructeurUpdate from '../voitures/ConstructeurUpdate/ConstructeurUpdate';
+import ConstructeurCreate from '../voitures/ContructteurCreate/ConstructeurCreate';
 
 export const AppContext = React.createContext();
 
@@ -156,6 +159,17 @@ function App() {
 
                     <Route path='/model-create' element={<PrivateRoute requiredPrivilege={[1,2]} />}>
                         <Route path='/model-create' element={<ModeleCreate t={t}   />} />
+                    </Route>
+                    <Route path='/constructeur' element={<PrivateRoute requiredPrivilege={[1,2]} />}>
+                        <Route path='/constructeur' element={<ConstructeurIndex t={t}   />} />
+                    </Route>
+
+                    <Route path='/constructeur-edit/:id' element={<PrivateRoute requiredPrivilege={[1,2]} />}>
+                        <Route path='/constructeur-edit/:id' element={<ConstructeurUpdate t={t}   />} />
+                    </Route>
+
+                    <Route path='/constructeur-create' element={<PrivateRoute requiredPrivilege={[1,2]} />}>
+                        <Route path='/constructeur-create' element={<ConstructeurCreate t={t}   />} />
                     </Route>
 
 

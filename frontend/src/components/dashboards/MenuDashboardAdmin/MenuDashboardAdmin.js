@@ -145,7 +145,7 @@ function MenuDashboardAdmin ({t}) {
                     <ul className="flex flex-col gap-1 pl-2">
                         <li><Link to="">Ajouter une voiture</Link></li>
                         <li><Link to="">Carburant</Link></li>
-                        <li><Link to="">Constructeur</Link></li>
+                        <li><Link to="/constructeur">Constructeur</Link></li>
                         <li><Link to="">Corps</Link></li>
                         <li><Link to="/model">Modèle</Link></li>
                         <li><Link to="">Motopropulseur</Link></li>

@@ -8,6 +8,7 @@
 
      "btnEditer": "Éditer",
      "btnDeleter": "Éffacer",
+     "btnSubmit": "Soumettre",
      
      "login.titre": "Bienvenue à nouveau!", 
      "login.courriel": "Courriel", 
@@ -77,7 +78,13 @@
       "modeleUpdate_titre": "Modèle - éditer",
       "modeleCreate_titre": "Modèle - créer",
       "modeleType_label": "Entrez le type",
-      "modelIndex_create": "Crèe un nouveau modèle"
+      "modelIndex_create": "Crèe un nouveau modèle",
+
+      "constructeurIndex_titre": "Constructeurs",
+      "constructeurUpdate_titre": "Constructeur - éditer",
+      "constructeurCreate_titre": "Constructeur - créer",
+      "constructeurType_label": "Entrez le type",
+      "constructeurIndex_create": "Crèe un nouveau constructeur"
        
 
 
