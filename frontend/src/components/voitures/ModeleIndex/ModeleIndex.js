@@ -17,6 +17,7 @@ function ModeleIndex ({t, changeLanguage}) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
+
                 setmodels(data);
             } catch (error) {
                 console.error('Error fetching models:', error);
@@ -58,25 +59,26 @@ function ModeleIndex ({t, changeLanguage}) {
     // Render table with fetched data
     return (
 
-        <main className="container mx-auto p-8 mt-12 flex flex-col items-center justify-center text-gray-700">
+        <main className="flex" >
             <div>
                 <MenuDashboardAdmin t={t} />
             </div>
 
             <div className="w-[30%] mx-[4rem] mt-24">
                 <h1>{t("modeleIndex_titre")}</h1>
-                <table className="min-w-full divide-y divide-gray-200">
+                <table className=" w-[60%] divide-y divide-gray-200 bg-[#21283B] my-[2rem] rounded-lg">
                     <thead>
                         <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">test</th>                        </tr>
+                            <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Type</th>
+                            <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Action</th>
+                        </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
+                    <tbody className="bg-[#21283B] divide-y divide-gray-200">
                         {models.map(model => (
                             <tr key={model.id}>
-                                <td className="px-6 py-4 whitespace-nowrap">{model.type}</td>
+                                <td className="px-6 py-4 whitespace-nowrap text-white">{model.type}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <Link to={`/model-edit/${model.id}`} >
+                                    <Link to={`/model-edit/${model.id}`} className="gap-x-[1rem] bg-[#F96C25] hover:bg-[#868E9B] text-white font-bold py-2 px-4 rounded-full" >
                                         {t("btnEditer")}
                                     </Link>
                                     <Bouton

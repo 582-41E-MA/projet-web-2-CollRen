@@ -75,7 +75,8 @@
 
       "modeleIndex_titre": "Modèles",
       "modeleUpdate_titre": "Modèle - éditer",
-      "modeleCreate_titre": "Modèle - créer"
+      "modeleCreate_titre": "Modèle - créer",
+      "modeleType_label": "Entrez le type"
        
 
 

@@ -27,7 +27,7 @@ function VoituresIndex({ t }) {
                                     <img
                                         src={voiture.imagemUrl}
                                         className="h-full w-full object-cover object-center group-hover:opacity-75"
-                                        alt={`Image de ${voiture.name}`}
+                                        alt={`${voiture.name}`}
                                     />
                                 </div>
                                 <h3 className="mt-4 text-sm text-gray-700">{voiture.name}</h3>

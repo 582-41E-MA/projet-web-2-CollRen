@@ -19,6 +19,7 @@ import DashboardClient from '../dashboards/DashboardClient/DashboardClient';
 import PrivateRoute from '../dashboards/PrivateRoute/PrivateRoute';
 import VoituresIndex from '../voitures/VoituresIndex/VoituresIndex';
 import ModeleIndex from '../voitures/ModeleIndex/ModeleIndex';
+import ModeleUpdate from '../voitures/ModeleUpdate/ModeleUpdate';
 
 export const AppContext = React.createContext();
 
@@ -86,8 +87,6 @@ function App() {
       if (response.ok) {
           const token = await response.json();
 
-console.log(token);
-
           const decodedToken = jwtDecode(token.token);  
           const userData = {
               isLogged: true,
@@ -148,7 +147,10 @@ console.log(token);
                     </Route>
 
                     <Route path='/model' element={<PrivateRoute requiredPrivilege={[1,2]} />}>
-                        <Route path='/model' element={<ModeleIndex t={t} changeLanguage={handleTrans}  />} />
+                        <Route path='/model' element={<ModeleIndex t={t}  />} />
+                    </Route>
+                    <Route path='/model-edit' element={<PrivateRoute requiredPrivilege={[1,2]} />}>
+                        <Route path='/model-edit/:id' element={<ModeleUpdate t={t}   />} />
                     </Route>
 
 
