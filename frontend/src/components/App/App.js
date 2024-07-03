@@ -20,6 +20,7 @@ import PrivateRoute from '../dashboards/PrivateRoute/PrivateRoute';
 import VoituresIndex from '../voitures/VoituresIndex/VoituresIndex';
 import ModeleIndex from '../voitures/ModeleIndex/ModeleIndex';
 import ModeleUpdate from '../voitures/ModeleUpdate/ModeleUpdate';
+import ModeleCreate from '../voitures/ModeleCreate/ModeleCreate';
 
 export const AppContext = React.createContext();
 
@@ -151,6 +152,10 @@ function App() {
                     </Route>
                     <Route path='/model-edit' element={<PrivateRoute requiredPrivilege={[1,2]} />}>
                         <Route path='/model-edit/:id' element={<ModeleUpdate t={t}   />} />
+                    </Route>
+
+                    <Route path='/model-create' element={<PrivateRoute requiredPrivilege={[1,2]} />}>
+                        <Route path='/model-create' element={<ModeleCreate t={t}   />} />
                     </Route>
 
 

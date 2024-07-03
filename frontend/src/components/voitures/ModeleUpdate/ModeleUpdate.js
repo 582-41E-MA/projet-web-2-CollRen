@@ -72,7 +72,6 @@ function ModeleUpdate({ t }) {
                                 label={t("modeleType_label")}
                                 type="text"
                                 className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
-                                name="type"
                                 value={type}
                                 onChange={handleChange}
                             />

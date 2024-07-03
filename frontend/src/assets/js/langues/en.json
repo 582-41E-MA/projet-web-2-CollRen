@@ -78,7 +78,8 @@
       "modeleIndex_titre": "Models",
       "modeleUpdate_titre": "Model - edit",
       "modeleCreate_titre": "Model - create",
-      "modeleType_label": "Enter the type"
+      "modeleType_label": "Enter the type",
+      "modelIndex_create": "Create a new model"
        
     }
   }

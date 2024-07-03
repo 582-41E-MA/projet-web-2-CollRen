@@ -4,7 +4,7 @@ import MenuDashboardAdmin from '../../dashboards/MenuDashboardAdmin/MenuDashboar
 import Bouton from '../../partialsFormulaire/Bouton/Bouton';
 
 function ModeleIndex ({t, changeLanguage}) {
-    const [models, setmodels] = useState([]);
+    const [models, setModels] = useState([]);
     const [language, setLanguage] = useState(localStorage.getItem('langueChoisie'));
 
    
@@ -18,7 +18,7 @@ function ModeleIndex ({t, changeLanguage}) {
                 }
                 const data = await response.json();
 
-                setmodels(data);
+                setModels(data);
             } catch (error) {
                 console.error('Error fetching models:', error);
             }
@@ -35,7 +35,7 @@ function ModeleIndex ({t, changeLanguage}) {
     }, [changeLanguage]);
 
     // Function to handle model deletion
-    const handleDeletemodel = async (id) => {
+    const handleDeleteModel = async (id) => {
         try {
             const response = await fetch(`http://localhost:5000/api/models/${id}`, {
                 method: 'DELETE',
@@ -44,19 +44,19 @@ function ModeleIndex ({t, changeLanguage}) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            // Update models state to reflect deletion
-            const updatedmodels = models.filter(model => model.id !== id);
-            setmodels(updatedmodels);
+            // Atualizar o estado dos modelos após a exclusão
+            const updatedModels = models.filter(model => model.id !== id);
+            setModels(updatedModels);
 
-            // For demonstration, alert success
-            alert('model deleted successfully!');
+            // Alerta de sucesso
+            alert('Model deleted successfully!');
         } catch (error) {
             console.error('Error deleting model:', error);
             alert('Error deleting model. Please try again.');
         }
     };
 
-    // Render table with fetched data
+    
     return (
 
         <main className="flex" >
@@ -66,6 +66,9 @@ function ModeleIndex ({t, changeLanguage}) {
 
             <div className="w-[30%] mx-[4rem] mt-24">
                 <h1>{t("modeleIndex_titre")}</h1>
+                
+                <Link to={"/model-create"}><p className='my-[1rem]'>+  {t("modelIndex_create")}</p></Link>
+                
                 <table className=" w-[60%] divide-y divide-gray-200 bg-[#21283B] my-[2rem] rounded-lg">
                     <thead>
                         <tr>
@@ -82,7 +85,7 @@ function ModeleIndex ({t, changeLanguage}) {
                                         {t("btnEditer")}
                                     </Link>
                                     <Bouton
-                                        onClick={() => handleDeletemodel(model.id)}
+                                        onClick={() => handleDeleteModel(model.id)}
                                                                           >
                                          {t("btnDeleter")}
                                     </Bouton>
