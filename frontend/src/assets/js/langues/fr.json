@@ -5,6 +5,9 @@
      "navItem.apropos": "À propos",
      "navItem.home": "Accueil",
      "navItem.signup": "S'inscrire",
+
+     "btnEditer": "Éditer",
+     "btnDeleter": "Éffacer",
      
      "login.titre": "Bienvenue à nouveau!", 
      "login.courriel": "Courriel", 
@@ -68,7 +71,12 @@
       "dashC_telephone": "Phone",
       "dashC_cellulaire": "Cellulaire",
       "dashC_courriel": "Courriel",
-      "dashC_nom_utilisateur": "Nom d'utilisateur"
+      "dashC_nom_utilisateur": "Nom d'utilisateur",
+
+      "modeleIndex_titre": "Modèles",
+      "modeleUpdate_titre": "Modèle - éditer",
+      "modeleCreate_titre": "Modèle - créer"
+       
 
 
     }

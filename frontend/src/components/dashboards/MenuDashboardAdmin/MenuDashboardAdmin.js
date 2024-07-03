@@ -65,7 +65,7 @@ function MenuDashboardAdmin ({t}) {
                             </svg>
     
                             <Link to="#">
-                                Study Lists
+                                Voitures
                             </Link>
                         </li>
     
@@ -130,7 +130,7 @@ function MenuDashboardAdmin ({t}) {
                         </svg>
     
                         <span>
-                            Recent Documents
+                            Voitures
                         </span>
                     </span>
                     <svg className="w-5 h-5 text-gray-500 transition group-open:rotate-90" xmlns="http://www.w3.org/2000/svg"
@@ -143,9 +143,13 @@ function MenuDashboardAdmin ({t}) {
     
                 <article className="px-4 pb-4">
                     <ul className="flex flex-col gap-1 pl-2">
-                        <li><Link to="">Document title</Link></li>
-                        <li><Link to="">Document title</Link></li>
-                        <li><Link to="">Document title</Link></li>
+                        <li><Link to="">Ajouter une voiture</Link></li>
+                        <li><Link to="">Carburant</Link></li>
+                        <li><Link to="">Constructeur</Link></li>
+                        <li><Link to="">Corps</Link></li>
+                        <li><Link to="/model">Modèle</Link></li>
+                        <li><Link to="">Motopropulseur</Link></li>
+                        <li><Link to="">Transmission</Link></li>
                     </ul>
                 </article>
     

@@ -20,6 +20,9 @@
       "accueil.titre3": "For limited time only!",
       "accueil.btnCta": "Shop now",
 
+      "btnEditer": "Edit",
+      "btnDeleter": "Delete",
+
      
       "CreateUser.soustitre": "Be part of our car lovers community!",
       "CreateUser.prenom": "Name",
@@ -70,7 +73,11 @@
       "dashC_telephone": "Phone",
       "dashC_cellulaire": "Mobile",
       "dashC_courriel": "E-mail",
-      "dashC_nom_utilisateur": "Username"
+      "dashC_nom_utilisateur": "Username",
+      
+      "modeleIndex_titre": "Models",
+      "modeleUpdate_titre": "Model - edit",
+      "modeleCreate_titre": "Model - create"
        
     }
   }

@@ -17,6 +17,8 @@ import PrivilegeEdit from '../dashboards/dashboardParts/PrivilegeEdit/PrivilegeE
 import {jwtDecode} from 'jwt-decode';
 import DashboardClient from '../dashboards/DashboardClient/DashboardClient';
 import PrivateRoute from '../dashboards/PrivateRoute/PrivateRoute';
+import VoituresIndex from '../voitures/VoituresIndex/VoituresIndex';
+import ModeleIndex from '../voitures/ModeleIndex/ModeleIndex';
 
 export const AppContext = React.createContext();
 
@@ -145,6 +147,14 @@ console.log(token);
                         <Route path='/admin' element={<DashboardAdmin t={t} />} />
                     </Route>
 
+                    <Route path='/model' element={<PrivateRoute requiredPrivilege={[1,2]} />}>
+                        <Route path='/model' element={<ModeleIndex t={t} changeLanguage={handleTrans}  />} />
+                    </Route>
+
+
+
+
+
                     <Route path='/client' element={<PrivateRoute requiredPrivilege={[1,2,3]} />}>
                       <Route index element={<DashboardClient t={t} />} />
                     </Route>
@@ -165,7 +175,8 @@ console.log(token);
                     <Route path="/privileges" element={<PrivilegeIndex t={t} changeLanguage={handleTrans} />} />
                     <Route path="/privilege-edit/:id" element={<PrivilegeEdit t={t} changeLanguage={handleTrans} />} />
 
-                    
+                    <Route path='/voitures' element={<VoituresIndex t={t} />} />
+
                 </Routes>
             </Router>
         </AppContext.Provider>

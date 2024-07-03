@@ -2,7 +2,7 @@
 module.exports = (connex, Sequelize) => {
     const Voiture = connex.define('voiture', {
         date: {
-            type: Sequelize.DATEONLY
+            type: Sequelize.INTEGER
         },
         description: {
             type: Sequelize.TEXT('long')
