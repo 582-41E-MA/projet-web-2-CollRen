@@ -1,50 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import MenuDashboardAdmin from '../../MenuDashboardAdmin/MenuDashboardAdmin';
-import ChampText from '../../../partialsFormulaire/ChampText/ChampText';
-import Bouton from '../../../partialsFormulaire/Bouton/Bouton';
+import MenuDashboardAdmin from '../../dashboards/MenuDashboardAdmin/MenuDashboardAdmin';
+import ChampText from '../../partialsFormulaire/ChampText/ChampText';
+import Bouton from '../../partialsFormulaire/Bouton/Bouton';
 
-function PrivilegeEdit({ t }) {
+function CorpsUpdate({ t }) {
     const { id } = useParams(); 
     const [formData, setFormData] = useState({
-        privilege_en: '',
-        privilege_fr: ''
+        corps_en: '',
+        corps_fr: ''
     });
 
+
     useEffect(() => {
-        const fetchPrivilege = async () => {
+        const fetchCorps = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/privileges/${id}`);
+                const response = await fetch(`http://localhost:5000/api/corps/${id}`);
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    throw new Error(`Erreur HTTP! statut: ${response.status}`);
                 }
                 const data = await response.json();
 
-                // Verifica se data.type é definido e converte para objeto JavaScript
-                const privilegeData = {
-                    privilege_en: '',
-                    privilege_fr: ''
+                const corpsData = {
+                    corps_en: '',
+                    corps_fr: ''
                 };
+
+                console.log(data);
 
                 if (data.type) {
                     const parsedType = JSON.parse(data.type);
-                    privilegeData.privilege_en = parsedType.en;
-                    privilegeData.privilege_fr = parsedType.fr;
+                    corpsData.corps_en = parsedType.en;
+                    corpsData.corps_fr = parsedType.fr;
                 }
 
-                setFormData(privilegeData);
+                setFormData(corpsData);
             } catch (error) {
-                console.error('Error fetching privilege:', error);
+                console.error('Erreur lors de la récupération du corps:', error);
             }
         };
 
-        // Chama a função para carregar os detalhes do privilégio apenas se id estiver definido
         if (id) {
-            fetchPrivilege();
+            fetchCorps();
         }
     }, [id]);
 
-    // Função para lidar com a alteração nos campos do formulário
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({
@@ -53,40 +53,35 @@ function PrivilegeEdit({ t }) {
         });
     };
 
-    // Função para lidar com o envio do formulário de atualização
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
-            const response = await fetch(`http://localhost:5000/api/privileges/${id}`, {
+            const response = await fetch(`http://localhost:5000/api/corps/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    privilege_en: formData.privilege_en,
-                    privilege_fr: formData.privilege_fr,
-                    // Se necessário, converta novamente para o formato esperado pela API
                     type: JSON.stringify({
-                        en: formData.privilege_en,
-                        fr: formData.privilege_fr
+                        en: formData.corps_en,
+                        fr: formData.corps_fr
                     })
                 })
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error(`Erreur HTTP! statut: ${response.status}`);
             }
 
-            // Para demonstração, alerta de sucesso
-            alert('Privilege updated successfully!');
+            alert('Corps mis à jour avec succès!');
         } catch (error) {
-            console.error('Error updating privilege:', error);
-            alert('Error updating privilege. Please try again.');
+            console.error('Erreur lors de la mise à jour du corps:', error);
+            alert('Erreur lors de la mise à jour du corps. Veuillez réessayer.');
         }
     };
 
-    // Renderização do componente
+
     return (
         <div className="flex">
             <div>
@@ -94,28 +89,28 @@ function PrivilegeEdit({ t }) {
             </div>
 
             <div className="w-[30%] mx-[4rem] mt-24">
-                <h2 className="p-3">{t("privilegeEdit.titre")}</h2>
+                <h2 className="p-3">{t("corpsUpdate_titre")}</h2>
 
-                <form onSubmit={handleSubmit} className="p-3">
+                <form onSubmit={handleSubmit} className="p-3 bg-[#21283B] rounded-lg">
                     <div className="mb-3">
                         <ChampText
-                            label={"Privilege in English"}
+                            label={"Corps in English"}
                             type="text"
                             className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
-                            id="privilege_en"
-                            name="privilege_en"
-                            value={formData.privilege_en}
+                            id="corps_en"
+                            name="corps_en"
+                            value={formData.corps_en}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="mb-3">
                         <ChampText
-                        label={"Privilege in French"}
+                            label={"Corps in French"}
                             type="text"
                             className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
-                            id="privilege_fr"
-                            name="privilege_fr"
-                            value={formData.privilege_fr}
+                            id="corps_fr"
+                            name="corps_fr"
+                            value={formData.corps_fr}
                             onChange={handleChange}
                         />
                     </div>
@@ -131,4 +126,4 @@ function PrivilegeEdit({ t }) {
     );
 }
 
-export default PrivilegeEdit;
+export default CorpsUpdate;

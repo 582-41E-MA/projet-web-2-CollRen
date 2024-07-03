@@ -84,7 +84,20 @@
       "constructeurUpdate_titre": "Constructeur - éditer",
       "constructeurCreate_titre": "Constructeur - créer",
       "constructeurType_label": "Entrez le type",
-      "constructeurIndex_create": "Crèe un nouveau constructeur"
+      "constructeurIndex_create": "Crèe un nouveau constructeur",
+
+      
+      "corpsIndex_titre": "Corps",
+      "corpsUpdate_titre": "Corps - éditer",
+      "corpsCreate_titre": "Corps - créer",
+      "corpsType_label": "Entrez le type de corps",
+      "corpsIndex_create": "Crèe un nouveau type de corps",
+
+      "transmissionIndex_titre": "Transmission",
+      "transmissionUpdate_titre": "Transmission - éditer",
+      "transmissionCreate_titre": "Transmission - créer",
+      "transmissionType_label": "Entrez un nouveau type de transmission",
+      "transmissionIndex_create": "Crèe un nouveau type de transmission"
        
 
 

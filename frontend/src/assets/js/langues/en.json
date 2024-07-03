@@ -86,7 +86,20 @@
       "constructeurUpdate_titre": "Brand - edit",
       "constructeurCreate_titre": "Brand - create",
       "constructeurType_label": "Enter a new brand",
-      "constructeurIndex_create": "Create a new brand"
+      "constructeurIndex_create": "Create a new brand",
+
+      
+      "corpsIndex_titre": "Body styles",
+      "corpsUpdate_titre": "Body style - edit",
+      "corpsCreate_titre": "Body style - create",
+      "corpsType_label": "Enter a new body style",
+      "corpsIndex_create": "Create a new body style",
+      
+      "transmissionIndex_titre": "Transmission",
+      "transmissionUpdate_titre": "Transmission - edit",
+      "transmissionCreate_titre": "Transmission - create",
+      "transmissionType_label": "Enter a new type de transmission",
+      "transmissionIndex_create": "Create a new type of transmission"
        
        
     }

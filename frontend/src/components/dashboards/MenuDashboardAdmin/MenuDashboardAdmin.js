@@ -146,7 +146,7 @@ function MenuDashboardAdmin ({t}) {
                         <li><Link to="">Ajouter une voiture</Link></li>
                         <li><Link to="">Carburant</Link></li>
                         <li><Link to="/constructeur">Constructeur</Link></li>
-                        <li><Link to="">Corps</Link></li>
+                        <li><Link to="/corps">Corps</Link></li>
                         <li><Link to="/model">Modèle</Link></li>
                         <li><Link to="">Motopropulseur</Link></li>
                         <li><Link to="">Transmission</Link></li>

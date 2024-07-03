@@ -24,6 +24,9 @@ import ModeleCreate from '../voitures/ModeleCreate/ModeleCreate';
 import ConstructeurIndex from '../voitures/ConstructeurIndex/ConstructeurIndex';
 import ConstructeurUpdate from '../voitures/ConstructeurUpdate/ConstructeurUpdate';
 import ConstructeurCreate from '../voitures/ContructteurCreate/ConstructeurCreate';
+import CorpsIndex from '../voitures/CorpsIndex/CorpsIndex';
+import CorpsCreate from '../voitures/CorpsCreate/CorpsCreate';
+import CorpsUpdate from '../voitures/CorpsUpdate/CorpsUpdate';
 
 export const AppContext = React.createContext();
 
@@ -172,7 +175,17 @@ function App() {
                         <Route path='/constructeur-create' element={<ConstructeurCreate t={t}   />} />
                     </Route>
 
+                    <Route path='/corps' element={<PrivateRoute requiredPrivilege={[1,2]} />}>
+                        <Route path='/corps' element={<CorpsIndex t={t}  changeLanguage={handleTrans}  />} />
+                    </Route>
 
+                    <Route path='/corps-create' element={<PrivateRoute requiredPrivilege={[1,2]} />}>
+                        <Route path='/corps-create' element={<CorpsCreate t={t}  changeLanguage={handleTrans}  />} />
+                    </Route>
+
+                    <Route path='/corps-update/:id' element={<PrivateRoute requiredPrivilege={[1,2]} />}>
+                        <Route path='/corps-update/:id' element={<CorpsUpdate t={t} />} />
+                    </Route>
 
 
 
