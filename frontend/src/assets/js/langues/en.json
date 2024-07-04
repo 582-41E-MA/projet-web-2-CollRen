@@ -81,12 +81,14 @@
       "modeleCreate_titre": "Model - create",
       "modeleType_label": "Enter the type",
       "modelIndex_create": "Create a new model",
+      
 
       "constructeurIndex_titre": "Brands",
       "constructeurUpdate_titre": "Brand - edit",
       "constructeurCreate_titre": "Brand - create",
       "constructeurType_label": "Enter a new brand",
       "constructeurIndex_create": "Create a new brand",
+      "selectConstructeur": "Select a brand",
 
       
       "corpsIndex_titre": "Body styles",

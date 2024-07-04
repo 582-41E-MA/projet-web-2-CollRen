@@ -166,7 +166,7 @@ function App() {
                     </Route>
 
                     <Route path='/model-create' element={<PrivateRoute requiredPrivilege={[1,2]} />}>
-                        <Route path='/model-create' element={<ModeleCreate t={t}   />} />
+                        <Route path='/model-create' element={<ModeleCreate t={t}  />} />
                     </Route>
                     <Route path='/constructeur' element={<PrivateRoute requiredPrivilege={[1,2]} />}>
                         <Route path='/constructeur' element={<ConstructeurIndex t={t}   />} />
