@@ -48,6 +48,8 @@ import DetailProduit from '../site/DetailProduit/DetailProduit';
 
 
 
+
+
 export const AppContext = React.createContext();
 const lngs = [
     { code: "en", native: "EN" },
