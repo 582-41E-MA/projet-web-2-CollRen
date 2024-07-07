@@ -45,6 +45,8 @@ import Catalogue from '../site/Catalogue/Catalogue';
 import { AnimatePresence } from "framer-motion";
 
 
+
+
 export const AppContext = React.createContext();
 const lngs = [
     { code: "en", native: "EN" },

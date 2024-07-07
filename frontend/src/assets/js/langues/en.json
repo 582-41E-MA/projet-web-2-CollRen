@@ -123,7 +123,7 @@
       "carburantCreate_titre": "Fuel - create",
       "carburantType_label": "Enter a new type of fuel",
       "carburantIndex_create": "Create a new type of fuel",
-      "fetch": "http://localhost:5001/api/",
+      "fetch": "http://localhost:5000/api/",
        
       "voitureIndex_titre": "Car list",
       "voitureUpdate_titre": "Car - edit",
