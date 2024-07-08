@@ -1812,7 +1812,7 @@ CREATE TABLE `voitures` (
 -- Déchargement des données de la table `voitures`
 --
 
-INSERT INTO `voitures` (`id`, `date`, `description`, `prix`, `modele_id`, `transmission_id`, `motopropulseur_id`, `carburant_id`, `corp_id`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `voitures` (`id`, `date`, `description`, `prix`, `modeles_id`, `transmission_id`, `motopropulseur_id`, `carburant_id`, `corp_id`, `createdAt`, `updatedAt`) VALUES
 (1, '2013', 'Pas de description pour le moment', 23112, 58, 1, 1, 1, 2, '2024-07-02 11:53:36', NULL),
 (2, '1995', 'Pas de description pour le moment', 46153, 312, 1, 1, 2, 1, '2024-07-02 11:53:36', NULL),
 (3, '2017', 'Pas de description pour le moment', 6000, 6, 1, 1, 1, 1, '2024-07-01 23:27:55', NULL),

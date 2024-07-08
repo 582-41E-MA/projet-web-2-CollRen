@@ -1,6 +1,5 @@
 import React from 'react';
 
-// const Tuile = ({ image, manufacturer, model, price, fuelType, transmission }) => {
 
     function Tuile(){
 
