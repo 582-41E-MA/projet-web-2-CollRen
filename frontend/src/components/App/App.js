@@ -123,8 +123,6 @@ function App() {
         };
 
         const response = await fetch(`${t("fetch")}utilisateurs/login`, data);
-        // const response = await fetch(`http://localhost:5000/api/utilisateurs/login`, data);
-        // const response = await fetch(`http://localhost:5000/api/utilisateurs/login`, data);
 
         if (response.ok) {
             const token = await response.json();
@@ -269,6 +267,8 @@ function App() {
 
                     <Route path='/login' element={<Login t={t} user={user} handleLogin={login} handleLogout={logout} />} />
                     <Route path='/usercreate' element={<UserCreate t={t} />} />
+                        <Route path='/login' element={<Login t={t} user={user} handleLogin={login} />} />
+                        <Route path='/usercreate' element={<UserCreate t={t} />} />
 
                         <Route path="/privilege-create" element={<PrivilegeCreate t={t} />} />
                         <Route path="/privileges" element={<PrivilegeIndex t={t} changeLanguage={handleTrans} />} />

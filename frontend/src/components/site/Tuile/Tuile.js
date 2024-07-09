@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next'; 
+import { Link } from 'react-router-dom';
 
 function Tuile({ voiture, language }) {
     const principaleImage = voiture.images.find(image => image.est_principale === 1 && image.voiture_id === voiture.id);
