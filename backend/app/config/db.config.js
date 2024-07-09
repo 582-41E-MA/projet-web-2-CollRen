@@ -6,10 +6,10 @@ module.exports = {
 
     // PORT: 3308,
     PORT: 3306,
-    PASSWORD: "root",
+    PASSWORD: "",
     DB: "bobazou",
 
-    // PORT: 3308,
+    // PORT: 3306,
     // PASSWORD: "",
     // DB: "vehiculeoccasion",
 
