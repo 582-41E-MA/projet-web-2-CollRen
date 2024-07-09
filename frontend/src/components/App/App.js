@@ -43,6 +43,7 @@ import Footer from '../partials/Footer/Footer';
 import Contact from '../site/Contact/Contact';
 import Catalogue from '../site/Catalogue/Catalogue';
 import { AnimatePresence } from "framer-motion";
+import DetailProduit from '../site/DetailProduit/DetailProduit';
 
 
 
@@ -243,6 +244,9 @@ function App() {
                         <Route path='/voitures' element={<PrivateRoute requiredPrivilege={[1, 2]} />}>
                             <Route path='/voitures' element={<VoituresIndex t={t} changeLanguage={handleTrans} />} />
                         </Route>
+
+                        <Route path="/" exact component={Catalogue} />
+                        <Route path="/voitures/:id" component={DetailProduit} />
 
                         <Route path='/voiture-create' element={<PrivateRoute requiredPrivilege={[1, 2]} />}>
                             <Route path='/voiture-create' element={<VoituresCreate t={t} changeLanguage={handleTrans} />} />

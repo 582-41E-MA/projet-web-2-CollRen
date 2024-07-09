@@ -43,7 +43,6 @@ function Tuile({ voiture, language }) {
                 <button className="bg-bleuFonce text-white font-titre ml-4 p-2 rounded-lg">+ de détails</button>
             </div>
         </div>
-
     );
 }
 
