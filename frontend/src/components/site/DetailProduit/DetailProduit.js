@@ -66,7 +66,7 @@ function DetailProduit({ t }) {
                 <strong>{t("motopropulseur")}:</strong> {voiture.motopropulseur.type[language]}
             </div>
             <div className="text-lg mb-4">
-                <strong>{t("price")}:</strong> {voiture.price}
+                <strong>{t("price")}:</strong> {voiture.price} $
             </div>
         </div>
     );

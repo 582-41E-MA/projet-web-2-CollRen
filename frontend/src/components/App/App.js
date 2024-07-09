@@ -255,6 +255,7 @@ function App() {
                         <Route path='/voiture-update/:id' element={<PrivateRoute requiredPrivilege={[1, 2]} />}>
                             <Route path='/voiture-update/:id' element={<VoituresUpdate t={t} changeLanguage={handleTrans} />} />
                         </Route>
+                        
 
 
 
