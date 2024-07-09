@@ -29,7 +29,7 @@ function Tuile({ voiture, language }) {
                     </div>
                     <div className='flex justify-between'>
                         <h2 className="text-xl font-bold text-gray-900">{voiture.modele.type}</h2>
-                        <p className="font-bold text-gray-700">{voiture.prix} $</p>
+                        <p className="font-bold text-gray-700">{voiture.prix} $ </p>
                     </div>
                     {/* <p className="text-gray-700 mt-1">{voiture.description[language]}</p> */}
                     <p className="text-gray-700 mt-2">{voiture.transmission.type[language]}</p>
