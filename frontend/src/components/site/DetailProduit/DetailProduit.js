@@ -66,7 +66,11 @@ function DetailProduit({ t }) {
                 <strong>{t("motopropulseur")}:</strong> {voiture.motopropulseur.type[language]}
             </div>
             <div className="text-lg mb-4">
+<<<<<<< HEAD
                 <strong>{t("price")}:</strong> {voiture.price} $
+=======
+                <strong>{t("price")}:</strong> {voiture.price}
+>>>>>>> 03dd8a4 (ajouter le composant details du produit et le lier au bouoton plus de détails)
             </div>
         </div>
     );
