@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Tuile from '../Tuile/Tuile';
+import Filtres from '../Filtres/Filtres';
+
 
 
 function Catalogue({ t, changeLanguage }) {
