@@ -95,7 +95,7 @@ function VoitureCreate({ t }) {
 
         try {
             // Cria a voiture primeiro
-            const voitureResponse = await fetch(`${t("fetch")}api/voitures`, {
+            const voitureResponse = await fetch(`${t("fetch")}voitures`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
