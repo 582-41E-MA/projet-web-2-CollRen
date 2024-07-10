@@ -209,6 +209,7 @@ function App() {
                             <Route path='/corps-update/:id' element={<CorpsUpdate t={t} />} />
                         </Route>
 
+                        <Route path='/catalogue' element={<Catalogue t={t} changeLanguage={handleTrans}/>} />
                         <Route path='/transmission' element={<PrivateRoute requiredPrivilege={[1, 2]} />}>
                             <Route path='/transmission' element={<TransmissionIndex t={t} changeLanguage={handleTrans} />} />
                         </Route>
@@ -249,9 +250,9 @@ function App() {
                             <Route path='/voitures' element={<VoituresIndex t={t} changeLanguage={handleTrans} />} />
                         </Route>
 
-                        <Route path="/" exact component={Catalogue} />
-                        <Route path="/voitures/:id" component={DetailProduit} />
+                        <Route path="/voitures/:id" element={<DetailProduit  t={t} changeLanguage={handleTrans}/>} />
 
+                        
                         <Route path='/voiture-create' element={<PrivateRoute requiredPrivilege={[1, 2]} />}>
                             <Route path='/voiture-create' element={<VoituresCreate t={t} changeLanguage={handleTrans} />} />
                         </Route>
@@ -276,8 +277,8 @@ function App() {
                         </Route>
 
 
-                    <Route path='/login' element={<Login t={t} user={user} handleLogin={login} handleLogout={logout} />} />
-                    <Route path='/usercreate' element={<UserCreate t={t} />} />
+                        <Route path='/login' element={<Login t={t} user={user} handleLogin={login} handleLogout={logout} />} />
+                        <Route path='/usercreate' element={<UserCreate t={t} />} />
 
                         <Route path="/privilege-create" element={<PrivilegeCreate t={t} />} />
                         <Route path="/privileges" element={<PrivilegeIndex t={t} changeLanguage={handleTrans} />} />
@@ -286,7 +287,6 @@ function App() {
                         <Route path='/politique' element={<Politique t={t} />} />
                         <Route path='/contact' element={<Contact t={t} />} />
 
-                        <Route path='/catalogue' element={<Catalogue t={t} changeLanguage={handleTrans}/>} />
 
                     </Routes>
                 </AnimatePresence>
