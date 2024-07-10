@@ -70,6 +70,9 @@ db.statuts.hasMany(db.commandes, { foreignKey: 'statut_id' })
 db.villes.belongsTo(db.provinces, { foreignKey: 'province_id' })
 db.provinces.hasMany(db.villes, { foreignKey: 'province_id' })
 
+db.modeles.belongsTo(db.constructeurs, { foreignKey: 'constructeur_id' })
+db.constructeurs.hasMany(db.modeles, { foreignKey: 'constructeur_id' })
+
 // Province.hasMany(models.Ville, { as: 'villes' })
 // db.villes.belongsTo(db.provinces, { foreignKey: 'province_Id', as: 'province' })
 

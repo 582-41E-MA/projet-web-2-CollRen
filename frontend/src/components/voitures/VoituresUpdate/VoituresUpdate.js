@@ -236,7 +236,7 @@ function VoitureUpdate({ t }) {
 
         
         try {
-            const response = await fetch(`http://localhost:5000/api/images?voiture_id=${id}`, {
+            const response = await fetch(`${t("fetch")}images?voiture_id=${id}`, {
                 method: 'POST',
                 body: formData
             });

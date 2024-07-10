@@ -15,14 +15,6 @@ module.exports = (connex, Sequelize) => {
                 model: 'constructeurs',
                 key: 'id', allowNull: true
             }
-        },
-        constructeur_id: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-            references: {
-                model: 'constructeurs',
-                key: 'id', allowNull: true
-            }
         }
 
     })
