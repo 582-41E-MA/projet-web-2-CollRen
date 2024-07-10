@@ -30,52 +30,43 @@ db.commandes = require('./commande.model.js')(connex, Sequelize)
 
 
 // Définition des relations
-db.modeles.belongsTo(db.constructeurs, { foreignKey: 'constructeur_id' })
-
-db.voitures.belongsTo(db.modeles, { foreignKey: 'modele_id' })
-
-db.constructeurs.hasMany(db.modeles, { foreignKey: 'constructeur_id' })
-
-db.transmissions.hasMany(db.voitures, { foreignKey: 'transmission_id' })
-db.voitures.belongsTo(db.transmissions, { foreignKey: 'transmission_id'})
-
-db.voitures.belongsTo(db.corps, { foreignKey: 'corp_id' })
-
-db.voitures.belongsTo(db.motopropulseurs, { foreignKey: 'motopropulseur_id'})
-
 db.voitures.belongsTo(db.carburants, { foreignKey: 'carburant_id'})
 db.carburants.hasMany(db.voitures, { foreignKey: 'carburant_id' })
 
-db.images.belongsTo(db.voitures, { foreignKey: 'voiture_id' })
-db.voitures.hasMany(db.images, { foreignKey: 'voiture_id' })
+db.modeles.belongsTo(db.constructeurs, { foreignKey: 'constructeur_id' })
+db.constructeurs.hasMany(db.modeles, { foreignKey: 'constructeur_id' })
 
-db.privileges.hasMany(db.utilisateurs, { foreignKey: 'privilege_id' })
-db.utilisateurs.belongsTo(db.privileges, { foreignKey: 'privilege_id'})
-
-// expedition_id , utilisateur_id , statut_id
-
-db.commandes.belongsTo(db.mode_paiements, { foreignKey: 'mode_paiement_id' })
-db.mode_paiements.hasMany(db.commandes, { foreignKey: 'mode_paiement_id' })
+db.voitures.belongsTo(db.corps, { foreignKey: 'corp_id' })
+db.corps.hasMany(db.voitures, { foreignKey: 'corp_id' })
 
 db.commandes.belongsTo(db.expeditions, { foreignKey: 'expedition_id' })
 db.expeditions.hasMany(db.commandes, { foreignKey: 'expedition_id' })
 
-db.commandes.belongsTo(db.utilisateurs, { foreignKey: 'utilisateur_id' })
-db.utilisateurs.hasMany(db.commandes, { foreignKey: 'utilisateur_id' })
+db.voitures.belongsTo(db.modeles, { foreignKey: 'modele_id' })
+db.modeles.hasMany(db.voitures, { foreignKey: 'modele_id' })
 
-db.commandes.belongsTo(db.statuts, { foreignKey: 'statut_id' })
-db.statuts.hasMany(db.commandes, { foreignKey: 'statut_id' })
+db.commandes.belongsTo(db.mode_paiements, { foreignKey: 'mode_paiement_id' })
+db.mode_paiements.hasMany(db.commandes, { foreignKey: 'mode_paiement_id' })
 
+db.voitures.belongsTo(db.motopropulseurs, { foreignKey: 'motopropulseur_id'})
+db.motopropulseurs.hasMany(db.voitures, { foreignKey: 'motopropulseur_id' })
+
+db.utilisateurs.belongsTo(db.privileges, { foreignKey: 'privilege_id'})
+db.privileges.hasMany(db.utilisateurs, { foreignKey: 'privilege_id' })
 
 db.villes.belongsTo(db.provinces, { foreignKey: 'province_id' })
 db.provinces.hasMany(db.villes, { foreignKey: 'province_id' })
 
-db.modeles.belongsTo(db.constructeurs, { foreignKey: 'constructeur_id' })
-db.constructeurs.hasMany(db.modeles, { foreignKey: 'constructeur_id' })
+db.commandes.belongsTo(db.statuts, { foreignKey: 'statut_id' })
+db.statuts.hasMany(db.commandes, { foreignKey: 'statut_id' })
 
-// Province.hasMany(models.Ville, { as: 'villes' })
-// db.villes.belongsTo(db.provinces, { foreignKey: 'province_Id', as: 'province' })
+db.voitures.belongsTo(db.transmissions, { foreignKey: 'transmission_id'})
+db.transmissions.hasMany(db.voitures, { foreignKey: 'transmission_id' })
 
+db.commandes.belongsTo(db.utilisateurs, { foreignKey: 'utilisateur_id' })
+db.utilisateurs.hasMany(db.commandes, { foreignKey: 'utilisateur_id' })
 
+db.images.belongsTo(db.voitures, { foreignKey: 'voiture_id' })
+db.voitures.hasMany(db.images, { foreignKey: 'voiture_id' })
 
 module.exports = db
