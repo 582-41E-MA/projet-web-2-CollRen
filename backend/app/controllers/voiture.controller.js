@@ -80,7 +80,7 @@ exports.findAll = (req, res) => {
                 { model: Carburant, where: condition.carburant },
                 /* { model: Constructeur, where: condition.constructeur }, */ // {"message":"constructeur is not associated to voiture!"}
                 { model: Corp, where: condition.corp },
-                { model: Modele, where: condition.modele },
+                { model: Modele, where: condition.modele, include: [Constructeur] },
                 { model: Motopropulseur, where: condition.motopropulseur },
                 { model: Transmission, where: condition.transmission },
                 { model: Image }

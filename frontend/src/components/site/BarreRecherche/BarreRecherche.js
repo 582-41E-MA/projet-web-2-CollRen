@@ -36,6 +36,8 @@ function BarreRecherche(props) {
                     }
                 };
 
+                // Baser la recherche sur le constructeur, l'année et le modèle seulement
+                // Retourner les résultats, lien vers page avec prix, description et photos
                 updatedData = data.map(item => ({
                     ...item,
                     carburant: { ...item.carburant, type: parseJSONSafely(item.carburant.type) },
