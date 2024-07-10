@@ -4,14 +4,9 @@ module.exports = {
     // PASSWORD: "",
     // DB: "bobazou",
 
-    // PORT: 3308,
-    PORT: 3306,
+    PORT: 3308,
     PASSWORD: "",
-    DB: "bobazou",
-
-    // PORT: 3306,
-    // PASSWORD: "",
-    // DB: "vehiculeoccasion",
+    DB: "vehiculeoccasion",
 
     JWT_SECRET: "secret",
     HOST: 'localhost',
