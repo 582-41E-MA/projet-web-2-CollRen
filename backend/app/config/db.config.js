@@ -11,6 +11,10 @@ module.exports = {
 
     // PORT: 3306,
     // PASSWORD: "",
+    // DB: "bobazou",
+
+    // PORT: 3306,
+    // PASSWORD: "",
     // DB: "vehiculeoccasion",
 
     JWT_SECRET: "secret",
