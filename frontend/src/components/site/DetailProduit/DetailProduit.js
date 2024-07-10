@@ -34,6 +34,9 @@ function DetailProduit({ t }) {
                 };
 
                 setVoiture(updatedData);
+
+                console.log(updatedData);
+                
             } catch (error) {
                 console.error('Error fetching voiture:', error);
             }
