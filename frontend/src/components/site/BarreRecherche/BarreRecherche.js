@@ -12,11 +12,9 @@ function BarreRecherche(props) {
     let affichage;
     let updatedData;
 
-
     const [language, setLanguage] = useState(localStorage.getItem('langueChoisie'));
     const [arrayResultatRecherche, setArrayResultatRecherche] = useState([]);
     const [arrayVoitures, setArrayVoitures] = useState([]);
-
 
     useEffect(() => {
         const setDataVoitures = async () => {
@@ -48,7 +46,6 @@ function BarreRecherche(props) {
 
                 setArrayVoitures(data);
 
-
             } catch (error) {
                 console.error('Error fetching voitures:', error);
             }
@@ -78,9 +75,10 @@ function BarreRecherche(props) {
     }
 
     function searchFor(ArrOfObjects, toSearch, objetPrincipal) {
-
-        console.log(toSearch)
-
+        
+        // Changer la date en format number en format string pour la recherche
+        ArrOfObjects[2] = ArrOfObjects[2].toString()
+        console.log(ArrOfObjects[2])
         toSearch = trimString(toSearch).toLowerCase(); // trim & lower case it
         ArrOfObjects.map((objet) => {
 
@@ -92,16 +90,6 @@ function BarreRecherche(props) {
                     results.indexOf(objetPrincipal) === -1 ? results.push(objetPrincipal) : console.log("This item already exists")
                 }
             }
-
-            if (objet.toLowerCase().indexOf(toSearch) != -1) {
-
-                if (!itemExists(results, objet)) {
-                    // Si ce résultat n'est pas déjà là, ajoute-le
-                    results.indexOf(objetPrincipal) === -1 ? results.push(objetPrincipal) : console.log("This item already exists")
-                }
-            }
-
-
         })
         return results;
     }
@@ -113,16 +101,15 @@ function BarreRecherche(props) {
         let ObjetContientRecherche;
 
         for (let i = 0; i < arrayVoitures.length; i++) {
+            console.log(arrayVoitures[i].date);
 
             // Créer un array d'objet pour chacune des catégories dans lesquelles effectuer la recherche
             const elementModele = arrayVoitures[i].modele.type;
             const elementConstructeur = arrayVoitures[i].modele.constructeur.type;
-            console.log(elementModele);
-            console.log(elementConstructeur);
-
+            const elementDateFabrication = arrayVoitures[i].date;
 
             // Mettre toutes les arrays d'objet dans un tableau pour y faire un map
-            const arrayOfElementToSearchIn = [elementModele, elementConstructeur]
+            const arrayOfElementToSearchIn = [elementModele, elementConstructeur, elementDateFabrication]
 
             // Enregistrer les objets dans lesquels la recherche à trouver une concordance
             ObjetContientRecherche = searchFor(arrayOfElementToSearchIn, termeRecherche, arrayVoitures[i])
@@ -132,31 +119,7 @@ function BarreRecherche(props) {
 
     };
 
-    // Faire apparaître les résultats sous la barre de recherche après l'entré de 2 caratères minimum
-
-    // 1. Vérification: est-ce le résultat attendu ? --> oui à date
-    if (arrayResultatRecherche !== undefined) {
-
-
         affichage = <AfficherResultats t={t} voitures={arrayResultatRecherche} language={language} ></AfficherResultats>
-
-
-    } else {
-        // console.log('=>Faux => arrayResultatRecherche !== undefined')
-    }
-
-    // 2. Créer le html de l'affichage des résultats
-
-
-    // 3. À chaque changement de "arrayResultatRecherche" useEffect pour ajuster l'affichage des résultats
-
-    useEffect(() => {
-
-        return () => {
-        }
-    }, [arrayResultatRecherche])
-
-
 
     return (
         <div className="form-container">
