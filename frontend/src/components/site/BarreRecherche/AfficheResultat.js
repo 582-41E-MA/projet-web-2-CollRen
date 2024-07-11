@@ -26,7 +26,7 @@ function AfficherResultats(props) {
                 <thead>
                     <tr>
 
-                        <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voitureCreate_date_label")}</th>
+                        <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voitureCreate_date_label")}</th> 
                         <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voituretableau_Constructeur")}</th>
                         <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voituretableau_Modele")}</th>
                         <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Action</th>
