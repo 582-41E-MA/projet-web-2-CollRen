@@ -46,10 +46,10 @@ exports.findAll = (req, res) => {
     condition.carburant = {}
     condition.constructeur = {}
     condition.corp = {}
+    condition.date = {}
     condition.modele = {}
     condition.motopropulseur = {}
     condition.transmission = {}
-    condition.date = {}
 
     queryCarburant ? condition.carburant.id = queryCarburant : null;
     queryConstructeur ? condition.constructeur.id = queryConstructeur : null;
@@ -78,9 +78,12 @@ exports.findAll = (req, res) => {
         include:
             [
                 { model: Carburant, where: condition.carburant },
-                /* { model: Constructeur, where: condition.constructeur }, */ // {"message":"constructeur is not associated to voiture!"}
                 { model: Corp, where: condition.corp },
-                { model: Modele, where: condition.modele, include: [Constructeur] },
+                {
+                    model: Modele, where: condition.modele, include:
+                        [
+                            { model: Constructeur, where: condition.constructeur }]
+                },
                 { model: Motopropulseur, where: condition.motopropulseur },
                 { model: Transmission, where: condition.transmission },
                 { model: Image }
