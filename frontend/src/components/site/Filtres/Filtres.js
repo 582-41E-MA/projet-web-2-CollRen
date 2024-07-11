@@ -3,6 +3,42 @@ import './Filtres.css';
 import Bouton from '../../partialsFormulaire/Bouton/Bouton';
 
 function Filtres() {
+
+
+    // Filtres demandés: constructeur, année, modèle, autres détails généraux
+
+
+    // Créer les filtres à partir de données dynamique
+
+        // Fetch des voitures
+
+
+        // Créer les composants pour le formulaire de filtre
+
+            // map constructeurs
+
+
+            // map modèles
+
+
+
+            // map type carburant
+
+
+
+
+    // Créer l'url en fonction des filtres sélectionnés
+
+    // ex. modele_id=1&datemin=1999
+    // ex. ?modele_id=27&transmission_id=1&motopropulseur_id=1&carburant_id=1&corp_id=2
+    // ex. 
+    
+
+    function handleClick(){
+        console.log(handleClick);
+    }
+
+
     return (
         <div className="bg-white p-4 rounded-lg shadow-md mb-8 mt-12">
             <h2 className="text-2xl font-bold mb-4">Filtres</h2>

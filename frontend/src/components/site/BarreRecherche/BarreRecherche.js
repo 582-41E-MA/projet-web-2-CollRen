@@ -26,6 +26,8 @@ function BarreRecherche(props) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
+                 console.log(data);
+                
 
                 const parseJSONSafely = (str) => {
                     try {
@@ -40,14 +42,11 @@ function BarreRecherche(props) {
                 // Retourner les résultats, lien vers page avec prix, description et photos
                 updatedData = data.map(item => ({
                     ...item,
-                    carburant: { ...item.carburant, type: parseJSONSafely(item.carburant.type) },
-                    corp: { ...item.corp, type: parseJSONSafely(item.corp.type) },
-                    transmission: { ...item.transmission, type: parseJSONSafely(item.transmission.type) },
-                    modele: { ...item.modele, type: parseJSONSafely(item.modele.type) },
-                    motopropulseur: { ...item.motopropulseur, type: parseJSONSafely(item.motopropulseur.type) }
+                    //modele: { ...item.modele, type: parseJSONSafely(item.modele.type) },
+
                 }));
 
-                setArrayVoitures(updatedData);
+                setArrayVoitures(data);
 
 
             } catch (error) {
@@ -80,21 +79,23 @@ function BarreRecherche(props) {
 
     function searchFor(ArrOfObjects, toSearch, objetPrincipal) {
 
+        console.log(toSearch)
+
         toSearch = trimString(toSearch).toLowerCase(); // trim & lower case it
         ArrOfObjects.map((objet) => {
 
 
-            if (objet.fr.toLowerCase().indexOf(toSearch) != -1) {
+            if (objet.toLowerCase().indexOf(toSearch) != -1) {
 
-                if (!itemExists(results, objet.fr)) {
+                if (!itemExists(results, objet)) {
                     // Si ce résultat n'est pas déjà là, ajoute-le
                     results.indexOf(objetPrincipal) === -1 ? results.push(objetPrincipal) : console.log("This item already exists")
                 }
             }
 
-            if (objet.en.toLowerCase().indexOf(toSearch) != -1) {
+            if (objet.toLowerCase().indexOf(toSearch) != -1) {
 
-                if (!itemExists(results, objet.en)) {
+                if (!itemExists(results, objet)) {
                     // Si ce résultat n'est pas déjà là, ajoute-le
                     results.indexOf(objetPrincipal) === -1 ? results.push(objetPrincipal) : console.log("This item already exists")
                 }
@@ -112,15 +113,16 @@ function BarreRecherche(props) {
         let ObjetContientRecherche;
 
         for (let i = 0; i < arrayVoitures.length; i++) {
+
             // Créer un array d'objet pour chacune des catégories dans lesquelles effectuer la recherche
-            const elementCarburant = arrayVoitures[i].carburant.type;
-            const elementCorp = arrayVoitures[i].corp.type;
             const elementModele = arrayVoitures[i].modele.type;
-            const elementMotopropulseur = arrayVoitures[i].motopropulseur.type;
-            const elementTransmission = arrayVoitures[i].transmission.type;
+            const elementConstructeur = arrayVoitures[i].modele.constructeur.type;
+            console.log(elementModele);
+            console.log(elementConstructeur);
+
 
             // Mettre toutes les arrays d'objet dans un tableau pour y faire un map
-            const arrayOfElementToSearchIn = [elementCarburant, elementCorp, elementModele, elementMotopropulseur, elementTransmission]
+            const arrayOfElementToSearchIn = [elementModele, elementConstructeur]
 
             // Enregistrer les objets dans lesquels la recherche à trouver une concordance
             ObjetContientRecherche = searchFor(arrayOfElementToSearchIn, termeRecherche, arrayVoitures[i])
