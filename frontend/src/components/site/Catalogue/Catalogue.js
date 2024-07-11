@@ -7,6 +7,7 @@ function Catalogue({ t, changeLanguage }) {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [voitures, setVoitures] = useState([]);
     const [language, setLanguage] = useState(localStorage.getItem('langueChoisie'));
+    const [urlCatalogue, setUrlCatalogue] = useState([`${t("fetch")}voitures`]);
 
     
 
@@ -14,7 +15,7 @@ function Catalogue({ t, changeLanguage }) {
     useEffect(() => {
         const fetchVoitures = async () => {
             try {
-                const response = await fetch(`${t("fetch")}voitures`);
+                const response = await fetch(urlCatalogue);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -67,7 +68,7 @@ function Catalogue({ t, changeLanguage }) {
         };
 
         fetchVoitures();
-    }, [t, language]);
+    }, [t, language, urlCatalogue]);
 
     useEffect(() => {
         const storedLanguage = localStorage.getItem('langueChoisie');
@@ -77,7 +78,7 @@ function Catalogue({ t, changeLanguage }) {
     useEffect(() => {
         const fetchVoitures = async () => {
             try {
-                const response = await fetch(`${t("fetch")}voitures`);
+                const response = await fetch(urlCatalogue);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -89,11 +90,19 @@ function Catalogue({ t, changeLanguage }) {
         };
 
         fetchVoitures();
-    }, []);
+    }, [urlCatalogue]);
 
     const toggleFilter = () => {
         setIsFilterOpen(!isFilterOpen);
     };
+
+    function fSetUrlCatalogue(e){
+        console.log('dans fSetUrlCatalogue')
+        console.log(e)
+        setUrlCatalogue(e);
+    }
+
+    
 
     return (
         
@@ -108,14 +117,14 @@ function Catalogue({ t, changeLanguage }) {
             </button>
 
             <div className={`filter-panel ${isFilterOpen ? 'open' : 'closed'}`}>
-                <Filtres />
+                <Filtres t={t} changeLanguage={changeLanguage} urlCatalogue={urlCatalogue} handleSetUrlCatalogue={fSetUrlCatalogue}  />
             </div>
 
             <div className="container mx-auto px-4 py-8">
                 <h1 className="text-4xl font-bold text-center mb-8 text-bleuFonce">{t("catalog.title")}</h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {voitures.map(voiture => (
-                    <Tuile key={voiture.id} voiture={voiture} language={language} />
+                        <Tuile key={voiture.id} voiture={voiture} language={language} />
                 ))}
                 </div>
             </div>
