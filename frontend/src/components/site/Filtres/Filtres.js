@@ -6,44 +6,13 @@ import SelectOptions from '../../partialsFormulaire/SelectOptions/SelectOptions'
 function Filtres({ t, changeLanguage, urlCatalogue, handleSetUrlCatalogue }) {
     const [voitures, setVoitures] = useState([]);
     const [modeles, setModeles] = useState([]);
+    const [constructeurs, setConstructeurs] = useState([]);
     const [language, setLanguage] = useState(localStorage.getItem('langueChoisie'));
     const [urlFiltre, setUrlFiltre] = useState();
     const labelModele = 'Modèles';
+    const labelConstructeur = 'Constructeurs';
 
     useEffect(() => {
-        const fetchVoitures = async () => {
-            try {
-                const response = await fetch(`${t("fetch")}voitures`);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-
-                const parseJSONSafely = (str) => {
-                    try {
-                        return JSON.parse(str);
-                    } catch (e) {
-                        console.error('JSON parse error:', e);
-                        return { en: str, fr: str };
-                    }
-                };
-
-                const updatedData = data.map(item => ({
-                    ...item,
-                    description: parseJSONSafely(item.description),
-                    carburant: { ...item.carburant, type: parseJSONSafely(item.carburant.type) },
-                    corp: { ...item.corp, type: parseJSONSafely(item.corp.type) },
-                    transmission: { ...item.transmission, type: parseJSONSafely(item.transmission.type) },
-                    motopropulseur: { ...item.motopropulseur, type: parseJSONSafely(item.motopropulseur.type) }
-                }));
-
-                setVoitures(updatedData);
-
-             
-            } catch (error) {
-                console.error('Error fetching voitures:', error);
-            }
-        };
 
         const fetchModeles = async () => {
             try {
@@ -58,8 +27,23 @@ function Filtres({ t, changeLanguage, urlCatalogue, handleSetUrlCatalogue }) {
             }
         };
 
-        fetchVoitures();
+
+        const fetchConstructeurs = async () => {
+            try {
+                const response = await fetch(`${t("fetch")}constructeurs`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                setConstructeurs(data);
+            } catch (error) {
+                console.error('Error fetching constructeurs:', error);
+            }
+        };
+
+
         fetchModeles();
+        fetchConstructeurs();
     }, [language, t]);
 
     useEffect(() => {
@@ -92,53 +76,12 @@ function Filtres({ t, changeLanguage, urlCatalogue, handleSetUrlCatalogue }) {
         const modele = modeles.find(m => m.id === modeleId);
         return modele ? modele.constructeur.type : '';
     };
-
     
-
-    // Filtres demandés: constructeur, année, modèle, autres détails généraux
-   
-    // Créer les filtres à partir de données dynamique
-
-
-    
-
-
-        // Fetch des voitures
-
-
-        // Créer les composants pour le formulaire de filtre
-
-            // map constructeurs
-
-
-            // map modèles
-
-
-    
-
-
-            // map type carburant
-
-
-
-
-    // Créer l'url en fonction des filtres sélectionnés
-
-    // ex. modele_id=1&datemin=1999
-    // ex. ?modele_id=27&transmission_id=1&motopropulseur_id=1&carburant_id=1&corp_id=2
-    // ex. 
-
-
     function setUrl(event) {
-
         let query = `modele_id=${event}`;
-        
         let url = `${t("fetch")}voitures?${query}`;
         handleSetUrlCatalogue(url)
-
     }
-
-
 
     return (
         <div className="bg-white p-4 rounded-lg shadow-md mb-8 mt-12">
@@ -154,17 +97,9 @@ function Filtres({ t, changeLanguage, urlCatalogue, handleSetUrlCatalogue }) {
                         <option value="Hybride">Hybride</option>
                     </select>
                 </div>
-                <div>
-                    <label className="block text-gray-700 font-bold mb-2">Marque</label>
-                    <select className="block w-full p-2 border border-gray-300 rounded-md">
-                        <option value="">Toutes</option>
-                        <option value="Toyota">Toyota</option>
-                        <option value="Honda">Honda</option>
-                        <option value="Ford">Ford</option>
-                        <option value="BMW">BMW</option>
-                    </select>
-                </div>
 
+
+                <SelectOptions list={constructeurs} whenChanged={setUrl} label={labelConstructeur} ></SelectOptions>
                 <SelectOptions list={modeles} whenChanged={setUrl} label={labelModele} ></SelectOptions>
                     
                 <div>

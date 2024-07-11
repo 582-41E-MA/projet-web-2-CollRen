@@ -3,10 +3,6 @@
 function SelectOptions(props) {
     console.log(props)
 
-
-
-    
-
     const whenTyping = (event) => {
      
         props.whenChanged(event.target.value);
