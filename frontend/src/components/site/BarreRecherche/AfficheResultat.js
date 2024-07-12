@@ -5,8 +5,6 @@ function AfficherResultats(props) {
     let t = props.t
     let voitures = props.voitures;
     let language = props.language;
-    console.log(voitures);
-
 
     let blockTableRow;
 
