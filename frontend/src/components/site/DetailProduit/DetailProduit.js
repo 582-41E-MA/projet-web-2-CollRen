@@ -151,29 +151,30 @@ function DetailProduit({ t }) {
   }
 
   return (
+    
     <div className="container mx-auto px-4 py-8">
-    <div className="flex justify-between">
-        <div >
-            <h1 className="text-4xl font-bold text-center mb-8 text-bleuFonce">
-            {voiture.modele.type[language]}  {voiture.constructeur.type[language]}
-            </h1>
-        </div>
-        <div className="text-3xl text-center mt-2 text-bleuFonce">
-            <strong>{t("price")}: {voiture.prix} $</strong>
-        </div>
+  <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+    <h1 className="text-4xl font-bold text-center mb-4 md:mb-0 text-bleuFonce">
+      {voiture.modele.type[language]} {voiture.constructeur.type[language]}
+    </h1>
+    <div className="text-3xl text-center text-bleuFonce">
+      <strong>{t("price")}: {voiture.prix} $</strong>
     </div>
+  </div>
 
+  <div className="flex flex-col lg:flex-row gap-8">
+    <div className="lg:w-1/3">
       {imagePrincipale && (
         <div className="mb-8">
           <img
             src={`/imgs/${imagePrincipale}`}
             alt={voiture.description[language]}
             className="w-full h-auto rounded-lg shadow-lg object-contain"
-            style={{ maxHeight: "600px" }}
+            style={{ maxHeight: "300px" }}
           />
         </div>
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
         {voiture.images &&
           voiture.images.map((image) => (
             <div
@@ -184,38 +185,47 @@ function DetailProduit({ t }) {
               <img
                 src={`/imgs/${image.chemin}`}
                 alt={voiture.description[language]}
-                className="w-full h-auto object-cover transform scale-100 hover:scale-105 transition-transform duration-300"
+                className="w-full h-auto object-contain transform scale-100 hover:scale-105 transition-transform duration-300"
                 style={{ maxHeight: "200px" }}
               />
             </div>
           ))}
       </div>
-    <div className="text-lg text-center">
-        <strong>{t("description")}:</strong> {voiture.description[language]}
     </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 rounded-lg shadow-lg p-12">
-        <div className="text-lg text-center">
-          <strong>{t("carburant")}:</strong> {voiture.carburant.type[language]}
+
+    <div className="lg:w-2/3">
+      <div className="text-lg text-left p-8 bg-white rounded-lg shadow-lg mb-8">
+        <strong>{t("Description")}:</strong> {voiture.description[language]}
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 bg-white rounded-lg shadow-lg p-8">
+        <div className="text-lg">
+          <strong>{t("Carburant")}:</strong> {voiture.carburant.type[language]}
         </div>
-        <div className="text-lg text-center">
-          <strong>{t("transmission")}:</strong>{" "}
-          {voiture.transmission.type[language]}
+        <div className="text-lg">
+          <strong>{t("Transmission")}:</strong> {voiture.transmission.type[language]}
         </div>
-        <div className="text-lg text-center">
-          <strong>{t("corp")}:</strong> {voiture.corp.type[language]}
+        <div className="text-lg">
+          <strong>{t("Corps")}:</strong> {voiture.corp.type[language]}
         </div>
-        <div className="text-lg text-center">
-          <strong>{t("motopropulseur")}:</strong>{" "}
-          {voiture.motopropulseur.type[language]}
+        <div className="text-lg">
+          <strong>{t("Année")}:</strong> {voiture.date}
+        </div>
+        <div className="text-lg">
+          <strong>{t("Motopropulseur")}:</strong> {voiture.motopropulseur.type[language]}
         </div>
       </div>
-      <div className="text-center">
-        <button className="bg-bleuFonce text-white font-titre p-2 rounded-lg">Réserver</button>
-        <button className="bg-orange text-white py-2 px-4  ml-4 rounded-lg shadow-lg hover:bg-orange-dark transition-colors duration-300">
+      <div className="flex justify-end space-x-4">
+        <button className="bg-bleuFonce text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-bleuFonce-dark transition-colors duration-300">
+          Réserver
+        </button>
+        <button className="bg-orange text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-orange-dark transition-colors duration-300">
           Ajouter au panier
         </button>
       </div>
     </div>
+  </div>
+</div>
+
   );
 }
 

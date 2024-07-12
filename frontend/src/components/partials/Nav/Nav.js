@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { AppContext } from '../../App/App';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -8,14 +8,40 @@ import { Link, useNavigate } from 'react-router-dom';
 function Nav({ t }) {
     const { user, logout, handleTrans, language } = useContext(AppContext);
     const navigate = useNavigate();
+    const [isOpen, setIsOpen] = useState(false);
+
 
     const handleLogout = () => {
         logout();
         navigate('/'); 
     };
 
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+      };
+
     return (
         <nav className="text-white bg-bleuFonce flex justify-evenly font-titre ">
+            <div className="flex items-center">
+                <button onClick={toggleMenu} className="md:hidden block">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                >
+                    <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16m-7 6h7"
+                    />
+                </svg>
+                </button>
+            </div>
+      <div className={`md:flex md:items-center ${isOpen ? 'block' : 'hidden'}`}>
+
             <Link to="/" className="py-2 px-6 flex text-lg">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px" className="mr-2">
                     <path d="M0 0h24v24H0z" fill="none"/>
@@ -86,6 +112,8 @@ function Nav({ t }) {
                     </Link>
                 )
             }
+      </div>
+
             <div className='flex'>
                 {language === 'en' ? (
                     <button onClick={() => handleTrans('fr')} className="py-2 px-6 flex text-lg">FR

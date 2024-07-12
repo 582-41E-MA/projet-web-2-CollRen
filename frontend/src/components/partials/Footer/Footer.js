@@ -6,7 +6,7 @@ import "./Footer.css";
 
 function Footer({ t }) {
     return (
-        <footer className=' bg-bleuFonce flex items-center justify-around absolute' >
+        <footer className=' bg-bleuFonce flex items-center justify-around' >
             <div>
                 <Link to="/">
                     <img src='/imgs/bazou_logo.png' alt='logo Beaux Bazou' className='w-[15rem] rounded-[10rem]' />
