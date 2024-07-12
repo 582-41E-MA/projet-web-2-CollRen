@@ -29,39 +29,10 @@ function DetailProduit({ t }) {
                     // Return as an object with language keys
                     return { en: str, fr: str };
                 }
-<<<<<<< HEAD
-                const data = await response.json();
-
-                const parseJSONSafely = (str) => {
-                    try {
-                        return JSON.parse(str);
-                    } catch (e) {
-                        console.error('JSON parse error:', e);
-                        return { en: str, fr: str };
-                    }
-                };
-
-                const updatedData = {
-                    ...data,
-                    description: parseJSONSafely(data.description),
-                    carburant: { ...data.carburant, type: parseJSONSafely(data.carburant.type) },
-                    corp: { ...data.corp, type: parseJSONSafely(data.corp.type) },
-                    transmission: { ...data.transmission, type: parseJSONSafely(data.transmission.type) },
-                    motopropulseur: { ...data.motopropulseur, type: parseJSONSafely(data.motopropulseur.type) }
-                };
-
-                setVoiture(updatedData);
-
-                console.log(updatedData);
-                
-            } catch (error) {
-                console.error('Error fetching voiture:', error);
-=======
             } catch (e) {
                 console.error('JSON parse error:', e);
                 // Return as an object with language keys
                 return { en: str, fr: str };
->>>>>>> e76b70885152dd382447cd4cc353babda6e9aba4
             }
         };
 

@@ -120,11 +120,11 @@ function VoitureIndex({ t, changeLanguage }) {
                 </Link>
 
                 <div className='overflow-x-auto'>
-                    <table className="w-full divide-y divide-gray-200 bg-[#21283B] mt-4 rounded-lg">
+                    <table className="w-full divide-y divide-gray-200 bg-[#21283B] mt-4 rounded-lg mb-[4rem]">
                         <thead>
                             <tr>
                                 <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Date</th>
-                                <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Description</th>
+                                <th className=" px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Description       </th>
                                 <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voituretableau_Prix")}</th>
                                 <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voituretableau_Modele")}</th>
                                 <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voituretableau_Constructeur")}</th>
@@ -139,7 +139,7 @@ function VoitureIndex({ t, changeLanguage }) {
                             {voitures.map(voiture => (
                                 <tr key={voiture.id}>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.date}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.description[language]}</td>
+                                    <td className="px-4 py-2  text-white break-words"> {voiture.description[language]}</td>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.prix}</td>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.modele.type}</td>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{getConstructeurType(voiture.modele_id)}</td>
