@@ -31,7 +31,7 @@ function Tuile({ voiture, language }) {
                         <h2 className="text-xl font-bold text-gray-900">{voiture.modele.type}</h2>
                         <p className="font-bold text-gray-700">{voiture.prix} $ </p>
                     </div>
-                    {/* <p className="text-gray-700 mt-1">{voiture.description[language]}</p> */}
+                    <p className="text-gray-700 mt-1">{voiture.date}</p>
                     <p className="text-gray-700 mt-2">{voiture.transmission.type[language]}</p>
                     {/* <p className="text-gray-700 mt-1">{voiture.motopropulseur.type[language]}</p> */}
                     <p className="text-gray-700 mt-1">{voiture.carburant.type[language]}</p>

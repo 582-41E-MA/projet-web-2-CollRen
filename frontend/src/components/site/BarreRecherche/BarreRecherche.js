@@ -122,13 +122,13 @@ function BarreRecherche(props) {
         affichage = <AfficherResultats t={t} voitures={arrayResultatRecherche} language={language} ></AfficherResultats>
 
     return (
-        <div className="form-container">
-            <h1 className="text-4xl font-titre font-bold">{t("barreRecheche.titre")}</h1>
+        <div className="form-container-recherche w-full h-full bg-white p-6 rounded-lg shadow-md">
+            <h1 className="text-4xl font-titre font-bold mb-4">{t("barreRecheche.titre")}</h1>
             <form onSubmit={handleInputChange} className='form-inner'>
-                <ChampText type="text" name="termeRecherche" placeholder={t("barreRecheche.placeHolder")} />
-                <div className="flex justify-center">
-                    <Bouton type="submit">{t("barreRecheche.titre")}</Bouton>
-                </div>
+            <ChampText type="text" name="termeRecherche" placeholder={t("barreRecheche.placeHolder")} className="mb-4" />
+            <div className="flex justify-center">
+                <Bouton type="submit" className="bg-orange text-white px-4 py-2 rounded-md shadow-md">{t("barreRecheche.titre")}</Bouton>
+            </div>
             </form>
             {affichage ? affichage : ''}
         </div>
