@@ -5,8 +5,6 @@ function AfficherResultats(props) {
     let t = props.t
     let voitures = props.voitures;
     let language = props.language;
-    console.log(voitures);
-
 
     let blockTableRow;
 
@@ -21,20 +19,19 @@ function AfficherResultats(props) {
     blockTableRow = tableauDuResultatRecherche(voitures);
     // console.log(blockTableRow);
     return (
-        <div>
-            <table className="divide-y divide-gray-200 bg-[#21283B] my-[2rem] rounded-lg">
-                <thead>
-                    <tr>
-
-                        <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voitureCreate_date_label")}</th> 
-                        <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voituretableau_Constructeur")}</th>
-                        <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voituretableau_Modele")}</th>
-                        <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Action</th>
-                    </tr>
-                </thead>
-                <tbody className="bg-[#21283B] divide-y divide-gray-200">
-                    {blockTableRow}
-                </tbody>
+        <div className='lg:w-full overflow-x-auto'>
+            <table className="min-w-full divide-y divide-gray-200 bg-[#21283B] my-8 rounded-lg">
+            <thead>
+                <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t("voitureCreate_date_label")}</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t("voituretableau_Constructeur")}</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t("voituretableau_Modele")}</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                </tr>
+            </thead>
+            <tbody className="bg-[#21283B] divide-y divide-gray-200">
+                {blockTableRow}
+            </tbody>
             </table>
         </div>
     );

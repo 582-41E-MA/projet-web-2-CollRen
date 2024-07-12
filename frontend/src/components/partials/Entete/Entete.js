@@ -10,9 +10,13 @@ function Entete({ t}) {
         <header className='bg-bleuFonce flex items-center gap-[rem] justify-around  '>
            <div>
                <Link to="/">
-                    <div>
-                        <img src='\imgs\bazou_logo.png' alt='logo Beaux Bazou' className='w-[15rem] rounded-[10rem]'/>
-                    </div>
+               <div>
+                    <img 
+                        src='\imgs\bazou_logo.png' 
+                        alt='logo Beaux Bazou' 
+                        className='w-[15rem] sm:w-[10rem] rounded-[10rem]' 
+                    />
+                </div>
                 </Link>
            </div>
             <div className='flex'>

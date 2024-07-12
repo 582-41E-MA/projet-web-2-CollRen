@@ -2,3 +2,11 @@
     display: flex;
     
 }
+
+footer {
+    background-color: #1E3A8A; 
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+}

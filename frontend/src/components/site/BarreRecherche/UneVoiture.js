@@ -4,8 +4,6 @@ function UneVoiture(props) {
     let t = props.t
     let voiture = props.voiture;
     let language = props.language;
-    console.log(props.voiture.modele.constructeur.type[language]);
-
 
     return (
 
