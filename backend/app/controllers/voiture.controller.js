@@ -105,7 +105,13 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Voiture.findByPk(id)
+    Voiture.findByPk(id, {
+        include: [{ model: Carburant }, { model: Corp },
+        { model: Modele, include: { model: Constructeur } },
+        { model: Motopropulseur },
+        { model: Transmission },
+        { model: Image }]
+    })
         .then(data => {
             if (data) {
                 res.send(data);
