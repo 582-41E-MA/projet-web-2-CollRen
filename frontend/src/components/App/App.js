@@ -261,8 +261,9 @@ function App() {
                             <Route path='/voiture-update/:id' element={<VoituresUpdate t={t} changeLanguage={handleTrans} />} />
                         </Route>
                         
+                        <Route path='/catalogue' element={<Catalogue t={t} changeLanguage={handleTrans}/>} />
 
-
+                        <Route path="/voitures/:id" element={<DetailProduit  t={t} changeLanguage={handleTrans}/>} />
 
                         <Route path='/client' element={<PrivateRoute requiredPrivilege={[1, 2, 3]} />}>
                             <Route index element={<DashboardClient t={t} />} />

@@ -26,7 +26,7 @@ const storage = multer.diskStorage({
 
 // Filtre de fichiers pour garantir que seuls les images soient acceptées
 const fileFilter = (req, file, cb) => {
-    const filetypes = /jpeg|jpg|png/;
+    const filetypes = /jpeg|jpg|webp|png/;
     const mimetype = filetypes.test(file.mimetype);
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
     if (mimetype && extname) {
@@ -39,7 +39,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
     storage: storage,
     fileFilter: fileFilter,
-    limits: { fileSize: 5000000 } 
+    limits: { fileSize: 50000000 } 
 });
 
 console.log("upload config", upload);
