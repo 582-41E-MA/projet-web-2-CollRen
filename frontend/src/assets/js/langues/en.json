@@ -29,7 +29,7 @@
       "btnEditer": "Edit",
       "btnDeleter": "Delete",
       "btnSubmit": "Save",
-
+      "btnUpload": "Upload",
       "btnChoisir": "Choose",
 
      
@@ -74,6 +74,9 @@
       "user.cellulaire": "Mobile",
       "user.privilege": "Privilege",
       "user.selectprivilege": "Select a privilege", 
+      "user.ville": "City",
+      "user.province": "Province",
+      "user_list_titre": "All users",
 
       "privilegeEdit.titre": "Edit privilege",
       "privilegeIndex.btnEditer": "Edit",

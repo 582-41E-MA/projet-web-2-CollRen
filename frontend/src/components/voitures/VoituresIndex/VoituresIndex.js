@@ -7,6 +7,7 @@ function VoitureIndex({ t, changeLanguage }) {
     const [voitures, setVoitures] = useState([]);
     const [modeles, setModeles] = useState([]);
     const [language, setLanguage] = useState(localStorage.getItem('langueChoisie'));
+    const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
     useEffect(() => {
         const fetchVoitures = async () => {
@@ -106,6 +107,41 @@ function VoitureIndex({ t, changeLanguage }) {
         return modele ? modele.constructeur.type : '';
     };
 
+    const handleSort = (key) => {
+        let direction = 'asc';
+        if (sortConfig.key === key && sortConfig.direction === 'asc') {
+            direction = 'desc';
+        }
+        setSortConfig({ key, direction });
+    };
+
+    const sortedVoitures = [...voitures].sort((a, b) => {
+        if (sortConfig.key) {
+            let aValue, bValue;
+
+            if (sortConfig.key === 'prix' || sortConfig.key === 'date') {
+                aValue = a[sortConfig.key];
+                bValue = b[sortConfig.key];
+            } else if (sortConfig.key === 'constructeur') {
+                aValue = getConstructeurType(a.modele_id);
+                bValue = getConstructeurType(b.modele_id);
+            } else if (sortConfig.key === 'modele') {
+                aValue = a.modele.type;
+                bValue = b.modele.type;
+            } else {
+                aValue = a[sortConfig.key]?.type ? a[sortConfig.key].type[language] : a[sortConfig.key];
+                bValue = b[sortConfig.key]?.type ? b[sortConfig.key].type[language] : b[sortConfig.key];
+            }
+
+            if (sortConfig.direction === 'asc') {
+                return aValue > bValue ? 1 : -1;
+            } else {
+                return aValue < bValue ? 1 : -1;
+            }
+        }
+        return 0;
+    });
+
     return (
         <main className="flex">
             <div>
@@ -123,23 +159,79 @@ function VoitureIndex({ t, changeLanguage }) {
                     <table className="w-full divide-y divide-gray-200 bg-[#21283B] mt-4 rounded-lg mb-[4rem]">
                         <thead>
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Date</th>
-                                <th className=" px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Description       </th>
-                                <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voituretableau_Prix")}</th>
-                                <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voituretableau_Modele")}</th>
-                                <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voituretableau_Constructeur")}</th>
-                                <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voituretableau_Transmission")}</th>
-                                <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voituretableau_Motopropulseur")}</th>
-                                <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voituretableau_Carburant")}</th>
-                                <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">{t("voituretableau_Corps")}</th>
+                                <th
+                                    className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
+                                    onClick={() => handleSort('date')}
+                                >
+                                    <span className={sortConfig.key === 'date' ? 'font-bold' : ''}>
+                                        Date {sortConfig.key === 'date' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : '⇅'}
+                                    </span>
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Description</th>
+                                <th
+                                    className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
+                                    onClick={() => handleSort('prix')}
+                                >
+                                    <span className={sortConfig.key === 'prix' ? 'font-bold' : ''}>
+                                        {t("voituretableau_Prix")} {sortConfig.key === 'prix' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : '⇅'}
+                                    </span>
+                                </th>
+                                <th
+                                    className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
+                                    onClick={() => handleSort('modele')}
+                                >
+                                    <span className={sortConfig.key === 'modele' ? 'font-bold' : ''}>
+                                        {t("voituretableau_Modele")} {sortConfig.key === 'modele' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : '⇅'}
+                                    </span>
+                                </th>
+                                <th
+                                    className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
+                                    onClick={() => handleSort('constructeur')}
+                                >
+                                    <span className={sortConfig.key === 'constructeur' ? 'font-bold' : ''}>
+                                        {t("voituretableau_Constructeur")} {sortConfig.key === 'constructeur' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : '⇅'}
+                                    </span>
+                                </th>
+                                <th
+                                    className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
+                                    onClick={() => handleSort('transmission')}
+                                >
+                                    <span className={sortConfig.key === 'transmission' ? 'font-bold' : ''}>
+                                        {t("voituretableau_Transmission")} {sortConfig.key === 'transmission' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : '⇅'}
+                                    </span>
+                                </th>
+                                <th
+                                    className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
+                                    onClick={() => handleSort('motopropulseur')}
+                                >
+                                    <span className={sortConfig.key === 'motopropulseur' ? 'font-bold' : ''}>
+                                        {t("voituretableau_Motopropulseur")} {sortConfig.key === 'motopropulseur' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : '⇅'}
+                                    </span>
+                                </th>
+                                <th
+                                    className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
+                                    onClick={() => handleSort('carburant')}
+                                >
+                                    <span className={sortConfig.key === 'carburant' ? 'font-bold' : ''}>
+                                        {t("voituretableau_Carburant")} {sortConfig.key === 'carburant' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : '⇅'}
+                                    </span>
+                                </th>
+                                <th
+                                    className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
+                                    onClick={() => handleSort('corp')}
+                                >
+                                    <span className={sortConfig.key === 'corp' ? 'font-bold' : ''}>
+                                        {t("voituretableau_Corps")} {sortConfig.key === 'corp' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : '⇅'}
+                                    </span>
+                                </th>
                                 <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Action</th>
                             </tr>
                         </thead>
                         <tbody className="bg-[#21283B] divide-y divide-gray-200">
-                            {voitures.map(voiture => (
+                            {sortedVoitures.map(voiture => (
                                 <tr key={voiture.id}>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.date}</td>
-                                    <td className="px-4 py-2  text-white break-words"> {voiture.description[language]}</td>
+                                    <td className="px-4 py-2 text-white break-words"> {voiture.description[language]}</td>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.prix}</td>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.modele.type}</td>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{getConstructeurType(voiture.modele_id)}</td>

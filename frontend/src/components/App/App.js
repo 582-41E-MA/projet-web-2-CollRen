@@ -25,7 +25,7 @@ import ModeleUpdate from '../voitures/ModeleUpdate/ModeleUpdate';
 import ModeleCreate from '../voitures/ModeleCreate/ModeleCreate';
 import ConstructeurIndex from '../voitures/ConstructeurIndex/ConstructeurIndex';
 import ConstructeurUpdate from '../voitures/ConstructeurUpdate/ConstructeurUpdate';
-import ConstructeurCreate from '../voitures/ContructteurCreate/ConstructeurCreate';
+import ConstructeurCreate from '../voitures/ContructeurCreate/ConstructeurCreate';
 import CorpsIndex from '../voitures/CorpsIndex/CorpsIndex';
 import CorpsCreate from '../voitures/CorpsCreate/CorpsCreate';
 import CorpsUpdate from '../voitures/CorpsUpdate/CorpsUpdate';

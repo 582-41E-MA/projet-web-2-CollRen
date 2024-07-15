@@ -49,7 +49,7 @@ function ConstructeurIndex({ t }) {
                 <MenuDashboardAdmin t={t} />
             </div>
 
-            <div className="w-[30%] mx-[4rem] mt-24">
+            <div className="w-[30%] mx-[4rem] mt-24 mb-[4rem]">
                 <h1 className='text-bleuFonce'>{t("constructeurIndex_titre")}</h1>
 
                 <Link to={"/constructeur-create"}><p className='my-[1rem]'>+ {t("constructeurIndex_create")}</p></Link>
