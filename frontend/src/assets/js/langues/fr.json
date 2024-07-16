@@ -167,9 +167,20 @@
         "voitureCreate_select_carburant": "Selectionez un type de carburant",
         "voitureUpdate_images_titre": "Images de cette voiture",
         "btnNonPrincipale": "Image principale?",
-        "btnPrincipale": "Non principale"
+        "btnPrincipale": "Non principale",
    
-
+      "panier": "Panier",
+      "produit": "Produit",
+      "prix": "Prix",
+      "actions": "Actions",
+      "retirer": "Retirer",
+      "vider_panier": "Vider le Panier",
+      "passer_commande": "Passer la Commande",
+      "checkout": "Paiement",
+      "payment_successful": "Paiement réussi",
+      "add_to_cart": "Ajouter au Panier",
+      "pay_now": "Payer Maintenant",
+      "panier_vide": "Votre panier est vide."
 
        
 
