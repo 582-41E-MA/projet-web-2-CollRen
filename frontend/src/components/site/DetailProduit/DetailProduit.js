@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { PanierContext } from '../Panier/Panier'; 
 
 function DetailProduit({ t }) {
   const { id } = useParams();
@@ -8,6 +9,8 @@ function DetailProduit({ t }) {
     localStorage.getItem("langueChoisie")
   );
   const [imagePrincipale, setImagePrincipale] = useState(null);
+  const { ajouterAuPanier } = useContext(PanierContext); 
+  const [confirmation, setConfirmation] = useState(false);
 
   useEffect(() => {
     const fetchVoiture = async () => {
@@ -146,6 +149,12 @@ function DetailProduit({ t }) {
     setImagePrincipale(chemin);
   };
 
+  const handleAjouterAuPanier = () => {
+    ajouterAuPanier(voiture);
+    setConfirmation(true); // Afficher le message de confirmation lors de l'ajout au panier
+    setTimeout(() => setConfirmation(false), 3000);
+  };
+
   if (!voiture) {
     return <div>Chargement...</div>;
   }
@@ -153,6 +162,7 @@ function DetailProduit({ t }) {
   return (
     
     <div className="container mx-auto px-4 py-8">
+      {confirmation && <div className="bg-green-200 text-green-800 p-3 mb-4 rounded">Voiture ajoutée au panier avec succès!</div>}
   <div className="flex flex-col md:flex-row justify-between items-center mb-8">
     <h1 className="text-4xl font-bold text-center mb-4 md:mb-0 text-bleuFonce">
       {voiture.modele.type[language]} {voiture.constructeur.type[language]}
@@ -218,7 +228,7 @@ function DetailProduit({ t }) {
         <button className="bg-bleuFonce text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-bleuFonce-dark transition-colors duration-300">
           Réserver
         </button>
-        <button className="bg-orange text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-orange-dark transition-colors duration-300">
+        <button onClick={handleAjouterAuPanier} className="bg-orange text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-orange-dark transition-colors duration-300">
           Ajouter au panier
         </button>
       </div>

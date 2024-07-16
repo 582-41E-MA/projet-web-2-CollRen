@@ -44,7 +44,7 @@ import Contact from '../site/Contact/Contact';
 import Catalogue from '../site/Catalogue/Catalogue';
 import { AnimatePresence } from "framer-motion";
 import DetailProduit from '../site/DetailProduit/DetailProduit';
-
+import Panier, { PanierProvider } from '../site/Panier/Panier'; 
 
 
 
@@ -164,6 +164,7 @@ function App() {
 
     return (
         <AppContext.Provider value={{ user, logout, language, handleTrans}}>
+             <PanierProvider>
             <Router>
                 <Entete t={t} />
                 <AnimatePresence mode="wait">
@@ -287,12 +288,13 @@ function App() {
 
                         <Route path='/politique' element={<Politique t={t} />} />
                         <Route path='/contact' element={<Contact t={t} />} />
-
+                        <Route path="/panier" element={<Panier t={t}/>} />
 
                     </Routes>
                 </AnimatePresence>
                 <Footer t={t} />
             </Router>
+            </PanierProvider>
         </AppContext.Provider>
     );
 }
