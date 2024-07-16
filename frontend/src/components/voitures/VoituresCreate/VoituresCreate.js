@@ -8,43 +8,62 @@ import Bouton from '../../partialsFormulaire/Bouton/Bouton';
 function VoitureCreate({ t }) {
     const navigate = useNavigate();
     const [date, setDate] = useState('');
+
     const [descriptionEn, setDescriptionEn] = useState('');
     const [descriptionFr, setDescriptionFr] = useState('');
-    const [prix, setPrix] = useState('');
-    const [modeles, setModeles] = useState([]);
-    const [selectedModele, setSelectedModele] = useState('');
-    const [transmissions, setTransmissions] = useState([]);
-    const [selectedTransmission, setSelectedTransmission] = useState('');
-    const [motopropulseurs, setMotopropulseurs] = useState([]);
-    const [selectedMotopropulseur, setSelectedMotopropulseur] = useState('');
+
+
     const [carburants, setCarburants] = useState([]);
-    const [selectedCarburant, setSelectedCarburant] = useState('');
     const [corps, setCorps] = useState([]);
-    const [selectedCorp, setSelectedCorp] = useState('');
     const [images, setImages] = useState([]);
+    const [modeles, setModeles] = useState([]);
+    const [motopropulseurs, setMotopropulseurs] = useState([]);
+    const [transmissions, setTransmissions] = useState([]);
+
+    // Set les données receuillies du formulaire
+    const [prix, setPrix] = useState('');
+    const [selectedCarburant, setSelectedCarburant] = useState('');
+    const [selectedCorp, setSelectedCorp] = useState('');
+    const [selectedModele, setSelectedModele] = useState({});
+    const [selectedTransmission, setSelectedTransmission] = useState('');
+    const [selectedMotopropulseur, setSelectedMotopropulseur] = useState('');
+
     const language = localStorage.getItem('langueChoisie') || 'en';
 
     useEffect(() => {
         const fetchOptions = async () => {
             try {
-                const [modelesRes, transmissionsRes, motopropulseursRes, carburantsRes, corpsRes] = await Promise.all([
-                    fetch(`${t("fetch")}modeles`),
-                    fetch(`${t("fetch")}transmissions`),
-                    fetch(`${t("fetch")}motopropulseurs`),
-                    fetch(`${t("fetch")}carburants`),
-                    fetch(`${t("fetch")}corps`)
-                ]);
+                const
+                    [
+                        carburantsRes,
+                        corpsRes,
+                        modelesRes,
+                        motopropulseursRes,
+                        transmissionsRes,
+                    ] = await Promise.all([
+                        fetch(`${t("fetch")}carburants`),
+                        fetch(`${t("fetch")}corps`),
+                        fetch(`${t("fetch")}modeles`),
+                        fetch(`${t("fetch")}motopropulseurs`),
+                        fetch(`${t("fetch")}transmissions`),
+                    ]);
 
                 if (!modelesRes.ok || !transmissionsRes.ok || !motopropulseursRes.ok || !carburantsRes.ok || !corpsRes.ok) {
                     throw new Error('HTTP error! Some fetch requests failed.');
                 }
 
-                const [modelesData, transmissionsData, motopropulseursData, carburantsData, corpsData] = await Promise.all([
-                    modelesRes.json(),
-                    transmissionsRes.json(),
-                    motopropulseursRes.json(),
+                const [
+                    carburantsData,
+                    corpsData,
+                    modelesData,
+                    motopropulseursData,
+                    transmissionsData,
+                ] = await Promise.all([
                     carburantsRes.json(),
-                    corpsRes.json()
+                    corpsRes.json(),
+                    modelesRes.json(),
+                    motopropulseursRes.json(),
+                    transmissionsRes.json(),
                 ]);
 
                 const parseJSONSafely = (str) => {
@@ -56,33 +75,35 @@ function VoitureCreate({ t }) {
                     }
                 };
 
-                const sortAlphabetically = (arr, lang) => {
-                    return arr.sort((a, b) => a.type[lang].localeCompare(b.type[lang]));
+                const sortAlphabetically = (arr, lang = '') => {
+                    console.log(arr);
+                    if(lang != ''){
+                        return arr.sort((a, b) => a.type[lang].localeCompare(b.type[lang]));
+                    }
+                    console.log(arr)
+                    return arr.sort((a, b) => a.type.localeCompare(b.type));
+
                 };
-
-                setModeles(sortAlphabetically(modelesData.map(modele => ({
-                    ...modele,
-                    type: parseJSONSafely(modele.type)
-                })), language));
-
-                setTransmissions(sortAlphabetically(transmissionsData.map(transmission => ({
-                    ...transmission,
-                    type: parseJSONSafely(transmission.type)
-                })), language));
-
-                setMotopropulseurs(sortAlphabetically(motopropulseursData.map(motopropulseur => ({
-                    ...motopropulseur,
-                    type: parseJSONSafely(motopropulseur.type)
-                })), language));
 
                 setCarburants(sortAlphabetically(carburantsData.map(carburant => ({
                     ...carburant,
                     type: parseJSONSafely(carburant.type)
                 })), language));
-
                 setCorps(sortAlphabetically(corpsData.map(corp => ({
                     ...corp,
                     type: parseJSONSafely(corp.type)
+                })), language));
+                setTransmissions(sortAlphabetically(transmissionsData.map(transmission => ({
+                    ...transmission,
+                    type: parseJSONSafely(transmission.type)
+                })), language));
+                setModeles(modelesData.map(modele => ({
+                    ...modele,
+                    type: modele.type
+                })));
+                setMotopropulseurs(sortAlphabetically(motopropulseursData.map(motopropulseur => ({
+                    ...motopropulseur,
+                    type: parseJSONSafely(motopropulseur.type)
                 })), language));
             } catch (error) {
                 console.error('Error fetching options:', error);
@@ -207,7 +228,7 @@ function VoitureCreate({ t }) {
                                 <option value="">{t("voitureCreate_select_modele")}</option>
                                 {modeles.map((modele) => (
                                     <option key={modele.id} value={modele.id}>
-                                        {modele.type[language]}
+                                        {modele.type}
                                     </option>
                                 ))}
                             </select>
@@ -218,9 +239,7 @@ function VoitureCreate({ t }) {
                             </label>
                             <select
                                 id="transmission"
-                                className="block appearance-none w-full bg-white border border-gray-200 text-gray-800 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white
-
- focus:border-gray-500"
+                                className="block appearance-none w-full bg-white border border-gray-200 text-gray-800 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 value={selectedTransmission}
                                 onChange={(e) => setSelectedTransmission(e.target.value)}
                             >
