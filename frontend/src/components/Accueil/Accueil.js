@@ -2,6 +2,7 @@ import React from "react";
 import Footer from "../partials/Footer/Footer";
 import "./Accueil.css";
 import BarreRecherche from "../site/BarreRecherche/BarreRecherche";
+import { Link } from "react-router-dom";
 
 function Accueil({ t }) {
   const language = localStorage.getItem("langueChoisie") || "en";
@@ -26,9 +27,11 @@ function Accueil({ t }) {
                 <p className="text-left mt-2 text-white text-sm md:text-lg">
                   {t("accueil.titre3")}
                 </p>
-                <button className="text-lg md:text-2xl bg-orange rounded-xl border-solid border-bleuFonce text-white py-2 px-5 mt-10 hover:bg-zinc-800">
-                  {t("accueil.btnCta")}
-                </button>
+               <Link to="/catalogue" >
+                  <button className="text-lg md:text-2xl bg-orange rounded-xl border-solid border-bleuFonce text-white py-2 px-5 mt-10 hover:bg-zinc-800">
+                    {t("accueil.btnCta")}
+                  </button>
+                </Link> 
               </div>
             </div>
           </section>

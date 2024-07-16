@@ -56,7 +56,7 @@ function MenuDashboardAdmin ({t}) {
                         </li>
     
     
-                        <li className="flex gap-2">
+                        {/* <li className="flex gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
                                 stroke="currentColor" className="w-6 h-6">
                                 <path  
@@ -108,7 +108,7 @@ function MenuDashboardAdmin ({t}) {
                                 Log Out
                             </button>
                         </form>
-    
+     */}
                     </ul>
     
                 </article>
@@ -155,7 +155,7 @@ function MenuDashboardAdmin ({t}) {
             </details>
         </li>
     
-        <li>
+        {/* <li>
             <details className="group">
     
                 <summary
@@ -190,7 +190,7 @@ function MenuDashboardAdmin ({t}) {
                 </article>
     
             </details>
-        </li>
+        </li> */}
     
     </ul>
 

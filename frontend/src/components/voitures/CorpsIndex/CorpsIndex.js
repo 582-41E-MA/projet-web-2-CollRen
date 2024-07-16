@@ -62,8 +62,8 @@ function CorpsIndex({ t, changeLanguage }) {
                 <MenuDashboardAdmin t={t} />
             </div>
 
-            <div className="w-[30%] mx-[4rem] mt-24">
-                <h1>{t("corpsIndex_titre")}</h1>
+            <div className="w-[30%] mx-[4rem] mt-24 mb-[4rem]">
+                <h1 className='text-bleuFonce'>{t("corpsIndex_titre")}</h1>
                 <Link to={"/corps-create"}><p className='my-[1rem]'>+ {t("corpsIndex_create")}</p></Link>
 
                 <table className="w-[60%] divide-y divide-gray-200 bg-[#21283B] my-[2rem] rounded-lg">

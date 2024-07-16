@@ -9,7 +9,7 @@
      "btnEditer": "Éditer",
      "btnDeleter": "Éffacer",
      "btnSubmit": "Soumettre",
-
+     "btnUpload": "Télécharger",
      "btnChoisir": "Choisir",
      
      "login":"Se Connecter",
@@ -74,6 +74,9 @@
       "user.cellulaire": "Cellulaire",
       "user.privilege": "Privilege",
       "user.selectprivilege": "Choisir un privilège", 
+      "user.ville": "Ville",
+      "user.province": "Province",
+      "user_list_titre": "Tous les utilisateurs",
 
       "privilegeEdit.titre": "Editer privilège",
       "privilegeIndex.btnEditer": "Éditer",

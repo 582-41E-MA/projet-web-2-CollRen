@@ -56,26 +56,34 @@ function VoitureCreate({ t }) {
                     }
                 };
 
-                setModeles(modelesData.map(modele => ({
+                const sortAlphabetically = (arr, lang) => {
+                    return arr.sort((a, b) => a.type[lang].localeCompare(b.type[lang]));
+                };
+
+                setModeles(sortAlphabetically(modelesData.map(modele => ({
                     ...modele,
                     type: parseJSONSafely(modele.type)
-                })));
-                setTransmissions(transmissionsData.map(transmission => ({
+                })), language));
+
+                setTransmissions(sortAlphabetically(transmissionsData.map(transmission => ({
                     ...transmission,
                     type: parseJSONSafely(transmission.type)
-                })));
-                setMotopropulseurs(motopropulseursData.map(motopropulseur => ({
+                })), language));
+
+                setMotopropulseurs(sortAlphabetically(motopropulseursData.map(motopropulseur => ({
                     ...motopropulseur,
                     type: parseJSONSafely(motopropulseur.type)
-                })));
-                setCarburants(carburantsData.map(carburant => ({
+                })), language));
+
+                setCarburants(sortAlphabetically(carburantsData.map(carburant => ({
                     ...carburant,
                     type: parseJSONSafely(carburant.type)
-                })));
-                setCorps(corpsData.map(corp => ({
+                })), language));
+
+                setCorps(sortAlphabetically(corpsData.map(corp => ({
                     ...corp,
                     type: parseJSONSafely(corp.type)
-                })));
+                })), language));
             } catch (error) {
                 console.error('Error fetching options:', error);
             }
@@ -156,7 +164,7 @@ function VoitureCreate({ t }) {
                             <input
                                 type="number"
                                 placeholder={t("voitureCreate_date_placeholder")}
-                                mandatory={true}
+                                required={true}
                                 onChange={(e) => setDate(e.target.value)}
                                 value={date}
                                 name="date"
@@ -210,7 +218,9 @@ function VoitureCreate({ t }) {
                             </label>
                             <select
                                 id="transmission"
-                                className="block appearance-none w-full bg-white border border-gray-200 text-gray-800 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="block appearance-none w-full bg-white border border-gray-200 text-gray-800 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white
+
+ focus:border-gray-500"
                                 value={selectedTransmission}
                                 onChange={(e) => setSelectedTransmission(e.target.value)}
                             >
