@@ -26,6 +26,9 @@ db.images = require('./image.model.js')(connex, Sequelize)
 db.mode_paiements = require('./mode_paiement.model.js')(connex, Sequelize)
 db.voitures = require('./voiture.model.js')(connex, Sequelize)
 db.commandes = require('./commande.model.js')(connex, Sequelize)
+db.taxes = require('./taxe.model.js')(connex, Sequelize)
+db.commande_has_taxes = require('./commande_has_taxe.model.js')(connex, Sequelize)
+db.journals = require('./journal.model.js')(connex, Sequelize)
 // db.sig = require('./connexion.model.js')(connex, Sequelize)
 
 
@@ -66,7 +69,23 @@ db.transmissions.hasMany(db.voitures, { foreignKey: 'transmission_id' })
 db.commandes.belongsTo(db.utilisateurs, { foreignKey: 'utilisateur_id' })
 db.utilisateurs.hasMany(db.commandes, { foreignKey: 'utilisateur_id' })
 
+db.voitures.belongsTo(db.commandes, { foreignKey: 'commande_id'})
+db.commandes.hasOne(db.voitures, { foreignKey: 'commande_id' })
+
+db.taxes.belongsTo(db.provinces, { foreignKey: 'province_id'})
+db.provinces.hasOne(db.taxes, { foreignKey: 'province_id' })
+
+db.commande_has_taxes.belongsTo(db.commandes, { foreignKey: 'commande_id'})
+db.commandes.hasMany(db.commande_has_taxes, { foreignKey: 'commande_id' })
+
+db.commande_has_taxes.belongsTo(db.taxes, { foreignKey: 'taxe_id'})
+db.taxes.hasMany(db.commande_has_taxes, { foreignKey: 'taxe_id' })
+
+
 db.images.belongsTo(db.voitures, { foreignKey: 'voiture_id' })
 db.voitures.hasMany(db.images, { foreignKey: 'voiture_id' })
+
+db.journals.belongsTo(db.utilisateurs, { foreignKey: 'utilisateur_id' })
+db.utilisateurs.hasMany(db.journals, { foreignKey: 'utilisateur_id' })
 
 module.exports = db

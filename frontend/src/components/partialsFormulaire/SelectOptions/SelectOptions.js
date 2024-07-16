@@ -1,6 +1,7 @@
 
 
-function SelectOptions() {
+function SelectOptions(props) {
+    console.log(props)
 
     const whenTyping = (event) => {
      
@@ -9,12 +10,12 @@ function SelectOptions() {
 
     return (
         <div className='liste-select'>
-            <label>
+            <label className="block text-gray-700 font-bold mb-2">
                 {props.label}
             </label>
-            <select onChange={whenTyping}>
-                <option value=''></option>
-                {props.list.map(item =><option key={item} value={item}> {item}</option> )}
+            <select className="block w-full p-2 border border-gray-300 rounded-md" onChange={whenTyping}>
+                <option value='vide'></option>
+                {props.list.map(item => <option key={item.id} value={item.id}> {item.type}</option> )}
             </select>
         </div>
     )

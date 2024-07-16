@@ -1,43 +1,87 @@
-import React from 'react';
 import './Filtres.css';
+import React, { useEffect, useState } from 'react';
 import Bouton from '../../partialsFormulaire/Bouton/Bouton';
+import SelectOptions from '../../partialsFormulaire/SelectOptions/SelectOptions';
 
-function Filtres() {
+function Filtres({ t, changeLanguage, urlCatalogue, handleSetUrlCatalogue }) {
+    const [voitures, setVoitures] = useState([]);
+    const [modeles, setModeles] = useState([]);
+    const [constructeurs, setConstructeurs] = useState([]);
+    const [language, setLanguage] = useState(localStorage.getItem('langueChoisie'));
+    const [urlFiltre, setUrlFiltre] = useState();
+    const labelModele = 'Modèles';
+    const labelConstructeur = 'Constructeurs';
+
+    useEffect(() => {
+
+        const fetchModeles = async () => {
+            try {
+                const response = await fetch(`${t("fetch")}modeles`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                setModeles(data);
+            } catch (error) {
+                console.error('Error fetching modeles:', error);
+            }
+        };
 
 
-    // Filtres demandés: constructeur, année, modèle, autres détails généraux
+        const fetchConstructeurs = async () => {
+            try {
+                const response = await fetch(`${t("fetch")}constructeurs`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                setConstructeurs(data);
+            } catch (error) {
+                console.error('Error fetching constructeurs:', error);
+            }
+        };
 
 
-    // Créer les filtres à partir de données dynamique
+        fetchModeles();
+        fetchConstructeurs();
+    }, [language, t]);
 
-        // Fetch des voitures
-
-
-        // Créer les composants pour le formulaire de filtre
-
-            // map constructeurs
-
-
-            // map modèles
+    useEffect(() => {
+        const storedLanguage = localStorage.getItem('langueChoisie') || '';
+        setLanguage(storedLanguage);
+    }, [changeLanguage]);
 
 
 
-            // map type carburant
+    const handleDeleteVoiture = async (id) => {
+        try {
+            const response = await fetch(`${t("fetch")}voitures/${id}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
+            const updatedVoitures = voitures.filter(voiture => voiture.id !== id);
+            setVoitures(updatedVoitures);
 
+            alert('Voiture supprimée avec succès!');
+        } catch (error) {
+            console.error('Error deleting voiture:', error);
+            alert('Error deleting voiture. Please try again.');
+        }
+    };
 
-
-    // Créer l'url en fonction des filtres sélectionnés
-
-    // ex. modele_id=1&datemin=1999
-    // ex. ?modele_id=27&transmission_id=1&motopropulseur_id=1&carburant_id=1&corp_id=2
-    // ex. 
+    const getConstructeurType = (modeleId) => {
+        const modele = modeles.find(m => m.id === modeleId);
+        return modele ? modele.constructeur.type : '';
+    };
     
-
-    function handleClick(){
-        console.log(handleClick);
+    function setUrl(event) {
+        let query = `modele_id=${event}`;
+        let url = `${t("fetch")}voitures?${query}`;
+        handleSetUrlCatalogue(url)
     }
-
 
     return (
         <div className="bg-white p-4 rounded-lg shadow-md mb-8 mt-12">
@@ -53,20 +97,11 @@ function Filtres() {
                         <option value="Hybride">Hybride</option>
                     </select>
                 </div>
-                <div>
-                    <label className="block text-gray-700 font-bold mb-2">Marque</label>
-                    <select className="block w-full p-2 border border-gray-300 rounded-md">
-                        <option value="">Toutes</option>
-                        <option value="Toyota">Toyota</option>
-                        <option value="Honda">Honda</option>
-                        <option value="Ford">Ford</option>
-                        <option value="BMW">BMW</option>
-                    </select>
-                </div>
-                <div>
-                    <label className="block text-gray-700 font-bold mb-2">Modèle</label>
-                    <input type="text" className="block w-full p-2 border border-gray-300 rounded-md" placeholder="Modèle" />
-                </div>
+
+
+                <SelectOptions list={constructeurs} whenChanged={setUrl} label={labelConstructeur} ></SelectOptions>
+                <SelectOptions list={modeles} whenChanged={setUrl} label={labelModele} ></SelectOptions>
+                    
                 <div>
                     <label className="block text-gray-700 font-bold mb-2">Année</label>
                     <input type="number" className="block w-full p-2 border border-gray-300 rounded-md" placeholder="Année" />

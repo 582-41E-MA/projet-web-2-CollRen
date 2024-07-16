@@ -4,6 +4,7 @@ const Voiture = db.voitures;
 const Op = db.Sequelize.Op;
 
 const Carburant = db.carburants
+const Commande = db.commandes
 const Constructeur = db.constructeurs
 const Corp = db.corps
 const Image = db.images
@@ -86,7 +87,7 @@ exports.findAll = (req, res) => {
                 },
                 { model: Motopropulseur, where: condition.motopropulseur },
                 { model: Transmission, where: condition.transmission },
-                { model: Image }
+                { model: Image }, {model: Commande}
             ]
 
     })
@@ -105,7 +106,14 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Voiture.findByPk(id)
+    Voiture.findByPk(id, {
+        include: [{ model: Carburant }, { model: Corp },
+        { model: Modele, include: { model: Constructeur } },
+        { model: Motopropulseur },
+        { model: Transmission },
+        { model: Commande },
+        { model: Image }]
+    })
         .then(data => {
             if (data) {
                 res.send(data);

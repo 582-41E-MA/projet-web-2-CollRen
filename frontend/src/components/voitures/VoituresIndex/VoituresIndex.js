@@ -29,11 +29,13 @@ function VoitureIndex({ t, changeLanguage }) {
 
                 const updatedData = data.map(item => ({
                     ...item,
-                    description: parseJSONSafely(item.description),
                     carburant: { ...item.carburant, type: parseJSONSafely(item.carburant.type) },
+                    constructeur: { ...item.modele.constructeur, type: item.modele.constructeur.type },
                     corp: { ...item.corp, type: parseJSONSafely(item.corp.type) },
+                    description: parseJSONSafely(item.description),
+                    modele: { ...item.modele, type: item.modele.type },
+                    motopropulseur: { ...item.motopropulseur, type: parseJSONSafely(item.motopropulseur.type) },
                     transmission: { ...item.transmission, type: parseJSONSafely(item.transmission.type) },
-                    motopropulseur: { ...item.motopropulseur, type: parseJSONSafely(item.motopropulseur.type) }
                 }));
 
                 setVoitures(updatedData);
@@ -59,7 +61,6 @@ function VoitureIndex({ t, changeLanguage }) {
         };
 
         fetchVoitures();
-        fetchModeles();
     }, [language, t]);
 
     useEffect(() => {
@@ -234,7 +235,7 @@ function VoitureIndex({ t, changeLanguage }) {
                                     <td className="px-4 py-2 text-white break-words"> {voiture.description[language]}</td>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.prix}</td>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.modele.type}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap text-white">{getConstructeurType(voiture.modele_id)}</td>
+                                    <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.modele.constructeur.type}</td>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.transmission.type[language]}</td>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.motopropulseur.type[language]}</td>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.carburant.type[language]}</td>
