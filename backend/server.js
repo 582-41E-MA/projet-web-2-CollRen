@@ -42,6 +42,7 @@ require('./app/routes/image/image.routes')(app);
 require('./app/routes/mode_paiement/mode_paiement.routes')(app);
 require('./app/routes/voiture/voiture.routes')(app);
 require('./app/routes/commande/commande.routes')(app);
+require('./app/routes/taxe/taxe.routes')(app);
 
 app.use((req, res) => {
     res.statusMessage = "Ressource non trouvée";
