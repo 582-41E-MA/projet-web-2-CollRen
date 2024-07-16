@@ -44,6 +44,7 @@ require('./app/routes/voiture/voiture.routes')(app);
 require('./app/routes/commande/commande.routes')(app);
 require('./app/routes/taxe/taxe.routes')(app);
 require('./app/routes/commande_has_taxe/commande_has_taxe.routes')(app);
+require('./app/routes/journal/journal.routes')(app);
 
 app.use((req, res) => {
     res.statusMessage = "Ressource non trouvée";
