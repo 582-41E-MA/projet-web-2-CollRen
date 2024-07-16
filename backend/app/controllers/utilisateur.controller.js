@@ -23,8 +23,9 @@ exports.create = async (req, res) => {
 
     // Vérifier si nom_utilisateur existe déjà dans la BD
     //const condition = nom_utilisateur ? { attributes: ['nom_utilisateur'], nom_utilisateur: { [Op.is]: `${nom_utilisateur}` } } : null;
-
+    // { include: [{ model: db.privileges }] }
     const references = await Utilisateur.findAll({
+        include: [{ model: db.privileges }],
         where: {
             nom_utilisateur: req.body.nom_utilisateur,
         },
