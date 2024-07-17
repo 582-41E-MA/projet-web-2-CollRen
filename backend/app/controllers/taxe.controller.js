@@ -38,7 +38,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Taxe.findByPk(id)
+    Taxe.findByPk(id, { include: [{ model: db.provinces }] })
         .then(data => {
             if (data) {
                 res.send(data);

@@ -59,7 +59,7 @@ exports.findAll = (req, res) => {
     /*     const title = req.query.title;
         var condition = title ? { title: { [Op.like]: `%${title}%` } } : null; */
 
-    Utilisateur.findAll({ include: [{ model: Privilege }] })
+    Utilisateur.findAll({ include: [{ model: Privilege }, { model: db.villes }] })
         .then(data => {
             res.send(data);
         })
@@ -75,7 +75,7 @@ exports.findAll = (req, res) => {
 exports.findOne = async (req, res) => {
     const id = req.params.id;
 
-    Utilisateur.findByPk(id)
+    Utilisateur.findByPk(id, { include: [{ model: Privilege }, { model: db.villes }] })
         .then(data => {
             if (data) {
                 res.send(data);
