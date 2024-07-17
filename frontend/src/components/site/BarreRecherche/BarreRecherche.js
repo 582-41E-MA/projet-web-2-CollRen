@@ -108,31 +108,31 @@ function BarreRecherche(props) {
         setArrayResultatRecherche(ObjetContientRecherche);
     };
 
-    affichage = <AfficherResultats t={t} voitures={arrayResultatRecherche} language={language} ></AfficherResultats>;
+    affichage = <AfficherResultats t={t} voitures={arrayResultatRecherche} language={language} location={location.pathname }></AfficherResultats>;
 
     if (location.pathname === "/") {
         return (
             <div className="form-container-recherche w-full h-full bg-white p-6 rounded-lg shadow-md">
-                <h1 className="text-4xl font-titre font-bold mb-4">{t("barreRecheche.titre")}</h1>
-                <form onSubmit={handleInputChange} className='form-inner'>
-                    <ChampText type="text" name="termeRecherche" placeholder={t("barreRecheche.placeHolder")} className="mb-4" />
-                    <div className="flex justify-center">
-                        <Bouton type="submit" className="bg-orange text-white px-4 py-2 rounded-md shadow-md">{t("barreRecheche.titre")}</Bouton>
-                    </div>
-                </form>
-                {affichage ? affichage : ''}
-            </div>
-        );
-    } else if (location.pathname === "/voitures") {
-        return (
-            <div className="form-container-recherche bg-white p-4 rounded-lg shadow-md">
-            <h1 className="font-titre font-bold mb-4">{t("barreRecheche.titre")}</h1>
-            <form onSubmit={handleInputChange} className="flex items-center">
-                <ChampText type="text" name="termeRecherche" placeholder={t("barreRecheche.placeHolder")} />
+            <h1 className="text-4xl font-titre font-bold mb-4">{t("barreRecheche.titre")}</h1>
+            <form onSubmit={handleInputChange} className='form-inner'>
+            <ChampText type="text" name="termeRecherche" placeholder={t("barreRecheche.placeHolder")} className="mb-4" />
+            <div className="flex justify-center">
                 <Bouton type="submit" className="bg-orange text-white px-4 py-2 rounded-md shadow-md">{t("barreRecheche.titre")}</Bouton>
+            </div>
             </form>
             {affichage ? affichage : ''}
         </div>
+        );
+    } else if (location.pathname === "/voitures") {
+        return (
+            <div className="form-container-recherche w-[80%] bg-white mb-[4rem] rounded-lg shadow-md">
+                <form onSubmit={handleInputChange} className="flex items-center justify-center w-full p-3">
+                    <input type="text" name="termeRecherche" placeholder={t("barreRecheche.placeHolder")} className="flex-grow m-4 p-3 rounded-lg" />
+                    <Bouton type="submit" className="bg-orange text-white px-2 rounded-md shadow-md">{t("barreRecheche.titre")}</Bouton>
+                </form>
+            {arrayResultatRecherche.length > 0 && affichage}
+        </div>
+        
         );
     } else {
         return null;
