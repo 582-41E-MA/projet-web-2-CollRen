@@ -15,7 +15,6 @@ export const PanierProvider = ({ children }) => {
   }, []);
 
   const ajouterAuPanier = (voiture) => {
-    // Vérifier si la voiture est déjà dans le panier
     const voitureExiste = panier.find(item => item.id === voiture.id);
     if (!voitureExiste) {
       const newPanier = [...panier, voiture];
@@ -23,7 +22,6 @@ export const PanierProvider = ({ children }) => {
       localStorage.setItem('panier', JSON.stringify(newPanier));
     } else {
       alert('Cette voiture est déjà dans le panier.');
-      
     }
   };
 
@@ -38,7 +36,6 @@ export const PanierProvider = ({ children }) => {
     localStorage.removeItem('panier');
   };
 
-  // Calculer le montant total du panier
   const totalPanier = panier.reduce((total, voiture) => total + voiture.prix, 0);
 
   return (
@@ -61,7 +58,7 @@ const Panier = ({t, user}) => {
 
       <h1 className="text-4xl font-bold mb-4">Votre Panier</h1>
       {panier.length === 0 ? (
-        <p>Votre panier est vide.</p>
+        <p className="text-center text-gray-600">Votre panier est vide.</p>
       ) : (
         <div>
           <h2 className='text-center font-bold mb-12'>Mon panier</h2>
