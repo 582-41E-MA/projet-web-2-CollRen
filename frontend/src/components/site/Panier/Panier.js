@@ -15,9 +15,16 @@ export const PanierProvider = ({ children }) => {
   }, []);
 
   const ajouterAuPanier = (voiture) => {
-    const newPanier = [...panier, voiture];
-    setPanier(newPanier);
-    localStorage.setItem('panier', JSON.stringify(newPanier));
+    // Vérifier si la voiture est déjà dans le panier
+    const voitureExiste = panier.find(item => item.id === voiture.id);
+    if (!voitureExiste) {
+      const newPanier = [...panier, voiture];
+      setPanier(newPanier);
+      localStorage.setItem('panier', JSON.stringify(newPanier));
+    } else {
+      alert('Cette voiture est déjà dans le panier.');
+      
+    }
   };
 
   const supprimerDuPanier = (id) => {
@@ -31,8 +38,11 @@ export const PanierProvider = ({ children }) => {
     localStorage.removeItem('panier');
   };
 
+  // Calculer le montant total du panier
+  const totalPanier = panier.reduce((total, voiture) => total + voiture.prix, 0);
+
   return (
-    <PanierContext.Provider value={{ panier, ajouterAuPanier, supprimerDuPanier, viderPanier }}>
+    <PanierContext.Provider value={{ panier, ajouterAuPanier, supprimerDuPanier, viderPanier, totalPanier }}>
       {children}
     </PanierContext.Provider>
   );
