@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import MenuDashboardAdmin from '../../dashboards/MenuDashboardAdmin/MenuDashboardAdmin';
 import Bouton from '../../partialsFormulaire/Bouton/Bouton';
+import BarreRecherche from '../../site/BarreRecherche/BarreRecherche';
 
 function VoitureIndex({ t, changeLanguage }) {
     const [voitures, setVoitures] = useState([]);
@@ -150,6 +151,9 @@ function VoitureIndex({ t, changeLanguage }) {
             </div>
 
             <div className="w-full mx-4 mt-24">
+
+                <BarreRecherche t={t} />
+
                 <h1 className='text-[#182036]'>{t("voitureIndex_titre")}</h1>
 
                 <Link to={"/voiture-create"}>

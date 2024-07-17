@@ -1,5 +1,4 @@
-
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import Bouton from '../../partialsFormulaire/Bouton/Bouton';
 import ChampText from '../../partialsFormulaire/ChampText/ChampText.js';
@@ -11,6 +10,7 @@ function BarreRecherche(props) {
     let results = []
     let affichage;
     let updatedData;
+    const location = useLocation();
 
     const [language, setLanguage] = useState(localStorage.getItem('langueChoisie'));
     const [arrayResultatRecherche, setArrayResultatRecherche] = useState([]);
@@ -24,9 +24,8 @@ function BarreRecherche(props) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                 console.log(data);
+                console.log(data);
                 
-
                 const parseJSONSafely = (str) => {
                     try {
                         return JSON.parse(str);
@@ -41,7 +40,6 @@ function BarreRecherche(props) {
                 updatedData = data.map(item => ({
                     ...item,
                     //modele: { ...item.modele, type: parseJSONSafely(item.modele.type) },
-
                 }));
 
                 setArrayVoitures(data);
@@ -56,82 +54,89 @@ function BarreRecherche(props) {
 
     function trimString(s) {
         var l = 0, r = s.length - 1;
-        while (l < s.length && s[l] == ' ') l++;
-        while (r > l && s[r] == ' ') r -= 1;
+        while (l < s.length && s[l] === ' ') l++;
+        while (r > l && s[r] === ' ') r -= 1;
         return s.substring(l, r + 1);
     }
 
     function compareObjects(o1, o2) {
         var k = '';
-        for (k in o1) if (o1[k] != o2[k]) return false;
-        for (k in o2) if (o1[k] != o2[k]) return false;
+        for (k in o1) if (o1[k] !== o2[k]) return false;
+        for (k in o2) if (o1[k] !== o2[k]) return false;
         return true;
     }
 
     function itemExists(haystack, needle) {
-
         for (var i = 0; i < haystack.length; i++) if (compareObjects(haystack[i], needle)) return true;
         return false;
     }
 
     function searchFor(ArrOfObjects, toSearch, objetPrincipal) {
-        
         // Changer la date en format number en format string pour la recherche
-        ArrOfObjects[2] = ArrOfObjects[2].toString()
-        console.log(ArrOfObjects[2])
+        ArrOfObjects[2] = ArrOfObjects[2].toString();
         toSearch = trimString(toSearch).toLowerCase(); // trim & lower case it
         ArrOfObjects.map((objet) => {
-
-
-            if (objet.toLowerCase().indexOf(toSearch) != -1) {
-
+            if (objet.toLowerCase().indexOf(toSearch) !== -1) {
                 if (!itemExists(results, objet)) {
                     // Si ce résultat n'est pas déjà là, ajoute-le
-                    results.indexOf(objetPrincipal) === -1 ? results.push(objetPrincipal) : console.log("This item already exists")
+                    results.indexOf(objetPrincipal) === -1 ? results.push(objetPrincipal) : console.log("This item already exists");
                 }
             }
-        })
+        });
         return results;
     }
 
     const handleInputChange = async (e) => {
         e.preventDefault();
         let termeRecherche = e.target[0].value;
-        if (termeRecherche == []) return []
+        if (termeRecherche === "") return [];
         let ObjetContientRecherche;
 
         for (let i = 0; i < arrayVoitures.length; i++) {
-            console.log(arrayVoitures[i].date);
-
             // Créer un array d'objet pour chacune des catégories dans lesquelles effectuer la recherche
             const elementModele = arrayVoitures[i].modele.type;
             const elementConstructeur = arrayVoitures[i].modele.constructeur.type;
             const elementDateFabrication = arrayVoitures[i].date;
 
             // Mettre toutes les arrays d'objet dans un tableau pour y faire un map
-            const arrayOfElementToSearchIn = [elementModele, elementConstructeur, elementDateFabrication]
+            const arrayOfElementToSearchIn = [elementModele, elementConstructeur, elementDateFabrication];
 
             // Enregistrer les objets dans lesquels la recherche à trouver une concordance
-            ObjetContientRecherche = searchFor(arrayOfElementToSearchIn, termeRecherche, arrayVoitures[i])
+            ObjetContientRecherche = searchFor(arrayOfElementToSearchIn, termeRecherche, arrayVoitures[i]);
         }
 
         setArrayResultatRecherche(ObjetContientRecherche);
-
     };
 
-        affichage = <AfficherResultats t={t} voitures={arrayResultatRecherche} language={language} ></AfficherResultats>
+    affichage = <AfficherResultats t={t} voitures={arrayResultatRecherche} language={language} ></AfficherResultats>;
 
-    return (
-        <div className="form-container-recherche w-full h-full bg-white p-6 rounded-lg shadow-md">
-            <h1 className="text-4xl font-titre font-bold mb-4">{t("barreRecheche.titre")}</h1>
-            <form onSubmit={handleInputChange} className='form-inner'>
-            <ChampText type="text" name="termeRecherche" placeholder={t("barreRecheche.placeHolder")} className="mb-4" />
-            <div className="flex justify-center">
-                <Bouton type="submit" className="bg-orange text-white px-4 py-2 rounded-md shadow-md">{t("barreRecheche.titre")}</Bouton>
+    if (location.pathname === "/") {
+        return (
+            <div className="form-container-recherche w-full h-full bg-white p-6 rounded-lg shadow-md">
+                <h1 className="text-4xl font-titre font-bold mb-4">{t("barreRecheche.titre")}</h1>
+                <form onSubmit={handleInputChange} className='form-inner'>
+                    <ChampText type="text" name="termeRecherche" placeholder={t("barreRecheche.placeHolder")} className="mb-4" />
+                    <div className="flex justify-center">
+                        <Bouton type="submit" className="bg-orange text-white px-4 py-2 rounded-md shadow-md">{t("barreRecheche.titre")}</Bouton>
+                    </div>
+                </form>
+                {affichage ? affichage : ''}
             </div>
+        );
+    } else if (location.pathname === "/voitures") {
+        return (
+            <div className="form-container-recherche bg-white p-4 rounded-lg shadow-md">
+            <h1 className="font-titre font-bold mb-4">{t("barreRecheche.titre")}</h1>
+            <form onSubmit={handleInputChange} className="flex items-center">
+                <ChampText type="text" name="termeRecherche" placeholder={t("barreRecheche.placeHolder")} />
+                <Bouton type="submit" className="bg-orange text-white px-4 py-2 rounded-md shadow-md">{t("barreRecheche.titre")}</Bouton>
             </form>
             {affichage ? affichage : ''}
         </div>
-    );
+        );
+    } else {
+        return null;
+    }
 }
+
 export default BarreRecherche;
