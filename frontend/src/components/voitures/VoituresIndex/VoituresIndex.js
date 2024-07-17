@@ -145,16 +145,17 @@ function VoitureIndex({ t, changeLanguage }) {
     });
 
     return (
-        <main className="flex">
+        <main className="flex justify-center">
             <div>
                 <MenuDashboardAdmin t={t} />
             </div>
 
-            <div className="w-full mx-4 mt-24">
+            <div className="w-full  mt-24">
 
+                
+
+                <h1 className='text-[#182036] mb-[2rem] text-left'>{t("voitureIndex_titre")}</h1>
                 <BarreRecherche t={t} />
-
-                <h1 className='text-[#182036]'>{t("voitureIndex_titre")}</h1>
 
                 <Link to={"/voiture-create"}>
                     <p className='my-4'>+ {t("voitureIndex_create")}</p>
