@@ -57,6 +57,7 @@ db.motopropulseurs.hasMany(db.voitures, { foreignKey: 'motopropulseur_id' })
 db.utilisateurs.belongsTo(db.privileges, { foreignKey: 'privilege_id'})
 db.privileges.hasMany(db.utilisateurs, { foreignKey: 'privilege_id' })
 
+
 db.villes.belongsTo(db.provinces, { foreignKey: 'province_id' })
 db.provinces.hasMany(db.villes, { foreignKey: 'province_id' })
 
@@ -87,5 +88,8 @@ db.voitures.hasMany(db.images, { foreignKey: 'voiture_id' })
 
 db.journals.belongsTo(db.utilisateurs, { foreignKey: 'utilisateur_id' })
 db.utilisateurs.hasMany(db.journals, { foreignKey: 'utilisateur_id' })
+
+db.utilisateurs.belongsTo(db.villes, { foreignKey: 'ville_id'})
+db.villes.hasMany(db.utilisateurs, { foreignKey: 'ville_id' })
 
 module.exports = db

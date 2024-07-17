@@ -18,6 +18,15 @@ module.exports = (connex, Sequelize) => {
                 key: 'id', allowNull: true
             }
         },
+        commande_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            unique: true,
+            references: {
+                model: 'commandes',
+                key: 'id', allowNull: true
+            }
+        },
         transmission_id: {
             type: Sequelize.INTEGER,
             allowNull: false,

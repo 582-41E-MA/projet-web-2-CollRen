@@ -14,6 +14,14 @@ module.exports = (connex, Sequelize) => {
         adresse: {
             type: Sequelize.STRING
         },
+        ville_id: {
+            type: Sequelize.INTEGER,
+            allowNull: true,
+            references: {
+                model: 'villes',
+                key: 'id', allowNull: true
+            }
+        },
         code_postal: {
             type: Sequelize.STRING
         },
