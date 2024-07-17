@@ -170,8 +170,21 @@
       "voitureCreate_select_carburant": "Select a fuel",
       "voitureUpdate_images_titre": "Images",
       "btnNonPrincipale": "Main image?",
-      "btnPrincipale": "Not main image?"
+      "btnPrincipale": "Not main image?",
   
       
+      "panier": "Cart",
+      "produit": "Product",
+      "prix": "Price",
+      "actions": "Actions",
+      "retirer": "Remove",
+      "vider_panier": "Clear Cart",
+      "passer_commande": "Checkout",
+      "checkout": "Checkout",
+      "payment_successful": "Payment Successful",
+      "add_to_cart": "Add to Cart",
+      "pay_now": "Pay Now",
+      "panier_vide": "Your cart is empty."
+       
     }
   }
