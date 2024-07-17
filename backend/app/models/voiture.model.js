@@ -20,7 +20,7 @@ module.exports = (connex, Sequelize) => {
         },
         commande_id: {
             type: Sequelize.INTEGER,
-            allowNull: false,
+            allowNull: true,
             unique: true,
             references: {
                 model: 'commandes',
