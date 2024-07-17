@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import MenuDashboardAdmin from '../../dashboards/MenuDashboardAdmin/MenuDashboardAdmin';
 import Bouton from '../../partialsFormulaire/Bouton/Bouton';
+import BarreRecherche from '../../site/BarreRecherche/BarreRecherche';
 
 function VoitureIndex({ t, changeLanguage }) {
     const [voitures, setVoitures] = useState([]);
@@ -144,20 +145,24 @@ function VoitureIndex({ t, changeLanguage }) {
     });
 
     return (
-        <main className="flex">
+        <main className="flex justify-center">
             <div>
                 <MenuDashboardAdmin t={t} />
             </div>
 
-            <div className="w-full mx-4 mt-24">
-                <h1 className='text-[#182036]'>{t("voitureIndex_titre")}</h1>
+            <div className="w-full  mt-24">
+
+                
+
+                <h1 className='text-[#182036] mb-[2rem] text-left'>{t("voitureIndex_titre")}</h1>
+                <BarreRecherche t={t} />
 
                 <Link to={"/voiture-create"}>
                     <p className='my-4'>+ {t("voitureIndex_create")}</p>
                 </Link>
 
                 <div className='overflow-x-auto'>
-                    <table className="w-full divide-y divide-gray-200 bg-[#21283B] mt-4 rounded-lg mb-[4rem]">
+                    <table className="w-[80%] divide-y divide-gray-200 bg-[#21283B] mt-4 rounded-lg mb-[4rem]">
                         <thead>
                             <tr>
                                 <th
@@ -168,7 +173,7 @@ function VoitureIndex({ t, changeLanguage }) {
                                         Date {sortConfig.key === 'date' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : '⇅'}
                                     </span>
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Description</th>
+                               
                                 <th
                                     className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
                                     onClick={() => handleSort('prix')}
@@ -193,30 +198,8 @@ function VoitureIndex({ t, changeLanguage }) {
                                         {t("voituretableau_Constructeur")} {sortConfig.key === 'constructeur' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : '⇅'}
                                     </span>
                                 </th>
-                                <th
-                                    className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
-                                    onClick={() => handleSort('transmission')}
-                                >
-                                    <span className={sortConfig.key === 'transmission' ? 'font-bold' : ''}>
-                                        {t("voituretableau_Transmission")} {sortConfig.key === 'transmission' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : '⇅'}
-                                    </span>
-                                </th>
-                                <th
-                                    className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
-                                    onClick={() => handleSort('motopropulseur')}
-                                >
-                                    <span className={sortConfig.key === 'motopropulseur' ? 'font-bold' : ''}>
-                                        {t("voituretableau_Motopropulseur")} {sortConfig.key === 'motopropulseur' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : '⇅'}
-                                    </span>
-                                </th>
-                                <th
-                                    className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
-                                    onClick={() => handleSort('carburant')}
-                                >
-                                    <span className={sortConfig.key === 'carburant' ? 'font-bold' : ''}>
-                                        {t("voituretableau_Carburant")} {sortConfig.key === 'carburant' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : '⇅'}
-                                    </span>
-                                </th>
+                           
+                         
                                 <th
                                     className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
                                     onClick={() => handleSort('corp')}
@@ -232,13 +215,9 @@ function VoitureIndex({ t, changeLanguage }) {
                             {sortedVoitures.map(voiture => (
                                 <tr key={voiture.id}>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.date}</td>
-                                    <td className="px-4 py-2 text-white break-words"> {voiture.description[language]}</td>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.prix}</td>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.modele.type}</td>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.modele.constructeur.type}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.transmission.type[language]}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.motopropulseur.type[language]}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.carburant.type[language]}</td>
                                     <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.corp.type[language]}</td>
                                     <td className="px-4 py-2 whitespace-nowrap">
                                         <Link to={`/voiture-update/${voiture.id}`} className="bg-[#F96C25] hover:bg-[#868E9B] text-white font-bold py-2 px-4 rounded-full mr-2">
