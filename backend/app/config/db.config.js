@@ -9,7 +9,7 @@ module.exports = {
     // PASSWORD: "",
     // DB: "bobazou",
 
-    PORT: 3306,
+    PORT: 3308,
     PASSWORD: "",
     DB: "vehiculeoccasion",
 
