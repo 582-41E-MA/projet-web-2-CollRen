@@ -64,6 +64,7 @@
       "MenuDashboardAdmin_voiture_motopropulseur": "Engine",
       "MenuDashboardAdmin_voiture_transmission": "Transmission",
 
+      "user.EditTitle": "Edit user",
       "user.prenom": "Name",
       "user.nom": "Family name",
       "user.anniversaire": "Birthday" ,
@@ -77,6 +78,9 @@
       "user.ville": "City",
       "user.province": "Province",
       "user_list_titre": "All users",
+      "user.selectville": "Choose a city",
+      "user.selectprovince": "Choose a province",
+      "user.nom_utilisateur": "Username",
 
       "privilegeEdit.titre": "Edit privilege",
       "privilegeIndex.btnEditer": "Edit",

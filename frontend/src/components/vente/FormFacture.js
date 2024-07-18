@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ChampText from '../partialsFormulaire/ChampText/ChampText';
-
+import Bouton from '../partialsFormulaire/Bouton/Bouton';
 
 function FormFacture({ t, userId }) {
   const [user, setUser] = useState({
@@ -18,9 +18,8 @@ function FormFacture({ t, userId }) {
 
   const [villes, setVilles] = useState([]);
   const [provinces, setProvinces] = useState([]);
+  const [filteredVilles, setFilteredVilles] = useState([]);
   const [language, setLanguage] = useState(localStorage.getItem('langueChoisie'));
-
-
 
   useEffect(() => {
     if (userId) {
@@ -31,8 +30,7 @@ function FormFacture({ t, userId }) {
           console.log(data);
           setUser({
             ...data,
-            province_id: data.ville.province_id 
-           
+            province_id: data.ville.province_id
           });
         })
         .catch(error => {
@@ -70,12 +68,31 @@ function FormFacture({ t, userId }) {
 
   }, [userId, t]);
 
+  useEffect(() => {
+    if (user.province_id) {
+      const filtered = villes.filter(ville => ville.province_id === parseInt(user.province_id));
+      setFilteredVilles(filtered);
+    } else {
+      setFilteredVilles(villes);
+    }
+  }, [user.province_id, villes]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser(prevState => ({
       ...prevState,
       [name]: value
     }));
+
+    if (name === 'ville_id') {
+      const selectedVille = villes.find(ville => ville.id === parseInt(value));
+      if (selectedVille) {
+        setUser(prevState => ({
+          ...prevState,
+          province_id: selectedVille.province_id
+        }));
+      }
+    }
   };
 
   const handleUpdate = (e) => {
@@ -195,22 +212,6 @@ function FormFacture({ t, userId }) {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">{t("user.ville")}</label>
-              <select
-                name="ville_id"
-                value={user.ville_id}
-                onChange={handleChange}
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              >
-                <option value="">{t("user.selectville")}</option>
-                {villes.map(ville => (
-                  <option key={ville.id} value={ville.id}>
-                    {ville.nom[language]}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
               <label className="block text-sm font-medium text-gray-700">{t("user.province")}</label>
               <select
                 name="province_id"
@@ -226,21 +227,37 @@ function FormFacture({ t, userId }) {
                 ))}
               </select>
             </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">{t("user.ville")}</label>
+              <select
+                name="ville_id"
+                value={user.ville_id}
+                onChange={handleChange}
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              >
+                <option value="">{t("user.selectville")}</option>
+                {filteredVilles.map(ville => (
+                  <option key={ville.id} value={ville.id}>
+                    {ville.nom[language]}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
           <div className="mt-6 flex justify-end">
-            <button
+            <Bouton
               type="submit"
               className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 transition duration-150 ease-in-out"
             >
               Update
-            </button>
-            <button
+            </Bouton>
+            <Bouton
               type="button"
               onClick={handleDelete}
               className="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out"
             >
               Delete
-            </button>
+            </Bouton>
           </div>
         </form>
       </div>

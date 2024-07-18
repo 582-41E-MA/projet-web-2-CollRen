@@ -57,6 +57,7 @@ const Panier = ({t, user}) => {
           <h2 className='text-center font-bold mb-12'>Mon panier</h2>
           <div className='flex'>
             <FormFacture t={t} userId={userId}/>
+            <div>
             <ul>
               {panier.map((voiture) => (
                 <li key={voiture.id} className="flex justify-between items-center mb-4">
@@ -79,6 +80,7 @@ const Panier = ({t, user}) => {
             </ul>
             <button className="bg-red-500 text-white font-bold py-2 px-4 rounded mt-4" onClick={viderPanier}>Vider le Panier</button>
             <button className="bg-green-500 text-white font-bold py-2 px-4 rounded mt-4 ml-4">Passer à la Caisse</button>
+          </div>
           </div>
         </div>
       )}
