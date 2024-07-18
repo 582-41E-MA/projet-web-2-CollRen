@@ -72,23 +72,16 @@ const Panier = ({ t, user }) => {
       ) : (
         <div>
           <h2 className='text-center font-bold mb-12'>Mon panier</h2>
-          <div className='overflow-x-auto'>
-            <table className="min-w-full bg-white rounded-lg shadow-lg overflow-hidden">
-              {/* Table header */}
-              <thead>
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Voiture</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                </tr>
-              </thead>
-              {/* Table body */}
-              <tbody>
-                {panier.map((voiture) => (
-                  <tr key={voiture.id} className="border-b">
-                    <td className="px-6 py-4">
-                      {voiture.principaleImage && (
+
+          <div className='flex'>
+            <FormFacture t={t} userId={userId}/>
+            <div>
+            <ul>
+              {panier.map((voiture) => (
+                <li key={voiture.id} className="flex justify-between items-center mb-4">
+                  <div className='flex w-full justify-between'>
+                    {voiture.principaleImage && (
+                      <div className="mb-8 w-1/4">
                         <img
                           src={`/imgs/${voiture.principaleImage.chemin}`}
                           alt={voiture.modele?.type?.[language] || ''}
@@ -115,24 +108,7 @@ const Panier = ({ t, user }) => {
               <button className="bg-green-500 text-white font-bold py-2 px-4 rounded ml-4" onClick={openPopup}>Passer à la Caisse</button>
             </div>
           </div>
-          {/* Popup pour le formulaire */}
-          {showPopup && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="bg-white p-8 rounded-md shadow-lg w-full max-w-xl overflow-y-auto popup-content">
-                {/* Contenu de la popup */}
-                <FormFacture t={t} userId={userId} />
-            
-                {/* Bouton pour fermer la popup */}
-                <button
-                  className="absolute top-0 right-0 mt-4 mr-4 text-white hover:text-red-500"
-                  onClick={closePopup}
-                >
-                  Fermer
-                </button>
-              </div>
-            </div>
-          
-          )}
+          </div>
         </div>
       )}
     </div>
