@@ -278,9 +278,6 @@ function App() {
                             <Route path="/user/:id" element={<UserShow t={t} />} />
                         </Route>
 
-                        <Route path="/panier" element={<PrivateRoute requiredPrivilege={[3]} />}>
-                            <Route element={<Panier t={t} user={user} />} />
-                        </Route>
 
                         <Route path='/login' element={<Login t={t} user={user} handleLogin={login} handleLogout={logout} />} />
                         <Route path='/usercreate' element={<UserCreate t={t} />} />
@@ -291,6 +288,10 @@ function App() {
 
                         <Route path='/politique' element={<Politique t={t} />} />
                         <Route path='/contact' element={<Contact t={t} />} />
+                        <Route path="/panier" element={<Panier t={t} user={user}/>} />
+                        <Route path="/panier" element={<PrivateRoute requiredPrivilege={[3]} />}>
+                            <Route element={<Panier t={t} />} />
+                        </Route>
 
                     </Routes>
                 </AnimatePresence>

@@ -74,7 +74,7 @@ function Nav({ t }) {
                         {t("panier")}
                     </Link>
                 )
-               }
+                }
 
                 {
                     !user.isLogged ?
