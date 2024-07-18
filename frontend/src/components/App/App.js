@@ -289,6 +289,9 @@ function App() {
                         <Route path='/politique' element={<Politique t={t} />} />
                         <Route path='/contact' element={<Contact t={t} />} />
                         <Route path="/panier" element={<Panier t={t} user={user}/>} />
+                        <Route path="/panier" element={<PrivateRoute requiredPrivilege={[3]} />}>
+                            <Route element={<Panier t={t} />} />
+                        </Route>
 
                     </Routes>
                 </AnimatePresence>
