@@ -28,14 +28,12 @@ exports.create = (req, res) => {
 
 // Retrieve all Journals from the database.
 exports.findAll = (req, res) => {
-    const title = req.query.title;
-    var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
     Journal.findAll({
         include:
-        [
-                { model: Utilisateur },
-        ]
+            [
+                { model: Utilisateur, include: [{ model: db.privileges }, { model: db.villes, include: { model: db.provinces } }] },
+            ]
     })
         .then(data => {
             res.send(data);
@@ -52,7 +50,12 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Journal.findByPk(id)
+    Journal.findByPk(id, {
+        include:
+            [
+                { model: Utilisateur, include: [{ model: db.privileges }, { model: db.villes, include: { model: db.provinces } }] },
+            ]
+    })
         .then(data => {
             if (data) {
                 res.send(data);
