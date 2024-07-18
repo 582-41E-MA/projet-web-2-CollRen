@@ -1,7 +1,7 @@
 
 
 function SelectOptions(props) {
-    console.log(props)
+    // console.log(props)
 
     const whenTyping = (event) => {
      

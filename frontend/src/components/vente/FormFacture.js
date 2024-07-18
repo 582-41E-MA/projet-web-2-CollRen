@@ -110,8 +110,10 @@ function FormFacture({ t, userId }) {
   };
 
   return (
-    <div className="flex">
-      <div className="w-[65%] mx-[4rem] mt-24">
+    <div className="flex ">
+      <div className="w-full ">
+      <h2 className='text-center text-xl'>Veuillez entrer vos coordonnées pour completer l'achat</h2>
+
         <form className="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md" onSubmit={handleUpdate}>
           <div className="grid grid-cols-1 gap-6">
             <div>
