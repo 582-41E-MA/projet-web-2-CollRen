@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import MenuDashboardAdmin from '../../dashboards/MenuDashboardAdmin/MenuDashboardAdmin';
 import ChampText from '../../partialsFormulaire/ChampText/ChampText';
 
-function UserShow({ t }) {
+function FormFacture({ t }) {
     const { id } = useParams();
     const [user, setUser] = useState({
         prenom: '',
@@ -14,12 +14,10 @@ function UserShow({ t }) {
         code_postal: '',
         telephone: '',
         cellulaire: '',
-        privilege_id: '',
         ville_id: '',
         province_id: ''
     });
 
-    const [privileges, setPrivileges] = useState([]);
     const [villes, setVilles] = useState([]);
     const [provinces, setProvinces] = useState([]);
     const [language, setLanguage] = useState(localStorage.getItem('langueChoisie'));
@@ -36,20 +34,6 @@ function UserShow({ t }) {
             })
             .catch(error => {
                 console.error("There was an error fetching the user!", error);
-            });
-
-        // Fetch privileges data
-        fetch(`${t("fetch")}privileges`)
-            .then(response => response.json())
-            .then(data => {
-                const updatedData = data.map(item => ({
-                    ...item,
-                    type: JSON.parse(item.type)
-                }));
-                setPrivileges(updatedData);
-            })
-            .catch(error => {
-                console.error("There was an error fetching the privileges!", error);
             });
 
         // Fetch villes data
@@ -211,22 +195,6 @@ function UserShow({ t }) {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">{t("user.privilege")}</label>
-                            <select
-                                name="privilege_id"
-                                value={user.privilege_id}
-                                onChange={handleChange}
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            >
-                                <option value="">{t("user.selectprivilege")}</option>
-                                {privileges.map(privilege => (
-                                    <option key={privilege.id} value={privilege.id}>
-                                        {privilege.type[language]}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div>
                             <label className="block text-sm font-medium text-gray-700">{t("user.ville")}</label>
                             <select
                                 name="ville_id"
@@ -280,4 +248,4 @@ function UserShow({ t }) {
     );
 }
 
-export default UserShow;
+export default FormFacture;
