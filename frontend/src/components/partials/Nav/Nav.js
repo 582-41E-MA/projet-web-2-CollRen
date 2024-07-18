@@ -73,7 +73,7 @@ function Nav({ t }) {
                         </svg>
                         {t("panier")}
                     </Link>
-                )
+                    )
                 }
 
                 {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ChampText from '../partialsFormulaire/ChampText/ChampText';
 import Bouton from '../partialsFormulaire/Bouton/Bouton';
 
-function FormFacture({ t, userId }) {
+function FormFacture({ t, userId, total }) {
   const [user, setUser] = useState({
     prenom: '',
     nom: '',
@@ -27,7 +27,6 @@ function FormFacture({ t, userId }) {
       fetch(`${t("fetch")}utilisateurs/${userId}`)
         .then(response => response.json())
         .then(data => {
-          console.log(data);
           setUser({
             ...data,
             province_id: data.ville.province_id
@@ -95,6 +94,33 @@ function FormFacture({ t, userId }) {
     }
   };
 
+  // Fonction pour soumettre le formulaire
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const stripe = await stripePromise;
+    // Créer une session de paiement
+    const response = await fetch(`${process.env.REACT_APP_API_URL}create-checkout-session`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: userId,
+        total: total, // Envoyer le montant total au backend pour calculer les taxes
+      }),
+    });
+    const session = await response.json();
+
+    // Rediriger l'utilisateur vers la page de paiement Stripe
+    const result = await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    if (result.error) {
+      console.error(result.error.message);
+    }
+  };
+
   const handleUpdate = (e) => {
     e.preventDefault();
     fetch(`${t("fetch")}utilisateurs/${userId}`, {
@@ -112,26 +138,13 @@ function FormFacture({ t, userId }) {
         console.error("There was an error updating the user!", error);
       });
   };
-
-  const handleDelete = () => {
-    fetch(`${t("fetch")}utilisateurs/${userId}`, {
-      method: 'DELETE',
-    })
-      .then(response => response.json())
-      .then(data => {
-        alert(data.message);
-      })
-      .catch(error => {
-        console.error("There was an error deleting the user!", error);
-      });
-  };
-
+  
   return (
     <div className="flex ">
       <div className="w-full ">
       <h2 className='text-center text-xl'>Veuillez entrer vos coordonnées pour completer l'achat</h2>
 
-        <form className="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md" onSubmit={handleUpdate}>
+        <form className="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700">{t("user.prenom")}</label>
