@@ -1,0 +1,9 @@
+.no-scroll {
+    overflow: hidden;
+}
+
+.popup-content {
+    max-height: 90vh; /* Ajustez cette valeur selon vos besoins */
+    overflow-y: auto;
+    max-width: 50vw;
+}
