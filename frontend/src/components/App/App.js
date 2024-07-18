@@ -288,7 +288,7 @@ function App() {
 
                         <Route path='/politique' element={<Politique t={t} />} />
                         <Route path='/contact' element={<Contact t={t} />} />
-                        <Route path="/panier" element={<Panier t={t}/>} />
+                        <Route path="/panier" element={<Panier t={t} user={user}/>} />
 
                     </Routes>
                 </AnimatePresence>

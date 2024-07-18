@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import ChampText from '../../partialsFormulaire/ChampText/ChampText';
+import ChampText from '../partialsFormulaire/ChampText/ChampText';
 
-function UserShow({ t }) {
-  const { id } = useParams();
+
+function FormFacture({ t, userId }) {
   const [user, setUser] = useState({
     prenom: '',
     nom: '',
@@ -21,19 +20,25 @@ function UserShow({ t }) {
   const [provinces, setProvinces] = useState([]);
   const [language, setLanguage] = useState(localStorage.getItem('langueChoisie'));
 
+
+
   useEffect(() => {
-    // Fetch user data
-    fetch(`${t("fetch")}utilisateurs/${id}`)
-      .then(response => response.json())
-      .then(data => {
-        setUser({
-          ...data,
-          province_id: data.ville.province_id // Assumindo que a API retorna isso
+    if (userId) {
+      // Fetch user data
+      fetch(`${t("fetch")}utilisateurs/${userId}`)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          setUser({
+            ...data,
+            province_id: data.ville.province_id 
+           
+          });
+        })
+        .catch(error => {
+          console.error("There was an error fetching the user!", error);
         });
-      })
-      .catch(error => {
-        console.error("There was an error fetching the user!", error);
-      });
+    }
 
     // Fetch villes data
     fetch(`${t("fetch")}villes`)
@@ -63,7 +68,7 @@ function UserShow({ t }) {
         console.error("There was an error fetching the provinces!", error);
       });
 
-  }, [id, t]);
+  }, [userId, t]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,7 +80,7 @@ function UserShow({ t }) {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    fetch(`${t("fetch")}utilisateurs/${id}`, {
+    fetch(`${t("fetch")}utilisateurs/${userId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -92,7 +97,7 @@ function UserShow({ t }) {
   };
 
   const handleDelete = () => {
-    fetch(`${t("fetch")}utilisateurs/${id}`, {
+    fetch(`${t("fetch")}utilisateurs/${userId}`, {
       method: 'DELETE',
     })
       .then(response => response.json())
@@ -106,8 +111,6 @@ function UserShow({ t }) {
 
   return (
     <div className="flex">
-        
-    
       <div className="w-[65%] mx-[4rem] mt-24">
         <form className="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md" onSubmit={handleUpdate}>
           <div className="grid grid-cols-1 gap-6">
@@ -245,4 +248,4 @@ function UserShow({ t }) {
   );
 }
 
-export default UserShow;
+export default FormFacture;
