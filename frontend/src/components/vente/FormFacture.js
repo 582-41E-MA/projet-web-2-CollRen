@@ -29,6 +29,14 @@ function FormFacture({ t, userId, totalPanier }) {
   const [totalWithTax, setTotalWithTax] = useState(totalPanier);
   const [taxName, setTaxName] = useState('');
   const [tauxTaxe, setTaxRate] = useState(0);
+  const [expeditions, setExpeditions] = useState([]);
+  const [modePaiements, setModePaiements] = useState([]);
+  const [selectedExpedition, setSelectedExpedition] = useState('');
+  const [selectedModePaiement, setSelectedModePaiement] = useState('');
+
+
+  const stripe = useStripe();
+  const elements = useElements();
 
   useEffect(() => {
     if (userId) {
@@ -76,15 +84,44 @@ function FormFacture({ t, userId, totalPanier }) {
       .then(data => {
         const updatedData = data.map(item => ({
           ...item,
-          taux: parseFloat(item.taux) || 0
+          taux: parseFloat(item.taux) || 0,
+          type: typeof item.type === 'string' ? JSON.parse(item.type) : item.type
         }));
         setTaxes(updatedData);
       })
       .catch(error => {
         console.error("There was an error fetching the taxes!", error);
       });
-  
+
+      fetch(`${t("fetch")}expeditions`)
+      .then(response => response.json())
+      .then(data => {
+        const updatedData = data.map(item => ({
+          ...item,
+          type: typeof item.type === 'string' ? JSON.parse(item.type) : item.type
+        }));
+        setExpeditions(updatedData);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the expeditions!", error);
+      });
+
+    fetch(`${t("fetch")}mode_paiements`)
+      .then(response => response.json())
+      .then(data => {
+        const updatedData = data.map(item => ({
+          ...item,
+          type: typeof item.type === 'string' ? JSON.parse(item.type) : item.type
+        }));
+        setModePaiements(updatedData);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the mode de paiements!", error);
+      });
+
   }, [userId, t]);
+
+
 
   useEffect(() => {
     if (user.province_id) {
@@ -96,7 +133,7 @@ function FormFacture({ t, userId, totalPanier }) {
         const taxAmount = totalPanier * (tax.taux);
         const tauxTaxe = (tax.taux) * 100;
         setTotalWithTax(totalPanier + taxAmount);
-        setTaxName(tax.type);
+        setTaxName(tax.type[language]); // Utiliser la langue pour obtenir le nom de la taxe
         setTaxRate(tauxTaxe);
       } else {
         setTotalWithTax(totalPanier);
@@ -109,7 +146,7 @@ function FormFacture({ t, userId, totalPanier }) {
       setTaxName('');
       setTaxRate(0);
     }
-  }, [user.province_id, villes, taxes, totalPanier]);
+  }, [user.province_id, villes, taxes, totalPanier, language]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -129,9 +166,54 @@ function FormFacture({ t, userId, totalPanier }) {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted with total including tax:", totalWithTax);
+
+    if (!stripe || !elements) {
+      console.error("Stripe.js has not yet loaded.");
+      return;
+    }
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: elements.getElement(CardElement),
+      billing_details: {
+        name: `${user.prenom} ${user.nom}`,
+        email: user.courriel,
+        address: {
+          line1: user.adresse,
+          postal_code: user.code_postal
+        },
+        phone: user.telephone
+      }
+    });
+
+    if (error) {
+      console.error("Payment Error:", error);
+      return;
+    }
+
+    // Envoyer les données au serveur
+    const response = await fetch(`${t("fetch")}stripe/payment`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        payment_method_id: paymentMethod.id,
+        user: user,
+        total: totalWithTax,
+        expedition: selectedExpedition,
+        mode_paiement: selectedModePaiement
+      })
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      console.log('Payment successful:', result);
+    } else {
+      console.error('Payment failed:', result);
+    }
   };
 
   return (
@@ -228,7 +310,7 @@ function FormFacture({ t, userId, totalPanier }) {
                   name="province_id"
                   value={user.province_id}
                   onChange={handleChange}
-                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 >
                   <option value="">{t("selectionner")}</option>
                   {provinces.map(province => (
@@ -244,7 +326,7 @@ function FormFacture({ t, userId, totalPanier }) {
                   name="ville_id"
                   value={user.ville_id}
                   onChange={handleChange}
-                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 >
                   <option value="">{t("selectionner")}</option>
                   {filteredVilles.map(ville => (
@@ -254,18 +336,55 @@ function FormFacture({ t, userId, totalPanier }) {
                   ))}
                 </select>
               </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">{t("expedition")}</label>
+                <select
+                  value={selectedExpedition}
+                  onChange={e => setSelectedExpedition(e.target.value)}
+                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                >
+                  <option value="">{t("select_expedition")}</option>
+                  {expeditions.map(expedition => (
+                    <option key={expedition.id} value={expedition.id}>
+                      {expedition.type[language]}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">{t("payment_method")}</label>
+                <select
+                  value={selectedModePaiement}
+                  onChange={e => setSelectedModePaiement(e.target.value)}
+                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                >
+                  <option value="">{t("select_payment_method")}</option>
+                  {modePaiements.map(mode => (
+                    <option key={mode.id} value={mode.id}>
+                      {mode.type[language]}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-
-            <div className="text-right mt-8 mb-6">
-              <h3 className="text-lg font-medium text-gray-700">Total: <strong>{totalPanier} $</strong></h3>
-              <h3 className="text-lg font-medium text-gray-700 mt-6">Taxe: <strong>{taxName}</strong> : <strong>{tauxTaxe}%</strong></h3>
-              <h3 className="text-lg font-medium text-gray-700 mt-6">Total TTC : <strong>{totalWithTax} $</strong></h3>
+            <h3 className="mt-6 text-lg font-semibold text-center">{t("paiement.details")}</h3>
+            <div className="border-t border-gray-200 pt-6">
+              <CardElement className="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
             </div>
-
-            <div className="mt-6">
-              <Elements stripe={stripePromise}>
-                <CheckoutForm totalWithTax={totalWithTax} />
-              </Elements>
+            <div className="mt-8 text-right">
+              <p className="text-lg">{t("panier.total")}: {totalPanier.toFixed(2)} $</p>
+              {taxName && (
+                <p className="text-sm text-gray-600 my-3">
+                  {t("taxes.incluses")}: {taxName} ({tauxTaxe.toFixed(2)} %)
+                </p>
+              )}
+              <p className="text-lg">{t("total")}: {totalWithTax.toFixed(2)} $</p>
+              <button
+                type="submit"
+                className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                {t("pay_now")}
+              </button>
             </div>
           </form>
         </div>
@@ -274,79 +393,10 @@ function FormFacture({ t, userId, totalPanier }) {
   );
 }
 
-function CheckoutForm({ totalWithTax }) {
-  const stripe = useStripe();
-  const elements = useElements();
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);  // Ajoutez cet état pour suivre le succès du paiement
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (!stripe || !elements) {
-      return;
-    }
-
-    setIsProcessing(true);
-    setError(null);
-    setSuccess(null);  // Réinitialiser l'état de succès
-
-    const cardElement = elements.getElement(CardElement);
-
-    const { error: stripeError, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: cardElement,
-    });
-
-    if (stripeError) {
-      setError(stripeError.message);
-      setIsProcessing(false);
-      return;
-    }
-
-    try {
-      const response = await fetch('/api/stripe/payment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          amount: Math.round(totalWithTax * 100), // Montant en centimes
-          currency: 'usd',
-          source: paymentMethod.id,
-          description: 'Achat de véhicule',
-        }),
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        setSuccess('Paiement réussi!');  // Mettez à jour l'état de succès
-      } else {
-        setError('Erreur de paiement.');
-      }
-    } catch (error) {
-      setError('Erreur lors du traitement du paiement.');
-    }
-
-    setIsProcessing(false);
-  };
-
+export default function WrappedFormFacture(props) {
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement />
-      {error && <div className="error">{error}</div>}
-      {success && <div className="success">{success}</div>} 
-      <button
-        type="submit"
-        disabled={isProcessing}
-        className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 transition duration-150 ease-in-out"
-      >
-        {isProcessing ? 'Processing...' : 'Payer'}
-      </button>
-    </form>
+    <Elements stripe={stripePromise}>
+      <FormFacture {...props} />
+    </Elements>
   );
 }
-
-export default FormFacture;

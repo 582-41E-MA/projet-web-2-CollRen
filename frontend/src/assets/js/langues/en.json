@@ -188,7 +188,14 @@
       "payment_successful": "Payment Successful",
       "add_to_cart": "Add to Cart",
       "pay_now": "Pay Now",
-      "panier_vide": "Your cart is empty."
-       
+      "panier_vide": "Your cart is empty.",
+      "paiement.details": "Payment Details",
+      "panier.total": "Sub-total",
+      "taxes.incluses": "Tax",
+      "expedition": "Expedition",
+      "payment_method": "Payment method",
+      "select_expedition": "Select expedition",
+      "select_payment_method": "Select payment method",
+      "total": "Total"
     }
   }

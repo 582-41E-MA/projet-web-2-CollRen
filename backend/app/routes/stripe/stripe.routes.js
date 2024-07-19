@@ -1,21 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); 
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 router.post('/payment', async (req, res) => {
-    const { amount, currency, source, description } = req.body;
+  try {
+    const { amount, source, description } = req.body;
 
-    try {
-        const charge = await stripe.charges.create({
-            amount,
-            currency,
-            source,
-            description,
-        });
-        res.json({ success: true, charge });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount,
+      currency: 'cad',
+      payment_method: source,
+      confirm: true,
+      description
+    });
+
+    res.json({ success: true, paymentIntent });
+  } catch (error) {
+    console.error('Error creating payment intent:', error);
+    res.json({ success: false, error: error.message });
+  }
 });
 
 module.exports = router;
