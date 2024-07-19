@@ -53,13 +53,14 @@ function BarreRecherche(props) {
     }, [language]);
 
 
- 
 
     const handleInputChange = async (e) => {
         e.preventDefault();
         let termeRecherche = e.target[0].value;
+
         let ObjetContientRecherche = filtreRecherche(termeRecherche, arrayVoitures, results)
         setArrayResultatRecherche(ObjetContientRecherche)
+
     };
 
     affichage = <AfficherResultats t={t} voitures={arrayResultatRecherche} language={language} location={location.pathname }></AfficherResultats>;
