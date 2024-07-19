@@ -2,15 +2,18 @@ import './Filtres.css';
 import React, { useEffect, useState } from 'react';
 import Bouton from '../../partialsFormulaire/Bouton/Bouton';
 import SelectOptions from '../../partialsFormulaire/SelectOptions/SelectOptions';
+import filtreRecherche from '../BarreRecherche/FiltreRecherche';
 
-function Filtres({ t, changeLanguage, urlCatalogue, handleSetUrlCatalogue }) {
+
+
+function Filtres({ t, changeLanguage, arrayVoitures, handleSetVoitures }) {
     const [voitures, setVoitures] = useState([]);
     const [modeles, setModeles] = useState([]);
     const [constructeurs, setConstructeurs] = useState([]);
     const [language, setLanguage] = useState(localStorage.getItem('langueChoisie'));
-    const [urlFiltre, setUrlFiltre] = useState();
     const labelModele = 'Modèles';
     const labelConstructeur = 'Constructeurs';
+    let results = []
 
     useEffect(() => {
 
@@ -77,10 +80,20 @@ function Filtres({ t, changeLanguage, urlCatalogue, handleSetUrlCatalogue }) {
         return modele ? modele.constructeur.type : '';
     };
     
-    function setUrl(event) {
-        let query = `modele_id=${event}`;
-        let url = `${t("fetch")}voitures?${query}`;
-        handleSetUrlCatalogue(url)
+    function setUrl(e) {
+
+
+        /**
+         * Utilise la barre de recherche pour recevoir le nom d'un modèle ou d'une marque
+         * @return array contenant les voitures
+         * 
+         */
+        let ObjetContientRecherche = filtreRecherche(e, arrayVoitures, results)
+        handleSetVoitures(ObjetContientRecherche)
+
+
+        // Renvoyer le tableau contenant les voitures après filtrage
+        //handleSetVoitures(arrayvoitureFiltrees)
     }
 
     return (
@@ -99,8 +112,8 @@ function Filtres({ t, changeLanguage, urlCatalogue, handleSetUrlCatalogue }) {
                 </div>
 
 
-                <SelectOptions list={constructeurs} whenChanged={setUrl} label={labelConstructeur} ></SelectOptions>
-                <SelectOptions list={modeles} whenChanged={setUrl} label={labelModele} ></SelectOptions>
+                <SelectOptions list={constructeurs} whenChanged={setUrl} itemAFiltrer={labelConstructeur} arrayVoitures={arrayVoitures} ></SelectOptions>
+                <SelectOptions list={modeles} whenChanged={setUrl} itemAFiltrer={labelModele} arrayVoitures={arrayVoitures} ></SelectOptions>
                     
                 <div>
                     <label className="block text-gray-700 font-bold mb-2">Année</label>

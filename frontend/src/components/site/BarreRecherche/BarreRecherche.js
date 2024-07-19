@@ -57,9 +57,8 @@ function BarreRecherche(props) {
 
     const handleInputChange = async (e) => {
         e.preventDefault();
-
-        let ObjetContientRecherche = filtreRecherche(e, arrayVoitures, results)
-        console.log(ObjetContientRecherche)
+        let termeRecherche = e.target[0].value;
+        let ObjetContientRecherche = filtreRecherche(termeRecherche, arrayVoitures, results)
         setArrayResultatRecherche(ObjetContientRecherche)
     };
 

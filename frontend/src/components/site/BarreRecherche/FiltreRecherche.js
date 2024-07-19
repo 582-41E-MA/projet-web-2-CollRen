@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function filtreRecherche(e, arrayVoitures, results){
+   
     let ObjetContientRecherche;
     
     function trimString(s) {
@@ -37,10 +38,9 @@ export default function filtreRecherche(e, arrayVoitures, results){
         return results;
     }
     
-    const effectueLaRecherche = (e) => {
-
-    console.log(e)
-    let termeRecherche = e.target[0].value;
+    const effectueLaRecherche = (termeRecherche) => {
+        console.log(arrayVoitures)
+        console.log(termeRecherche)
     if (termeRecherche === "") return [];
         
 
