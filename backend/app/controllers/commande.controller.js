@@ -39,7 +39,7 @@ exports.findAll = (req, res) => {
         [
                 { model: ModePaiement },
                 { model: Expedition },
-                { model: Utilisateur },
+                { model: Utilisateur, include: [{ model: db.villes, include: { model: db.provinces }  }, { model: db.privileges }] },
                 { model: Statut },
         ]
     })
@@ -58,7 +58,13 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Commande.findByPk(id)
+    Commande.findByPk(id, {include:
+        [
+            { model: ModePaiement },
+            { model: Expedition },
+            { model: Utilisateur, include: [{ model: db.villes, include: { model: db.provinces } }, { model: db.privileges }] },
+            { model: Statut },
+        ]})
         .then(data => {
             if (data) {
                 res.send(data);

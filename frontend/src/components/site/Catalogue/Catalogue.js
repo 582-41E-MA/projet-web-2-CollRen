@@ -6,16 +6,16 @@ import Filtres from '../Filtres/Filtres';
 function Catalogue({ t, changeLanguage }) {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [voitures, setVoitures] = useState([]);
+    const [arrvoitures, setArrvoitures] = useState([]);
     const [language, setLanguage] = useState(localStorage.getItem('langueChoisie'));
-    const [urlCatalogue, setUrlCatalogue] = useState([`${t("fetch")}voitures`]);
 
+    let i = 0;
     
-
-
+  
     useEffect(() => {
         const fetchVoitures = async () => {
             try {
-                const response = await fetch(urlCatalogue);
+                const response = await fetch(`${t("fetch")}voitures`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -61,6 +61,9 @@ function Catalogue({ t, changeLanguage }) {
                 });
 
                 const voituresWithImages = await Promise.all(fetchImagePromises);
+                console.log(voituresWithImages)
+                creerLeTableauDesVoitures(voituresWithImages)
+
                 setVoitures(voituresWithImages);
             } catch (error) {
                 console.error('Error fetching images:', error);
@@ -68,41 +71,31 @@ function Catalogue({ t, changeLanguage }) {
         };
 
         fetchVoitures();
-    }, [t, language, urlCatalogue]);
+    }, [t, language]);
 
     useEffect(() => {
         const storedLanguage = localStorage.getItem('langueChoisie');
         setLanguage(storedLanguage);
     }, [changeLanguage]);
 
-    useEffect(() => {
-        const fetchVoitures = async () => {
-            try {
-                const response = await fetch(urlCatalogue);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                setVoitures(data);
-            } catch (error) {
-                console.error('Error fetching voitures:', error);
-            }
-        };
-
-        fetchVoitures();
-    }, [urlCatalogue]);
-
     const toggleFilter = () => {
         setIsFilterOpen(!isFilterOpen);
     };
 
-    function fSetUrlCatalogue(e){
-        console.log('dans fSetUrlCatalogue')
-        console.log(e)
-        setUrlCatalogue(e);
+    function onFiltered(arr){
+        setVoitures(arr)
     }
 
-    
+    function creerLeTableauDesVoitures(arr) {
+        console.log(i)
+        if (i == 0){
+            setArrvoitures(arr);
+            i++;
+        }
+        console.log(arrvoitures)
+
+    }
+    console.log(arrvoitures)
 
     return (
         
@@ -117,7 +110,7 @@ function Catalogue({ t, changeLanguage }) {
             </button>
 
             <div className={`filter-panel ${isFilterOpen ? 'open' : 'closed'}`}>
-                <Filtres t={t} changeLanguage={changeLanguage} urlCatalogue={urlCatalogue} handleSetUrlCatalogue={fSetUrlCatalogue}  />
+                <Filtres t={t} changeLanguage={changeLanguage} arrayVoitures={arrvoitures} handleSetVoitures={onFiltered}  />
             </div>
 
             <div className="container mx-auto px-4 py-8">
