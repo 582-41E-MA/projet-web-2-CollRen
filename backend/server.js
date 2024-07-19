@@ -7,6 +7,9 @@ const corsOption = {
     credentials: true,
     origin: '*'
 }
+const stripeRoutes = require('./app/routes/stripe/stripe.routes');
+
+
 const Stripe = require('stripe');
 const stripe = Stripe('sk_test_51PGBD9KJGPCZHFEUhMOFEwpfz89jDpADgoY8VdEj4CPPser5niDzrQlriGhjbNy2Clh7hIvgCMbqoKi2eEpRpAFP00j5MxYhB0'); // Utilisez votre clé secrète Stripe ici
 
@@ -52,8 +55,7 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`)
 })
 
-const stripeRoutes = require('./app/routes/stripe/stripe.routes');
-app.use('/api/stripe', stripeRoutes);
+app.use('/create-payment-intent', stripeRoutes);
 
 require('./app/routes/utilisateur/utilisateur.routes')(app);
 require('./app/routes/privilege/privilege.routes')(app);

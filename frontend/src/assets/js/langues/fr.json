@@ -185,8 +185,15 @@
       "payment_successful": "Paiement réussi",
       "add_to_cart": "Ajouter au Panier",
       "pay_now": "Payer Maintenant",
-      "panier_vide": "Votre panier est vide."
-
+      "panier_vide": "Votre panier est vide.",
+      "paiement.details": "Coordonnées de paiement",
+      "panier.total": "Sous-total",
+      "taxes.incluses": "Taxes",
+      "expedition": "Expedition",
+      "payment_method": "Méthode de paiement",
+      "select_expedition": "Selectionner le mode d'expedition",
+      "select_payment_method": "Selectionner le mode de paiement",
+      "total": "Total"  
        
 
 
