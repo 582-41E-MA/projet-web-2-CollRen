@@ -120,7 +120,7 @@ const Panier = ({ t, user }) => {
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-8 rounded-md shadow-lg w-full max-w-xl overflow-y-auto popup-content">
                 {/* Contenu de la popup */}
-                <FormFacture t={t} userId={userId} />
+                <FormFacture t={t} userId={userId} totalPanier={totalPanier} />
             
                 {/* Bouton pour fermer la popup */}
                 <button
