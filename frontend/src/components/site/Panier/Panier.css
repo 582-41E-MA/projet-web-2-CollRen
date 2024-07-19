@@ -3,7 +3,7 @@
 }
 
 .popup-content {
-    max-height: 90vh; /* Ajustez cette valeur selon vos besoins */
+    max-height: 96vh; /* Ajustez cette valeur selon vos besoins */
     overflow-y: auto;
     max-width: 50vw;
 }

@@ -7,6 +7,10 @@ const corsOption = {
     credentials: true,
     origin: '*'
 }
+const Stripe = require('stripe');
+const stripe = Stripe('sk_test_51PGBD9KJGPCZHFEUhMOFEwpfz89jDpADgoY8VdEj4CPPser5niDzrQlriGhjbNy2Clh7hIvgCMbqoKi2eEpRpAFP00j5MxYhB0'); // Utilisez votre clé secrète Stripe ici
+
+
 require('dotenv').config()
 
 app.use(cors(corsOption))
@@ -21,10 +25,35 @@ app.get('/', (req, res) => {
     res.json({ message: 'Welcome' })
 })
 
-const PORT = process.env.PORT || 8080;
+app.post('/api/stripe/payment', async (req, res) => {
+    const { amount, currency, source, description } = req.body;
+  
+    console.log('Received payment request:', req.body); // Ajoutez cette ligne pour voir les requêtes reçues
+  
+    try {
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount,
+        currency,
+        payment_method: source,
+        confirm: true,
+        description,
+      });
+  
+      console.log('Payment successful:', paymentIntent); // Ajoutez cette ligne pour voir les paiements réussis
+      res.status(200).send({ success: true, paymentIntent });
+    } catch (error) {
+      console.error('Erreur lors du traitement du paiement:', error);
+      res.status(500).send({ success: false, error: error.message });
+    }
+  });
+
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`)
 })
+
+const stripeRoutes = require('./app/routes/stripe/stripe.routes');
+app.use('/api/stripe', stripeRoutes);
 
 require('./app/routes/utilisateur/utilisateur.routes')(app);
 require('./app/routes/privilege/privilege.routes')(app);
