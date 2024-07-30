@@ -1,23 +1,24 @@
+// stripe.routes.js
 const express = require('express');
-const router = express.Router();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const router = express.Router();
 
 router.post('/payment', async (req, res) => {
   try {
-    const { amount, source, description } = req.body;
+    const { payment_method_id, total } = req.body;
 
+    // Créez le PaymentIntent avec automatic_payment_methods
     const paymentIntent = await stripe.paymentIntents.create({
-      amount,
-      currency: 'cad',
-      payment_method: source,
+      amount: Math.round(total * 100), // Le montant doit être en centimes
+      currency: 'usd', // Changez la devise si nécessaire
+      payment_method: payment_method_id,
       confirm: true,
-      description
+      automatic_payment_methods: { enabled: true }, // Ajoutez cette ligne pour activer les méthodes de paiement automatiques
     });
 
-    res.json({ success: true, paymentIntent });
+    res.status(200).json({ success: true, paymentIntent });
   } catch (error) {
-    console.error('Error creating payment intent:', error);
-    res.json({ success: false, error: error.message });
+    res.status(400).json({ success: false, error: error.message });
   }
 });
 

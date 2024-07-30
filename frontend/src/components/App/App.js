@@ -164,7 +164,7 @@ function App() {
 
     return (
         <AppContext.Provider value={{ user, logout, language, handleTrans}}>
-             <PanierProvider>
+             <PanierProvider userId={user.usager.id}>
             <Router>
                 <Entete t={t} />
                 <AnimatePresence mode="wait">

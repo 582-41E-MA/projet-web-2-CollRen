@@ -87,15 +87,15 @@ function Catalogue({ t, changeLanguage }) {
     }
 
     function creerLeTableauDesVoitures(arr) {
-        console.log(i)
+        // console.log(i)
         if (i == 0){
             setArrvoitures(arr);
             i++;
         }
-        console.log(arrvoitures)
+        // console.log(arrvoitures)
 
     }
-    console.log(arrvoitures)
+    // console.log(arrvoitures)
 
     return (
         

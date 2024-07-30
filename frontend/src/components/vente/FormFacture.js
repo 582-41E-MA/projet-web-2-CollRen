@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
@@ -7,7 +8,7 @@ import Bouton from '../partialsFormulaire/Bouton/Bouton';
 // Charger Stripe avec votre clé publique
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
-function FormFacture({ t, userId, totalPanier }) {
+function FormFacture({ t, userId, totalPanier, panier, userName }) {
   const [user, setUser] = useState({
     prenom: '',
     nom: '',
@@ -34,6 +35,7 @@ function FormFacture({ t, userId, totalPanier }) {
   const [selectedExpedition, setSelectedExpedition] = useState('');
   const [selectedModePaiement, setSelectedModePaiement] = useState('');
 
+  // console.log("User Name:", userName);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -219,10 +221,12 @@ function FormFacture({ t, userId, totalPanier }) {
   return (
     <div className="flex">
       <div className="w-full">
-        <h2 className="text-center text-xl my-6">Veuillez entrer vos coordonnées pour compléter l'achat</h2>
+      <h2 className="text-center text-xl my-6">Bonjour {userName || "Utilisateur"} </h2>
+
 
         <div className="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md">
           <form onSubmit={handleSubmit}>
+            <h3 className="mt-6 text-lg font-semibold text-left my-4">Informations personnelles</h3>
             <div className="grid grid-cols-1 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700">{t("user.prenom")}</label>
@@ -367,7 +371,28 @@ function FormFacture({ t, userId, totalPanier }) {
                 </select>
               </div>
             </div>
-            <h3 className="mt-6 text-lg font-semibold text-center">{t("paiement.details")}</h3>
+            <div className="my-8 ">
+              <h3 className="text-lg font-semibold mb-4">Résumé du Panier</h3>
+              <table className="min-w-full bg-white rounded-lg shadow-lg overflow-hidden">
+                <thead>
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Voiture</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {panier.map((voiture) => (
+                    <tr key={voiture.id} className="border-b">
+                      <td className="px-6 py-4 text-gray-900">
+                        {voiture.modele?.type?.[language] || ''} {voiture.constructeur?.type?.[language] || ''}
+                      </td>
+                      <td className="px-6 py-4 text-gray-900">{voiture.prix} $</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <h3 className="mt-6 text-lg font-semibold text-left">{t("paiement.details")}</h3>
             <div className="border-t border-gray-200 pt-6">
               <CardElement className="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
             </div>

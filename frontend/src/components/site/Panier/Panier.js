@@ -1,26 +1,29 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import FormFacture from '../../vente/FormFacture.js';
 import './Panier.css';
-
+import { AppContext } from '../../App/App.js';
 // Créer le contexte pour le panier
 export const PanierContext = createContext();
 
 export const PanierProvider = ({ children }) => {
+  const { user } = useContext(AppContext);
   const [panier, setPanier] = useState([]);
 
   useEffect(() => {
-    const panierData = localStorage.getItem('panier');
-    if (panierData) {
-      setPanier(JSON.parse(panierData));
+    if (user.isLogged) {
+      const panierData = localStorage.getItem(`panier_${user.usager.id}`);
+      if (panierData) {
+        setPanier(JSON.parse(panierData));
+      }
     }
-  }, []);
+  }, [user]);
 
   const ajouterAuPanier = (voiture) => {
     const voitureExiste = panier.find(item => item.id === voiture.id);
     if (!voitureExiste) {
       const newPanier = [...panier, voiture];
       setPanier(newPanier);
-      localStorage.setItem('panier', JSON.stringify(newPanier));
+      localStorage.setItem(`panier_${user.usager.id}`, JSON.stringify(newPanier));
     } else {
       alert('Cette voiture est déjà dans le panier.');
     }
@@ -29,12 +32,12 @@ export const PanierProvider = ({ children }) => {
   const supprimerDuPanier = (id) => {
     const updatedPanier = panier.filter((voiture) => voiture.id !== id);
     setPanier(updatedPanier);
-    localStorage.setItem('panier', JSON.stringify(updatedPanier));
+    localStorage.setItem(`panier_${user.usager.id}`, JSON.stringify(updatedPanier));
   };
 
   const viderPanier = () => {
     setPanier([]);
-    localStorage.removeItem('panier');
+    localStorage.removeItem(`panier_${user.usager.id}`);
   };
 
   const totalPanier = panier.reduce((total, voiture) => total + voiture.prix, 0);
@@ -49,10 +52,10 @@ export const PanierProvider = ({ children }) => {
 // Composant pour afficher le contenu du panier
 const Panier = ({ t, user }) => {
   const { panier, supprimerDuPanier, viderPanier, totalPanier } = useContext(PanierContext);
-  const [language, setLanguage] = useState(localStorage.getItem("langueChoisie"));
-  const userPrivilege = user.usager.privilege_id;
-  const userId = user.usager.id;
   const [showPopup, setShowPopup] = useState(false); // State pour afficher/cacher la popup
+  const [language, setLanguage] = useState(localStorage.getItem("langueChoisie"));
+  const userPrivilege = user?.usager?.privilege_id;
+  const userId = user?.usager?.id;
 
   const openPopup = () => {
     setShowPopup(true);
@@ -64,6 +67,13 @@ const Panier = ({ t, user }) => {
     document.body.classList.remove('no-scroll');
   };
 
+  // Assurez-vous que prenom et nom sont disponibles
+  const userName = user?.usager?.prenom && user?.usager?.nom 
+    ? `${user.usager.prenom} ${user.usager.nom}`
+    : 'Nom d\'utilisateur non disponible'; // Nom complet de l'utilisateur ou message par défaut
+
+  // console.log("User name:", userName); // Vérifiez la valeur ici
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-4">Votre Panier</h1>
@@ -71,7 +81,8 @@ const Panier = ({ t, user }) => {
         <p className="text-center text-gray-600">Votre panier est vide.</p>
       ) : (
         <div>
-          <h2 className='text-center font-bold mb-12'>Mon panier</h2>
+          {/* Affichage conditionnel du nom de l'utilisateur */}
+          <h2 className='text-center font-bold mb-12'>Mon panier - {userName}</h2>
           <div className='overflow-x-auto'>
             <table className="min-w-full bg-white rounded-lg shadow-lg overflow-hidden">
               {/* Table header */}
@@ -120,8 +131,13 @@ const Panier = ({ t, user }) => {
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-8 rounded-md shadow-lg w-full max-w-xl overflow-y-auto popup-content">
                 {/* Contenu de la popup */}
-                <FormFacture t={t} userId={userId} totalPanier={totalPanier} />
-            
+                <FormFacture
+                  t={t}
+                  userId={userId}
+                  totalPanier={totalPanier}
+                  panier={panier}
+                  userName={userName} // Assurez-vous que cette valeur est définie ici
+                />
                 {/* Bouton pour fermer la popup */}
                 <button
                   className="absolute top-0 right-0 mt-4 mr-4 text-white hover:text-red-500"
@@ -131,7 +147,6 @@ const Panier = ({ t, user }) => {
                 </button>
               </div>
             </div>
-          
           )}
         </div>
       )}
