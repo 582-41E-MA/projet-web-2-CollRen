@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useNavigate } from 'react-router-dom';
 import ChampText from '../partialsFormulaire/ChampText/ChampText';
 import Bouton from '../partialsFormulaire/Bouton/Bouton';
 
@@ -34,12 +35,20 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
   const [modePaiements, setModePaiements] = useState([]);
   const [selectedExpedition, setSelectedExpedition] = useState('');
   const [selectedModePaiement, setSelectedModePaiement] = useState('');
+  const [message, setMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [paymentData, setPaymentData] = useState({
+    payment_method_id: '',
+    total: 0,
+});
+
 
   // console.log("User Name:", userName);
 
   const stripe = useStripe();
   const elements = useElements();
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     if (userId) {
       fetch(`${t("fetch")}utilisateurs/${userId}`)
@@ -168,63 +177,68 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     if (!stripe || !elements) {
-      console.error("Stripe.js has not yet loaded.");
-      return;
+        // Stripe.js n'a pas encore chargé
+        return;
     }
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: elements.getElement(CardElement),
-      billing_details: {
-        name: `${user.prenom} ${user.nom}`,
-        email: user.courriel,
-        address: {
-          line1: user.adresse,
-          postal_code: user.code_postal
-        },
-        phone: user.telephone
-      }
+        type: 'card',
+        card: elements.getElement(CardElement),
     });
 
     if (error) {
-      console.error("Payment Error:", error);
-      return;
+        setErrorMessage(error.message);
+        console.error('Stripe error:', error);
+        return;
     }
 
-    // Envoyer les données au serveur
-    const response = await fetch(`${t("fetch")}stripe/payment`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        payment_method_id: paymentMethod.id,
-        user: user,
-        total: totalWithTax,
-        expedition: selectedExpedition,
-        mode_paiement: selectedModePaiement
-      })
-    });
+    const { id: payment_method_id } = paymentMethod;
 
-    const result = await response.json();
-    if (response.ok) {
-      console.log('Payment successful:', result);
-    } else {
-      console.error('Payment failed:', result);
+    try {
+        const response = await fetch('http://localhost:5000/api/stripe/payment', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ payment_method_id, total: totalWithTax }),
+});
+
+
+        const result = await response.json();
+        console.log('Payment response:', result);
+
+        if (result.success) {
+            setMessage('Payment successful!');
+            navigate('/confirmation', {
+              state: {
+                  user,
+                  voiture: panier[0],
+                  totalWithTax
+              }
+          });
+        } else {
+            setErrorMessage(result.error);
+        }
+    } catch (error) {
+        console.error('Erreur lors du paiement:', error);
+        setErrorMessage('Paiement echouén veuillez réessayer.');
     }
-  };
+};
+
 
   return (
     <div className="flex">
       <div className="w-full">
-      <h2 className="text-center text-xl my-6">Bonjour {userName || "Utilisateur"} </h2>
+      <h2 className="text-center text-xl my-6">Bonjour {user.prenom} </h2>
 
 
         <div className="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md">
+        {message && <div className="mb-4 p-4 text-green-700 bg-green-100 rounded">{message}</div>}
+        {errorMessage && <div className="mb-4 p-4 text-red-700 bg-red-100 rounded">{errorMessage}</div>}
           <form onSubmit={handleSubmit}>
             <h3 className="mt-6 text-lg font-semibold text-left my-4">Informations personnelles</h3>
             <div className="grid grid-cols-1 gap-6">

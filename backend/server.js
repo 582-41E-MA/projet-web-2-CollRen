@@ -1,13 +1,16 @@
 // server.js
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const app = express();
 const cookieParser = require('cookie-parser');
+const app = express();
 const stripeRoutes = require('./app/routes/stripe/stripe.routes.js');
-app.use(cors({ credentials: true, origin: '*' }));
+
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-require('dotenv').config();
+
+
+app.use(cors({ credentials: true, origin: '*' }));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,11 +22,8 @@ db.connex.sync();
 
 // Route de test
 app.get('/', (req, res) => {
-    res.json({ message: 'Welcome' });
+    res.json({ message: 'Bienvenue' });
 });
-
-// Routes Stripe
-
 
 // Autres routes
 require('./app/routes/utilisateur/utilisateur.routes')(app);
@@ -54,5 +54,5 @@ app.use((req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
+    console.log(`Le serveur fonctionne sur le port ${PORT}.`);
 });

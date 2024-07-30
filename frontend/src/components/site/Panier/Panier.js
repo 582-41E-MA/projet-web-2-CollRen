@@ -2,6 +2,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import FormFacture from '../../vente/FormFacture.js';
 import './Panier.css';
 import { AppContext } from '../../App/App.js';
+
 // Créer le contexte pour le panier
 export const PanierContext = createContext();
 
@@ -71,8 +72,6 @@ const Panier = ({ t, user }) => {
   const userName = user?.usager?.prenom && user?.usager?.nom 
     ? `${user.usager.prenom} ${user.usager.nom}`
     : 'Nom d\'utilisateur non disponible'; // Nom complet de l'utilisateur ou message par défaut
-
-  // console.log("User name:", userName); // Vérifiez la valeur ici
 
   return (
     <div className="container mx-auto px-4 py-8">
