@@ -14,7 +14,7 @@ function Entete({ t}) {
                     <img 
                         src='\imgs\bazou_logo.png' 
                         alt='logo Beaux Bazou' 
-                        className='w-[15rem] sm:w-[10rem] rounded-[10rem]' 
+                        className='w-[50%] sm:w-[30%] md:w-[30%] rounded-[10rem]' 
                     />
                 </div>
                 </Link>
