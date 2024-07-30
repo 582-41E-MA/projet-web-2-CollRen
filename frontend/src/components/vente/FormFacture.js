@@ -179,66 +179,74 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     if (!stripe || !elements) {
-        // Stripe.js n'a pas encore chargé
-        return;
+      // Stripe.js n'a pas encore chargé
+      return;
     }
-
+  
     const { error, paymentMethod } = await stripe.createPaymentMethod({
-        type: 'card',
-        card: elements.getElement(CardElement),
+      type: 'card',
+      card: elements.getElement(CardElement),
     });
-
+  
     if (error) {
-        setErrorMessage(error.message);
-        console.error('Stripe error:', error);
-        return;
+      setErrorMessage(error.message);
+      console.error('Stripe error:', error);
+      return;
     }
-
+  
     const { id: payment_method_id } = paymentMethod;
-
+  
     try {
-        const response = await fetch('http://localhost:5000/api/stripe/payment', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ payment_method_id, total: totalWithTax }),
-});
-
-
-        const result = await response.json();
-        console.log('Payment response:', result);
-
-        if (result.success) {
-            setMessage('Payment successful!');
-            navigate('/confirmation', {
-              state: {
-                  user,
-                  voiture: panier[0],
-                  totalWithTax
-              }
-          });
-        } else {
-            setErrorMessage(result.error);
-        }
+      const response = await fetch('http://localhost:5000/api/stripe/payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          payment_method_id,
+          total: totalWithTax,
+          clientInfo: {
+            prenom: user.prenom,
+            nom: user.nom,
+            courriel: user.courriel,
+            adresse: user.adresse,
+          },
+          description: `Achat de ${panier.map(voiture => `${voiture.modele?.type?.[language] || ''} ${voiture.constructeur?.type?.[language] || ''}`).join(', ')}`
+        }),
+      });
+  
+      const result = await response.json();
+      console.log('Payment response:', result);
+  
+      if (result.success) {
+        setMessage('Payment successful!');
+        navigate('/confirmation', {
+          state: {
+            user,
+            voiture: panier[0],
+            totalWithTax
+          }
+        });
+      } else {
+        setErrorMessage(result.error);
+      }
     } catch (error) {
-        console.error('Erreur lors du paiement:', error);
-        setErrorMessage('Paiement echouén veuillez réessayer.');
+      console.error('Erreur lors du paiement:', error);
+      setErrorMessage('Paiement échoué, veuillez réessayer.');
     }
-};
+  };
 
 
   return (
     <div className="flex">
       <div className="w-full">
-      <h2 className="text-center text-xl my-6">Bonjour {user.prenom} </h2>
+      <h2 className="text-center text-xl my-6">Bonjour {user.prenom  || ''} </h2>
 
 
         <div className="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md">
-        {message && <div className="mb-4 p-4 text-green-700 bg-green-100 rounded">{message}</div>}
-        {errorMessage && <div className="mb-4 p-4 text-red-700 bg-red-100 rounded">{errorMessage}</div>}
+        
           <form onSubmit={handleSubmit}>
             <h3 className="mt-6 text-lg font-semibold text-left my-4">Informations personnelles</h3>
             <div className="grid grid-cols-1 gap-6">
@@ -247,7 +255,7 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
                 <ChampText
                   type="text"
                   name="prenom"
-                  value={user.prenom}
+                  value={user.prenom  || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
@@ -257,7 +265,7 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
                 <ChampText
                   type="text"
                   name="nom"
-                  value={user.nom}
+                  value={user.nom || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
@@ -267,7 +275,7 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
                 <ChampText
                   type="date"
                   name="anniversaire"
-                  value={user.anniversaire}
+                  value={user.anniversaire || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
@@ -277,7 +285,7 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
                 <ChampText
                   type="email"
                   name="courriel"
-                  value={user.courriel}
+                  value={user.courriel  || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
@@ -287,7 +295,7 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
                 <ChampText
                   type="text"
                   name="adresse"
-                  value={user.adresse}
+                  value={user.adresse || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
@@ -297,7 +305,7 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
                 <ChampText
                   type="text"
                   name="code_postal"
-                  value={user.code_postal}
+                  value={user.code_postal || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
@@ -307,7 +315,7 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
                 <ChampText
                   type="text"
                   name="telephone"
-                  value={user.telephone}
+                  value={user.telephone || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
@@ -317,7 +325,7 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
                 <ChampText
                   type="text"
                   name="cellulaire"
-                  value={user.cellulaire}
+                  value={user.cellulaire || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
@@ -326,13 +334,13 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
                 <label className="block text-sm font-medium text-gray-700">{t("user.province")}</label>
                 <select
                   name="province_id"
-                  value={user.province_id}
+                  value={user.province_id || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 >
                   <option value="">{t("selectionner")}</option>
                   {provinces.map(province => (
-                    <option key={province.id} value={province.id}>
+                    <option key={province.id || ''} value={province.id || ''}>
                       {province.nom[language]}
                     </option>
                   ))}
@@ -342,14 +350,14 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
                 <label className="block text-sm font-medium text-gray-700">{t("user.ville")}</label>
                 <select
                   name="ville_id"
-                  value={user.ville_id}
+                  value={user.ville_id || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 >
                   <option value="">{t("selectionner")}</option>
                   {filteredVilles.map(ville => (
-                    <option key={ville.id} value={ville.id}>
-                      {ville.nom[language]}
+                    <option key={ville.id || ''} value={ville.id || ''}>
+                      {ville.nom[language] || ''}
                     </option>
                   ))}
                 </select>
@@ -363,7 +371,7 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
                 >
                   <option value="">{t("select_expedition")}</option>
                   {expeditions.map(expedition => (
-                    <option key={expedition.id} value={expedition.id}>
+                    <option key={expedition.id || ''} value={expedition.id || ''}>
                       {expedition.type[language]}
                     </option>
                   ))}
@@ -407,6 +415,8 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
               </table>
             </div>
             <h3 className="mt-6 text-lg font-semibold text-left">{t("paiement.details")}</h3>
+            {message && <div className="mb-4 p-4 text-green-700 bg-green-100 rounded">{message}</div>}
+        {errorMessage && <div className="mb-4 p-4 text-red-700 bg-red-100 rounded">{errorMessage}</div>}
             <div className="border-t border-gray-200 pt-6">
               <CardElement className="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
             </div>

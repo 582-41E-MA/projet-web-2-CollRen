@@ -61,7 +61,7 @@ function Catalogue({ t, changeLanguage }) {
                 });
 
                 const voituresWithImages = await Promise.all(fetchImagePromises);
-                console.log(voituresWithImages)
+                // console.log(voituresWithImages)
                 creerLeTableauDesVoitures(voituresWithImages)
 
                 setVoitures(voituresWithImages);

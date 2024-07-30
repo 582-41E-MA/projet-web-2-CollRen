@@ -4,7 +4,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Utilisez la 
 
 // Route pour le paiement
 router.post('/payment', async (req, res) => {
-  const { payment_method_id, total } = req.body;
+  const { payment_method_id, total, clientInfo, description } = req.body;
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({
@@ -12,6 +12,12 @@ router.post('/payment', async (req, res) => {
       currency: 'cad',
       payment_method: payment_method_id,
       confirm: true,
+      description: description,
+      receipt_email: clientInfo.courriel, // Adresse e-mail du client
+      metadata: {
+        customer_name: `${clientInfo.prenom} ${clientInfo.nom}`, // Nom et prénom du client
+        customer_address: clientInfo.adresse, // Adresse du client
+      },
       return_url: 'http://localhost:3000/confirmation' // Remplacez par l'URL de retour appropriée
     });
 
