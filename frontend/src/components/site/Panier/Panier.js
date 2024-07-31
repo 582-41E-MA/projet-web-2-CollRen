@@ -72,7 +72,7 @@ const Panier = ({ t, user }) => {
   const userName = user?.usager?.prenom && user?.usager?.nom 
     ? `${user.usager.prenom} ${user.usager.nom}`
     : 'Nom d\'utilisateur non disponible'; // Nom complet de l'utilisateur ou message par défaut
-console.log(user.usager.prenom);
+// console.log(user.usager.prenom);
   return (
     <div className="container mx-auto px-4 py-8 relative">
   <h1 className="text-4xl font-bold mb-6 text-center">Votre Panier</h1>
@@ -81,7 +81,7 @@ console.log(user.usager.prenom);
   ) : (
     <div>
       {/* Affichage conditionnel du nom de l'utilisateur */}
-      <h2 className='text-center text-2xl font-semibold mb-8'>Mon panier - {userName}</h2>
+      <h2 className='text-center text-2xl font-semibold mb-8'>Mon panier</h2>
       <div className='overflow-x-auto'>
         <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
           {/* Table header */}
