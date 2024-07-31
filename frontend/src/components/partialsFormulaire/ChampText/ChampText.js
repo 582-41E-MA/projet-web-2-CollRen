@@ -1,7 +1,7 @@
 function ChampText({ label, type, placeholder, mandatory, onChange, value, name }) {
     return (
         <div className="text-field font-soustitre"> 
-            <label className="text-blanc">
+            <label className="text-gray-400">
                 {label}
             </label>
             <input 

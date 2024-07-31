@@ -20,7 +20,7 @@ function Nav({ t }) {
 
     return (
         <>
-            <nav className="text-white bg-bleuFonce flex justify-between items-center px-6 py-4">
+            <nav className="text-white  flex justify-between items-center px-6 py-4">
                 <button onClick={toggleMenu} className="md:hidden block">
                 <svg
                         xmlns="http://www.w3.org/2000/svg"

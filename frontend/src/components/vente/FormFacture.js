@@ -240,7 +240,7 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
 
 
   return (
-    <div className="flex">
+    <div className="flex absolute top-7 right-7">
       <div className="w-full">
       <h2 className="text-center text-xl my-6">Bonjour {user.prenom  || ''} </h2>
 
