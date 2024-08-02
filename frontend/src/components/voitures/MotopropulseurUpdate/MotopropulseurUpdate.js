@@ -81,12 +81,12 @@ function MotopropulseurUpdate({ t }) {
     };
 
     return (
-        <div className="flex">
+        <div className="flex flex-wrap">
             <div>
                 <MenuDashboardAdmin t={t} />
             </div>
 
-            <div className="w-[30%] mx-[4rem] mt-24 mb-[4rem]">
+            <div className="w-[100%] mx-[2rem] mt-24 mb-[4rem]">
                 <h2 className="p-3 text-bleuFonce">{t("motopropulseurUpdate_titre")}</h2>
 
                 <form onSubmit={handleSubmit} className="p-3 bg-[#21283B] rounded-lg">

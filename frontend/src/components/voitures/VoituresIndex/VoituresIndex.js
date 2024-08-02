@@ -145,37 +145,33 @@ function VoitureIndex({ t, changeLanguage }) {
     });
 
     return (
-        <main className="flex justify-center">
+        <main className="flex justify-center flex-wrap">
             <div>
                 <MenuDashboardAdmin t={t} />
             </div>
 
-            <div className="w-full  mt-24">
-
-                
-
-                <h1 className='text-[#182036] mb-[2rem] text-left'>{t("voitureIndex_titre")}</h1>
+            <div className="w-full mt-24 px-4 sm:px-6 lg:px-8">
+                <h1 className='text-[#182036] mb-8 text-left text-2xl sm:text-3xl'>{t("voitureIndex_titre")}</h1>
                 <BarreRecherche t={t} />
 
                 <Link to={"/voiture-create"}>
-                    <p className='my-4'>+ {t("voitureIndex_create")}</p>
+                    <p className='my-4 text-blue-500 hover:text-blue-700'>+ {t("voitureIndex_create")}</p>
                 </Link>
 
                 <div className='overflow-x-auto'>
-                    <table className="w-[80%] divide-y divide-gray-200 bg-[#21283B] mt-4 rounded-lg mb-[4rem]">
+                    <table className="w-full sm:w-5/6 lg:w-4/5 divide-y divide-gray-200 bg-[#21283B] mt-4 rounded-lg mb-16">
                         <thead>
                             <tr>
                                 <th
-                                    className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
+                                    className="px-2 py-2 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-large text-gray-500 uppercase tracking-wider cursor-pointer"
                                     onClick={() => handleSort('date')}
                                 >
                                     <span className={sortConfig.key === 'date' ? 'font-bold' : ''}>
                                         Date {sortConfig.key === 'date' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : '⇅'}
                                     </span>
                                 </th>
-                               
                                 <th
-                                    className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
+                                    className="px-2 py-2 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-large text-gray-500 uppercase tracking-wider cursor-pointer"
                                     onClick={() => handleSort('prix')}
                                 >
                                     <span className={sortConfig.key === 'prix' ? 'font-bold' : ''}>
@@ -183,7 +179,7 @@ function VoitureIndex({ t, changeLanguage }) {
                                     </span>
                                 </th>
                                 <th
-                                    className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
+                                    className="px-2 py-2 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-large text-gray-500 uppercase tracking-wider cursor-pointer"
                                     onClick={() => handleSort('modele')}
                                 >
                                     <span className={sortConfig.key === 'modele' ? 'font-bold' : ''}>
@@ -191,36 +187,36 @@ function VoitureIndex({ t, changeLanguage }) {
                                     </span>
                                 </th>
                                 <th
-                                    className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
+                                    className="px-2 py-2 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-large text-gray-500 uppercase tracking-wider cursor-pointer"
                                     onClick={() => handleSort('constructeur')}
                                 >
                                     <span className={sortConfig.key === 'constructeur' ? 'font-bold' : ''}>
                                         {t("voituretableau_Constructeur")} {sortConfig.key === 'constructeur' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : '⇅'}
                                     </span>
                                 </th>
-                           
-                         
                                 <th
-                                    className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
+                                    className="px-2 py-2 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-large text-gray-500 uppercase tracking-wider cursor-pointer"
                                     onClick={() => handleSort('corp')}
                                 >
                                     <span className={sortConfig.key === 'corp' ? 'font-bold' : ''}>
                                         {t("voituretableau_Corps")} {sortConfig.key === 'corp' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : '⇅'}
                                     </span>
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Action</th>
+                                <th className="px-2 py-2 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-large text-gray-500 uppercase tracking-wider">
+                                    Action
+                                </th>
                             </tr>
                         </thead>
                         <tbody className="bg-[#21283B] divide-y divide-gray-200">
                             {sortedVoitures.map(voiture => (
                                 <tr key={voiture.id}>
-                                    <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.date}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.prix}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.modele.type}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.modele.constructeur.type}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap text-white">{voiture.corp.type[language]}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap">
-                                        <Link to={`/voiture-update/${voiture.id}`} className="bg-[#F96C25] hover:bg-[#868E9B] text-white font-bold py-2 px-4 rounded-full mr-2">
+                                    <td className="px-2 py-2 sm:px-4 sm:py-2 whitespace-nowrap text-white">{voiture.date}</td>
+                                    <td className="px-2 py-2 sm:px-4 sm:py-2 whitespace-nowrap text-white">{voiture.prix}</td>
+                                    <td className="px-2 py-2 sm:px-4 sm:py-2 whitespace-nowrap text-white">{voiture.modele.type}</td>
+                                    <td className="px-2 py-2 sm:px-4 sm:py-2 whitespace-nowrap text-white">{voiture.modele.constructeur.type}</td>
+                                    <td className="px-2 py-2 sm:px-4 sm:py-2 whitespace-nowrap text-white">{voiture.corp.type[language]}</td>
+                                    <td className="px-2 py-2 sm:px-4 sm:py-2 whitespace-nowrap">
+                                        <Link to={`/voiture-update/${voiture.id}`} className="bg-[#F96C25] hover:bg-[#868E9B] text-white font-bold py-1 sm:py-2 px-2 sm:px-4 rounded-full mr-2">
                                             {t("btnEditer")}
                                         </Link>
                                         <Bouton onClick={() => handleDeleteVoiture(voiture.id)}>
@@ -233,6 +229,7 @@ function VoitureIndex({ t, changeLanguage }) {
                     </table>
                 </div>
             </div>
+
         </main>
     );
 }

@@ -44,41 +44,46 @@ function ConstructeurIndex({ t }) {
     };
 
     return (
-        <main className="flex">
-            <div>
-                <MenuDashboardAdmin t={t} />
-            </div>
+        <main className="flex flex-wrap">
+    <div>
+        <MenuDashboardAdmin t={t} />
+    </div>
 
-            <div className="w-[30%] mx-[4rem] mt-24 mb-[4rem]">
-                <h1 className='text-bleuFonce'>{t("constructeurIndex_titre")}</h1>
+    <div className="w-full sm:w-[100%] mx-4 sm:mx-[4rem] mt-24 mb-16 sm:mb-[4rem]">
+        <h1 className='text-bleuFonce'>{t("constructeurIndex_titre")}</h1>
 
-                <Link to={"/constructeur-create"}><p className='my-[1rem]'>+ {t("constructeurIndex_create")}</p></Link>
+        <Link to={"/constructeur-create"}>
+            <p className='my-4 sm:my-[1rem]'>+ {t("constructeurIndex_create")}</p>
+        </Link>
 
-                <table className="w-[60%] divide-y divide-gray-200 bg-[#21283B] my-[2rem] rounded-lg">
-                    <thead>
-                        <tr>
-                            <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Type</th>
-                            <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Action</th>
+        <div className="overflow-x-auto">
+            <table className="w-full sm:w-[60%] divide-y divide-gray-200 bg-[#21283B] my-4 sm:my-[2rem] rounded-lg">
+                <thead>
+                    <tr>
+                        <th className="px-4 sm:px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Type</th>
+                        <th className="px-4 sm:px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Action</th>
+                    </tr>
+                </thead>
+                <tbody className="bg-[#21283B] divide-y divide-gray-200">
+                    {constructeurs.map(constructeur => (
+                        <tr key={constructeur.id}>
+                            <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-white">{constructeur.type}</td>
+                            <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
+                                <Link to={`/constructeur-edit/${constructeur.id}`} className="gap-x-2 sm:gap-x-[1rem] bg-[#F96C25] hover:bg-[#868E9B] text-white font-bold py-2 px-4 rounded-full">
+                                    {t("btnEditer")}
+                                </Link>
+                                <Bouton onClick={() => handleDeleteConstructeur(constructeur.id)}>
+                                    {t("btnDeleter")}
+                                </Bouton>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody className="bg-[#21283B] divide-y divide-gray-200">
-                        {constructeurs.map(constructeur => (
-                            <tr key={constructeur.id}>
-                                <td className="px-6 py-4 whitespace-nowrap text-white">{constructeur.type}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <Link to={`/constructeur-edit/${constructeur.id}`} className="gap-x-[1rem] bg-[#F96C25] hover:bg-[#868E9B] text-white font-bold py-2 px-4 rounded-full">
-                                        {t("btnEditer")}
-                                    </Link>
-                                    <Bouton onClick={() => handleDeleteConstructeur(constructeur.id)}>
-                                        {t("btnDeleter")}
-                                    </Bouton>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </main>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
     );
 }
 

@@ -61,15 +61,15 @@ function ModeleCreate({ t }) {
 
 
     return (
-        <div className="flex">
+        <div className="flex flex-wrap">
             <div>
                 <MenuDashboardAdmin t={t} />
             </div>
 
             <div className='flex flex-col mb-[4rem]'>
                 <h1 className="mx-[4rem] mt-24 text-[#21283B]">{t("modeleCreate_titre")}</h1>
-                <div className="w-[120%] mx-[4rem] mt-12 bg-[#F96C25] rounded-lg">
-                    <form onSubmit={handleSubmit} className="p-3 bg-[#21283B] rounded-lg">
+                
+                    <form onSubmit={handleSubmit} className="mx-3 p-3 bg-[#21283B] rounded-lg">
                         <div className="mb-3">
                             <ChampText
                                 label={t("modeleType_label")}
@@ -109,7 +109,7 @@ function ModeleCreate({ t }) {
                         </Bouton>
                     </form>
                 </div>
-            </div>
+            
         </div>
     );
 }

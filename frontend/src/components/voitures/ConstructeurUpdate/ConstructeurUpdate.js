@@ -55,14 +55,14 @@ function ConstructeurUpdate({ t }) {
     };
 
     return (
-        <div className="flex">
+        <div className="flex flex-wrap">
             <div>
                 <MenuDashboardAdmin t={t} />
             </div>
 
-            <div className='flex flex-col mb-[4rem]'>
-                <h2 className="mx-[4rem] mt-24 text-bleuFonce">{t("constructeurUpdate_titre")}</h2>
-                <div className="w-[120%] mx-[4rem] mt-12 bg-[#F96C25] rounded-lg">
+            <div className='w-[100%] mx-[4rem] mt-24 mb-[4rem]'>
+                <h2 className="text-[#21283B] p-3">{t("constructeurUpdate_titre")}</h2>
+                
                     <form onSubmit={handleSubmit} className="p-3 bg-[#21283B] rounded-lg">
                         <div className="mb-3">
                             <ChampText
@@ -80,9 +80,10 @@ function ConstructeurUpdate({ t }) {
                             {t("btnSubmit")}
                         </Bouton>
                     </form>
-                </div>
+                
             </div>
         </div>
+
     );
 }
 

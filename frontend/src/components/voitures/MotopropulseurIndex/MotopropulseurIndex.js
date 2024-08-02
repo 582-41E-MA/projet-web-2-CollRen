@@ -57,44 +57,50 @@ function MotopropulseurIndex({ t, changeLanguage }) {
     };
 
     return (
-        <div className="flex">
-            <div>
-                <MenuDashboardAdmin t={t} />
-            </div>
+        <div className="flex flex-wrap">
+    <div className="w-full sm:w-auto">
+        <MenuDashboardAdmin t={t} />
+    </div>
 
-            <div className="w-[30%] mx-[4rem] mt-24 mb-[4rem]">
-                <h1 className='text-bleuFonce'>{t("motopropulseurIndex_titre")}</h1>
-                <Link to={"/motopropulseur-create"}><p className='my-[1rem]'>+ {t("motopropulseurIndex_create")}</p></Link>
+    <div className="w-full sm:w-[80%] mx-4 sm:mx-[4rem] mt-24 mb-16 sm:mb-[4rem]">
+        <h1 className="text-2xl sm:text-3xl text-bleuFonce mb-4">{t("motopropulseurIndex_titre")}</h1>
 
-                <table className="w-[60%] divide-y divide-gray-200 bg-[#21283B] my-[2rem] rounded-lg">
-                    <thead>
-                        <tr>
-                            <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Type</th>
-                            <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Action</th>
+        <Link to={"/motopropulseur-create"}>
+            <p className="text-sm sm:text-base my-2 sm:my-[1rem]">+ {t("motopropulseurIndex_create")}</p>
+        </Link>
+
+        <div className="overflow-x-auto">
+            <table className="w-full divide-y divide-gray-200 bg-[#21283B] rounded-lg">
+                <thead>
+                    <tr>
+                        <th className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Type</th>
+                        <th className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Action</th>
+                    </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                    {motopropulseurs.map(motopropulseur => (
+                        <tr key={motopropulseur.id}>
+                            <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-white">{motopropulseur.type[language]}</td>
+                            <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
+                                <Link to={`/motopropulseur-update/${motopropulseur.id}`}
+                                    className="bg-[#F96C25] hover:bg-[#868E9B] text-white font-bold py-2 px-3 sm:px-4 rounded-full">
+                                    {t("btnEditer")}
+                                </Link>
+                                <Bouton
+                                    onClick={() => handleDeleteMotopropulseur(motopropulseur.id)}
+                                    className="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out"
+                                >
+                                    {t("btnDeleter")}
+                                </Bouton>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody className="w-[60%] divide-y divide-gray-200 bg-[#21283B] my-[2rem] rounded-lg">
-                        {motopropulseurs.map(motopropulseur => (
-                            <tr key={motopropulseur.id}>
-                                <td className="px-6 py-4 whitespace-nowrap text-white">{motopropulseur.type[language]}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <Link to={`/motopropulseur-update/${motopropulseur.id}`}
-                                        className="bg-[#F96C25] hover:bg-[#868E9B] text-white font-bold py-2 px-4 rounded-full mx-[1rem]">
-                                        {t("btnEditer")}
-                                    </Link>
-                                    <Bouton
-                                        onClick={() => handleDeleteMotopropulseur(motopropulseur.id)}
-                                        className="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out"
-                                    >
-                                        {t("btnDeleter")}
-                                    </Bouton>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                    ))}
+                </tbody>
+            </table>
         </div>
+    </div>
+</div>
+
     );
 }
 
