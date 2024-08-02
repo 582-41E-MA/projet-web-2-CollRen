@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Tuile from '../Tuile/Tuile';
 import Filtres from '../Filtres/Filtres';
 
-
 function Catalogue({ t, changeLanguage }) {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [voitures, setVoitures] = useState([]);
@@ -10,7 +9,6 @@ function Catalogue({ t, changeLanguage }) {
     const [language, setLanguage] = useState(localStorage.getItem('langueChoisie'));
 
     let i = 0;
-    
   
     useEffect(() => {
         const fetchVoitures = async () => {
@@ -30,7 +28,16 @@ function Catalogue({ t, changeLanguage }) {
                     }
                 };
 
-                const updatedData = data.map(item => ({
+                // Filtrer les voitures en fonction de leur statut
+                const filteredData = data.filter(voiture => {
+                    if (voiture.commande_id) {
+                        // Supposons que vous avez une manière d'obtenir le statut de la commande associée
+                        return voiture.commande.statut_id !== 1 && voiture.commande.statut_id !== 2; // 1 = réservé, 2 = vendu
+                    }
+                    return true; // La voiture n'a pas de commande associée
+                });
+
+                const updatedData = filteredData.map(item => ({
                     ...item,
                     description: parseJSONSafely(item.description),
                     carburant: { ...item.carburant, type: parseJSONSafely(item.carburant.type) },
@@ -61,7 +68,6 @@ function Catalogue({ t, changeLanguage }) {
                 });
 
                 const voituresWithImages = await Promise.all(fetchImagePromises);
-                // console.log(voituresWithImages)
                 creerLeTableauDesVoitures(voituresWithImages)
 
                 setVoitures(voituresWithImages);
@@ -87,18 +93,13 @@ function Catalogue({ t, changeLanguage }) {
     }
 
     function creerLeTableauDesVoitures(arr) {
-        // console.log(i)
-        if (i == 0){
+        if (i === 0) {
             setArrvoitures(arr);
             i++;
         }
-        // console.log(arrvoitures)
-
     }
-    // console.log(arrvoitures)
 
     return (
-        
         <div className="relative min-h-screen bg-gray-100">
             <button 
                 className={`fixed top-4  z-20 bg-orange text-white p-2 rounded transition-transform duration-300 ${
@@ -115,16 +116,14 @@ function Catalogue({ t, changeLanguage }) {
 
             <div className="container mx-auto px-4 py-8">
                 <h1 className="text-4xl font-bold text-center mb-8 text-bleuFonce">{t("catalog.title")}</h1>
-                <div className="grid grid-cols-1 justify-items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {voitures.map(voiture => (
+                <div className="grid grid-cols-1 justify-items-center sm:grid-cols-2 md-lg:grid-cols-3 lg:grid-cols-4 gap-6">
+                {voitures.map(voiture => (
                         <Tuile key={voiture.id} voiture={voiture} language={language} />
                 ))}
                 </div>
             </div>
-
         </div>
-);
+    );
 }
+
 export default Catalogue;
-
-

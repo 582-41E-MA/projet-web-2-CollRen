@@ -46,6 +46,7 @@ import { AnimatePresence } from "framer-motion";
 import DetailProduit from '../site/DetailProduit/DetailProduit';
 import Panier, { PanierProvider } from '../site/Panier/Panier'; 
 import Confirmation from '../vente/Confirmation';
+import ConfirmationReservation from '../reservation/ConfirmationReservation';
 
 
 
@@ -294,6 +295,7 @@ function App() {
                             <Route element={<Panier t={t} />} />
                         </Route>
                         <Route path="/confirmation" element={<Confirmation t={t} requiredPrivilege={[3]} />} />
+                        <Route path="/confirmation-reservation" element={<ConfirmationReservation t={t} requiredPrivilege={[3]} />} />
 
                     </Routes>
                 </AnimatePresence>

@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import FormFacture from '../../vente/FormFacture.js';
+import FormReservation from '../../reservation/FormReservation'; // Assurez-vous que ce chemin est correct
 import './Panier.css';
 import { AppContext } from '../../App/App.js';
 
@@ -53,7 +54,8 @@ export const PanierProvider = ({ children }) => {
 // Composant pour afficher le contenu du panier
 const Panier = ({ t, user }) => {
   const { panier, supprimerDuPanier, viderPanier, totalPanier } = useContext(PanierContext);
-  const [showPopup, setShowPopup] = useState(false); // State pour afficher/cacher la popup
+  const [showPopup, setShowPopup] = useState(false); // État pour afficher la popup de facturation
+  const [showReservationPopup, setShowReservationPopup] = useState(false); // État pour afficher la popup de réservation
   const [language, setLanguage] = useState(localStorage.getItem("langueChoisie"));
   const userPrivilege = user?.usager?.privilege_id;
   const userId = user?.usager?.id;
@@ -68,89 +70,116 @@ const Panier = ({ t, user }) => {
     document.body.classList.remove('no-scroll');
   };
 
+  const openReservationPopup = () => {
+    setShowReservationPopup(true);
+    document.body.classList.add('no-scroll');
+  };
+
+  const closeReservationPopup = () => {
+    setShowReservationPopup(false);
+    document.body.classList.remove('no-scroll');
+  };
+
   // Assurez-vous que prenom et nom sont disponibles
   const userName = user?.usager?.prenom && user?.usager?.nom 
     ? `${user.usager.prenom} ${user.usager.nom}`
     : 'Nom d\'utilisateur non disponible'; // Nom complet de l'utilisateur ou message par défaut
-// console.log(user.usager.prenom);
+
   return (
     <div className="container mx-auto px-4 py-8 relative">
-  <h1 className="text-4xl font-bold mb-6 text-center">Votre Panier</h1>
-  {panier.length === 0 ? (
-    <p className="text-center text-gray-600 text-lg">Votre panier est vide.</p>
-  ) : (
-    <div>
-      {/* Affichage conditionnel du nom de l'utilisateur */}
-      <h2 className='text-center text-2xl font-semibold mb-8'>Mon panier</h2>
-      <div className='overflow-x-auto'>
-        <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
-          {/* Table header */}
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Voiture</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-            </tr>
-          </thead>
-          {/* Table body */}
-          <tbody className="divide-y divide-gray-200">
-            {panier.map((voiture) => (
-              <tr key={voiture.id} className="hover:bg-gray-50">
-                <td className="px-4 py-4">
-                  {voiture.principaleImage && (
-                    <img
-                      src={`/imgs/${voiture.principaleImage.chemin}`}
-                      alt={voiture.modele?.type?.[language] || ''}
-                      className="w-20 h-auto rounded-lg shadow-sm object-cover"
-                    />
-                  )}
-                </td>
-                <td className="px-4 py-4 text-gray-800">
-                  {voiture.modele?.type?.[language] || ''} {voiture.constructeur?.type?.[language] || ''}
-                </td>
-                <td className="px-4 py-4 text-gray-800">{voiture.prix} $</td>
-                <td className="px-4 py-4">
-                  <button className="bg-red-500 text-white font-semibold py-1 px-3 rounded hover:bg-red-600 transition" onClick={() => supprimerDuPanier(voiture.id)}>Supprimer</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="flex flex-col md:flex-row justify-between items-center mt-8">
-        <div className="text-2xl font-bold mb-4 md:mb-0">Total : {totalPanier} $</div>
-        <div className="flex space-x-4">
-          <button className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover:bg-red-600 transition" onClick={viderPanier}>Vider le Panier</button>
-          <button className="bg-green-500 text-white font-semibold py-2 px-4 rounded hover:bg-green-600 transition" onClick={openPopup}>Passer à la Caisse</button>
-        </div>
-      </div>
-      {/* Popup pour le formulaire */}
-      {showPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="h-[80vh] bg-white p-8 rounded-lg shadow-lg w-full max-w-lg relative overflow-auto">
-            {/* Contenu de la popup */}
-            <FormFacture
-              t={t}
-              userId={userId}
-              totalPanier={totalPanier}
-              panier={panier}
-              userName={userName} 
-            />
-            {/* Bouton pour fermer la popup */}
-            <button
-              className="absolute top-4 right-4 text-gray-600 hover:text-red-500 transition"
-              onClick={closePopup}
-            >
-              Fermer
-            </button>
+      <h1 className="text-4xl font-bold mb-6 text-center">Votre Panier</h1>
+      {panier.length === 0 ? (
+        <p className="text-center text-gray-600 text-lg">Votre panier est vide.</p>
+      ) : (
+        <div>
+          {/* Affichage conditionnel du nom de l'utilisateur */}
+          <h2 className='text-center text-2xl font-semibold mb-8'>Mon panier</h2>
+          <div className='overflow-x-auto'>
+            <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
+              {/* Table header */}
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Voiture</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                </tr>
+              </thead>
+              {/* Table body */}
+              <tbody className="divide-y divide-gray-200">
+                {panier.map((voiture) => (
+                  <tr key={voiture.id} className="hover:bg-gray-50">
+                    <td className="px-4 py-4">
+                      {voiture.principaleImage && (
+                        <img
+                          src={`/imgs/${voiture.principaleImage.chemin}`}
+                          alt={voiture.modele?.type?.[language] || ''}
+                          className="w-20 h-auto rounded-lg shadow-sm object-cover"
+                        />
+                      )}
+                    </td>
+                    <td className="px-4 py-4 text-gray-800">
+                      {voiture.modele?.type?.[language] || ''} {voiture.constructeur?.type?.[language] || ''}
+                    </td>
+                    <td className="px-4 py-4 text-gray-800">{voiture.prix} $</td>
+                    <td className="px-4 py-4">
+                      <button className="bg-red-500 text-white font-semibold py-1 px-3 rounded hover:bg-red-600 transition" onClick={() => supprimerDuPanier(voiture.id)}>Supprimer</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
+          <div className="flex flex-col md:flex-row justify-between items-center mt-8">
+            <div className="text-2xl font-bold mb-4 md:mb-0">Total : {totalPanier} $</div>
+            <div className="flex space-x-4">
+              <button className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover:bg-red-600 transition" onClick={viderPanier}>Vider le Panier</button>
+              <button className="bg-green-500 text-white font-semibold py-2 px-4 rounded hover:bg-green-600 transition" onClick={openPopup}>Passer à la Caisse</button>
+              <button className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition" onClick={openReservationPopup}>Réserver</button>
+            </div>
+          </div>
+          {/* Popup pour le formulaire de facturation */}
+          {showPopup && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="h-[80vh] bg-white p-8 rounded-lg shadow-lg w-full max-w-lg relative overflow-auto">
+                <FormFacture
+                  t={t}
+                  userId={userId}
+                  totalPanier={totalPanier}
+                  panier={panier}
+                  userName={userName} 
+                />
+                <button
+                  className="absolute top-4 right-4 text-gray-600 hover:text-red-500 transition"
+                  onClick={closePopup}
+                >
+                  Fermer
+                </button>
+              </div>
+            </div>
+          )}
+          {/* Popup pour le formulaire de réservation */}
+          {showReservationPopup && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="h-[80vh] bg-white p-8 rounded-lg shadow-lg w-full max-w-lg relative overflow-auto">
+                <FormReservation
+                  t={t}
+                  userId={userId}
+                  panier={panier}
+                  userName={userName}
+                />
+                <button
+                  className="absolute top-4 right-4 text-gray-600 hover:text-red-500 transition"
+                  onClick={closeReservationPopup}
+                >
+                  Fermer
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
-  )}
-</div>
-
   );
 };
 
