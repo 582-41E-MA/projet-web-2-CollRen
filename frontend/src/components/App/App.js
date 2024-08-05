@@ -45,6 +45,7 @@ import Catalogue from '../site/Catalogue/Catalogue';
 import { AnimatePresence } from "framer-motion";
 import DetailProduit from '../site/DetailProduit/DetailProduit';
 import Panier, { PanierProvider } from '../site/Panier/Panier'; 
+import Confirmation from '../vente/Confirmation';
 
 
 
@@ -164,7 +165,7 @@ function App() {
 
     return (
         <AppContext.Provider value={{ user, logout, language, handleTrans}}>
-             <PanierProvider>
+             <PanierProvider userId={user.usager.id}>
             <Router>
                 <Entete t={t} />
                 <AnimatePresence mode="wait">
@@ -292,6 +293,7 @@ function App() {
                         <Route path="/panier" element={<PrivateRoute requiredPrivilege={[3]} />}>
                             <Route element={<Panier t={t} />} />
                         </Route>
+                        <Route path="/confirmation" element={<Confirmation t={t} requiredPrivilege={[3]} />} />
 
                     </Routes>
                 </AnimatePresence>

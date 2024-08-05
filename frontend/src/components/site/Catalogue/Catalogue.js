@@ -61,7 +61,7 @@ function Catalogue({ t, changeLanguage }) {
                 });
 
                 const voituresWithImages = await Promise.all(fetchImagePromises);
-                console.log(voituresWithImages)
+                // console.log(voituresWithImages)
                 creerLeTableauDesVoitures(voituresWithImages)
 
                 setVoitures(voituresWithImages);
@@ -87,15 +87,15 @@ function Catalogue({ t, changeLanguage }) {
     }
 
     function creerLeTableauDesVoitures(arr) {
-        console.log(i)
+        // console.log(i)
         if (i == 0){
             setArrvoitures(arr);
             i++;
         }
-        console.log(arrvoitures)
+        // console.log(arrvoitures)
 
     }
-    console.log(arrvoitures)
+    // console.log(arrvoitures)
 
     return (
         
@@ -115,7 +115,7 @@ function Catalogue({ t, changeLanguage }) {
 
             <div className="container mx-auto px-4 py-8">
                 <h1 className="text-4xl font-bold text-center mb-8 text-bleuFonce">{t("catalog.title")}</h1>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 justify-items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {voitures.map(voiture => (
                         <Tuile key={voiture.id} voiture={voiture} language={language} />
                 ))}

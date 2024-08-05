@@ -1,13 +1,15 @@
+
 import React, { useState, useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useNavigate } from 'react-router-dom';
 import ChampText from '../partialsFormulaire/ChampText/ChampText';
 import Bouton from '../partialsFormulaire/Bouton/Bouton';
 
 // Charger Stripe avec votre clé publique
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
-function FormFacture({ t, userId, totalPanier }) {
+function FormFacture({ t, userId, totalPanier, panier, userName }) {
   const [user, setUser] = useState({
     prenom: '',
     nom: '',
@@ -33,11 +35,20 @@ function FormFacture({ t, userId, totalPanier }) {
   const [modePaiements, setModePaiements] = useState([]);
   const [selectedExpedition, setSelectedExpedition] = useState('');
   const [selectedModePaiement, setSelectedModePaiement] = useState('');
+  const [message, setMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [paymentData, setPaymentData] = useState({
+    payment_method_id: '',
+    total: 0,
+});
 
+
+  // console.log("User Name:", userName);
 
   const stripe = useStripe();
   const elements = useElements();
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     if (userId) {
       fetch(`${t("fetch")}utilisateurs/${userId}`)
@@ -166,70 +177,85 @@ function FormFacture({ t, userId, totalPanier }) {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
     if (!stripe || !elements) {
-      console.error("Stripe.js has not yet loaded.");
+      // Stripe.js n'a pas encore chargé
       return;
     }
-
+  
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
       card: elements.getElement(CardElement),
-      billing_details: {
-        name: `${user.prenom} ${user.nom}`,
-        email: user.courriel,
-        address: {
-          line1: user.adresse,
-          postal_code: user.code_postal
-        },
-        phone: user.telephone
-      }
     });
-
+  
     if (error) {
-      console.error("Payment Error:", error);
+      setErrorMessage(error.message);
+      console.error('Stripe error:', error);
       return;
     }
-
-    // Envoyer les données au serveur
-    const response = await fetch(`${t("fetch")}stripe/payment`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        payment_method_id: paymentMethod.id,
-        user: user,
-        total: totalWithTax,
-        expedition: selectedExpedition,
-        mode_paiement: selectedModePaiement
-      })
-    });
-
-    const result = await response.json();
-    if (response.ok) {
-      console.log('Payment successful:', result);
-    } else {
-      console.error('Payment failed:', result);
+  
+    const { id: payment_method_id } = paymentMethod;
+  
+    try {
+      const response = await fetch('http://localhost:5000/api/stripe/payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          payment_method_id,
+          total: totalWithTax,
+          clientInfo: {
+            prenom: user.prenom,
+            nom: user.nom,
+            courriel: user.courriel,
+            adresse: user.adresse,
+          },
+          description: `Achat de ${panier.map(voiture => `${voiture.modele?.type?.[language] || ''} ${voiture.constructeur?.type?.[language] || ''}`).join(', ')}`
+        }),
+      });
+  
+      const result = await response.json();
+      console.log('Payment response:', result);
+  
+      if (result.success) {
+        setMessage('Payment successful!');
+        navigate('/confirmation', {
+          state: {
+            user,
+            voiture: panier[0],
+            totalWithTax
+          }
+        });
+      } else {
+        setErrorMessage(result.error);
+      }
+    } catch (error) {
+      console.error('Erreur lors du paiement:', error);
+      setErrorMessage('Paiement échoué, veuillez réessayer.');
     }
   };
 
+
   return (
-    <div className="flex">
+    <div className="flex absolute top-7 right-7">
       <div className="w-full">
-        <h2 className="text-center text-xl my-6">Veuillez entrer vos coordonnées pour compléter l'achat</h2>
+      <h2 className="text-center text-xl my-6">Bonjour {user.prenom  || ''} </h2>
+
 
         <div className="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md">
+        
           <form onSubmit={handleSubmit}>
+            <h3 className="mt-6 text-lg font-semibold text-left my-4">Informations personnelles</h3>
             <div className="grid grid-cols-1 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700">{t("user.prenom")}</label>
                 <ChampText
                   type="text"
                   name="prenom"
-                  value={user.prenom}
+                  value={user.prenom  || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
@@ -239,7 +265,7 @@ function FormFacture({ t, userId, totalPanier }) {
                 <ChampText
                   type="text"
                   name="nom"
-                  value={user.nom}
+                  value={user.nom || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
@@ -249,7 +275,7 @@ function FormFacture({ t, userId, totalPanier }) {
                 <ChampText
                   type="date"
                   name="anniversaire"
-                  value={user.anniversaire}
+                  value={user.anniversaire || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
@@ -259,7 +285,7 @@ function FormFacture({ t, userId, totalPanier }) {
                 <ChampText
                   type="email"
                   name="courriel"
-                  value={user.courriel}
+                  value={user.courriel  || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
@@ -269,7 +295,7 @@ function FormFacture({ t, userId, totalPanier }) {
                 <ChampText
                   type="text"
                   name="adresse"
-                  value={user.adresse}
+                  value={user.adresse || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
@@ -279,7 +305,7 @@ function FormFacture({ t, userId, totalPanier }) {
                 <ChampText
                   type="text"
                   name="code_postal"
-                  value={user.code_postal}
+                  value={user.code_postal || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
@@ -289,7 +315,7 @@ function FormFacture({ t, userId, totalPanier }) {
                 <ChampText
                   type="text"
                   name="telephone"
-                  value={user.telephone}
+                  value={user.telephone || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
@@ -299,7 +325,7 @@ function FormFacture({ t, userId, totalPanier }) {
                 <ChampText
                   type="text"
                   name="cellulaire"
-                  value={user.cellulaire}
+                  value={user.cellulaire || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
@@ -308,13 +334,13 @@ function FormFacture({ t, userId, totalPanier }) {
                 <label className="block text-sm font-medium text-gray-700">{t("user.province")}</label>
                 <select
                   name="province_id"
-                  value={user.province_id}
+                  value={user.province_id || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 >
                   <option value="">{t("selectionner")}</option>
                   {provinces.map(province => (
-                    <option key={province.id} value={province.id}>
+                    <option key={province.id || ''} value={province.id || ''}>
                       {province.nom[language]}
                     </option>
                   ))}
@@ -324,14 +350,14 @@ function FormFacture({ t, userId, totalPanier }) {
                 <label className="block text-sm font-medium text-gray-700">{t("user.ville")}</label>
                 <select
                   name="ville_id"
-                  value={user.ville_id}
+                  value={user.ville_id || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 >
                   <option value="">{t("selectionner")}</option>
                   {filteredVilles.map(ville => (
-                    <option key={ville.id} value={ville.id}>
-                      {ville.nom[language]}
+                    <option key={ville.id || ''} value={ville.id || ''}>
+                      {ville.nom[language] || ''}
                     </option>
                   ))}
                 </select>
@@ -345,7 +371,7 @@ function FormFacture({ t, userId, totalPanier }) {
                 >
                   <option value="">{t("select_expedition")}</option>
                   {expeditions.map(expedition => (
-                    <option key={expedition.id} value={expedition.id}>
+                    <option key={expedition.id || ''} value={expedition.id || ''}>
                       {expedition.type[language]}
                     </option>
                   ))}
@@ -367,7 +393,30 @@ function FormFacture({ t, userId, totalPanier }) {
                 </select>
               </div>
             </div>
-            <h3 className="mt-6 text-lg font-semibold text-center">{t("paiement.details")}</h3>
+            <div className="my-8 ">
+              <h3 className="text-lg font-semibold mb-4">Résumé du Panier</h3>
+              <table className="min-w-full bg-white rounded-lg shadow-lg overflow-hidden">
+                <thead>
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Voiture</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {panier.map((voiture) => (
+                    <tr key={voiture.id} className="border-b">
+                      <td className="px-6 py-4 text-gray-900">
+                        {voiture.modele?.type?.[language] || ''} {voiture.constructeur?.type?.[language] || ''}
+                      </td>
+                      <td className="px-6 py-4 text-gray-900">{voiture.prix} $</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <h3 className="mt-6 text-lg font-semibold text-left">{t("paiement.details")}</h3>
+            {message && <div className="mb-4 p-4 text-green-700 bg-green-100 rounded">{message}</div>}
+        {errorMessage && <div className="mb-4 p-4 text-red-700 bg-red-100 rounded">{errorMessage}</div>}
             <div className="border-t border-gray-200 pt-6">
               <CardElement className="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
             </div>

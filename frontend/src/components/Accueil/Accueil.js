@@ -97,7 +97,7 @@ function Accueil({ t }) {
               </div>
             </div>
           </section>
-          <section className="py-2 h-[90vh]">
+          <section className="py-2 ">
             <h2 className="text-3xl my-8 font-bold text-center text-gray-800">
               Vos préférences pour le véhicule ?
             </h2>

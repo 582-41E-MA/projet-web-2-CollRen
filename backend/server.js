@@ -1,62 +1,31 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const app = express()
-const cookieParser = require('cookie-parser')
-const corsOption = {
-    credentials: true,
-    origin: '*'
-}
-const stripeRoutes = require('./app/routes/stripe/stripe.routes');
+// server.js
+require('dotenv').config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const app = express();
+const stripeRoutes = require('./app/routes/stripe/stripe.routes.js');
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 
-const Stripe = require('stripe');
-const stripe = Stripe('sk_test_51PGBD9KJGPCZHFEUhMOFEwpfz89jDpADgoY8VdEj4CPPser5niDzrQlriGhjbNy2Clh7hIvgCMbqoKi2eEpRpAFP00j5MxYhB0'); // Utilisez votre clé secrète Stripe ici
+app.use(cors({ credentials: true, origin: '*' }));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use('/api/stripe', stripeRoutes);
 
-require('dotenv').config()
+const db = require('./app/models');
+db.connex.sync();
 
-app.use(cors(corsOption))
-app.use(cookieParser())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-
-const db = require('./app/models')
-db.connex.sync()
-//test
+// Route de test
 app.get('/', (req, res) => {
-    res.json({ message: 'Welcome' })
-})
+    res.json({ message: 'Bienvenue' });
+});
 
-app.post('/api/stripe/payment', async (req, res) => {
-    const { amount, currency, source, description } = req.body;
-  
-    console.log('Received payment request:', req.body); // Ajoutez cette ligne pour voir les requêtes reçues
-  
-    try {
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount,
-        currency,
-        payment_method: source,
-        confirm: true,
-        description,
-      });
-  
-      console.log('Payment successful:', paymentIntent); // Ajoutez cette ligne pour voir les paiements réussis
-      res.status(200).send({ success: true, paymentIntent });
-    } catch (error) {
-      console.error('Erreur lors du traitement du paiement:', error);
-      res.status(500).send({ success: false, error: error.message });
-    }
-  });
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`)
-})
-
-app.use('/create-payment-intent', stripeRoutes);
-
+// Autres routes
 require('./app/routes/utilisateur/utilisateur.routes')(app);
 require('./app/routes/privilege/privilege.routes')(app);
 require('./app/routes/ville/ville.routes')(app);
@@ -77,9 +46,13 @@ require('./app/routes/taxe/taxe.routes')(app);
 require('./app/routes/commande_has_taxe/commande_has_taxe.routes')(app);
 require('./app/routes/journal/journal.routes')(app);
 
+// Gestion des erreurs 404
 app.use((req, res) => {
     res.statusMessage = "Ressource non trouvée";
     res.status(404).json("Ressource non trouvée");
 });
 
-
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Le serveur fonctionne sur le port ${PORT}.`);
+});
