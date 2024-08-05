@@ -214,9 +214,11 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
             adresse: user.adresse,
           },
           description: `Achat de ${panier.map(voiture => `${voiture.modele?.type?.[language] || ''} ${voiture.constructeur?.type?.[language] || ''}`).join(', ')}`,
-          userId,
+          userId: user.id,
+          voitureId: panier[0].id,
           selectedModePaiement,
-          selectedExpedition
+          selectedExpedition,
+          statut_id: 2 // Statut pour vente
         }),
       });
   
