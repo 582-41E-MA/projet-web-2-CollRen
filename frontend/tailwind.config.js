@@ -17,6 +17,9 @@ module.exports = {
         soustitre: ['Droid Sans', 'sans-serif'],
         paragraphe: ['Hind Madurai', 'sans-serif'],
       },
+      screens: {
+        'md-lg': {'min': '1000px', 'max': '1279px'},
+      },
     },
   },
   plugins: [],

@@ -34,34 +34,36 @@ function ConstructeurCreate({ t }) {
     };
 
     return (
-        <div className="flex">
-            <div>
-                <MenuDashboardAdmin t={t} />
-            </div>
+        <div className="flex flex-wrap">
+    <div className="w-full sm:w-auto">
+        <MenuDashboardAdmin t={t} />
+    </div>
 
-            <div className='flex flex-col mb-[4rem]'>
-                <h2 className="mx-[4rem] mt-24 text-bleuFonce">{t("constructeurCreate_titre")}</h2>
-                <div className="w-[120%] mx-[4rem] mt-12 bg-[#F96C25] rounded-lg">
-                    <form onSubmit={handleSubmit} className="p-3 bg-[#21283B] rounded-lg">
-                        <div className="mb-3">
-                            <ChampText
-                                label={t("constructeurType_label")}
-                                type="text"
-                                className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
-                                value={constructeurType}
-                                onChange={(e) => setConstructeurType(e.target.value)}
-                            />
-                        </div>
-                        <Bouton
-                            type="submit"
-                            className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"
-                        >
-                            {t("btnSubmit")}
-                        </Bouton>
-                    </form>
+    <div className='flex flex-col w-full sm:w-[80%] mx-4 sm:mx-[4rem] mb-16 sm:mb-[4rem]'>
+        <h2 className="text-2xl sm:text-3xl text-bleuFonce mt-24 mb-6">{t("constructeurCreate_titre")}</h2>
+
+        <div className=" rounded-lg ">
+            <form onSubmit={handleSubmit} className="p-6 bg-[#21283B] rounded-lg">
+                <div className="mb-4">
+                    <ChampText
+                        label={t("constructeurType_label")}
+                        type="text"
+                        className="block appearance-none w-full py-2 px-3 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                        value={constructeurType}
+                        onChange={(e) => setConstructeurType(e.target.value)}
+                    />
                 </div>
-            </div>
+                <Bouton
+                    type="submit"
+                    className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-4 bg-blue-600 text-white hover:bg-blue-700"
+                >
+                    {t("btnSubmit")}
+                </Bouton>
+            </form>
         </div>
+    </div>
+</div>
+
     );
 }
 

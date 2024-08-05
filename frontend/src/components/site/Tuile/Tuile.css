@@ -1,0 +1,18 @@
+.grise {
+    background-color: #f0f0f0; /* Couleur de fond gris clair */
+    color: #b0b0b0; /* Texte gris clair */
+    opacity: 0.6; /* Réduit l'opacité pour un effet de grisage */
+    pointer-events: none; /* Empêche les interactions avec la tuile */
+    position: relative; /* Assure que la mention de statut est positionnée correctement */
+}
+
+.grise .statut {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 0, 0, 0.7); /* Couleur de fond rouge avec transparence */
+    color: white; /* Texte blanc */
+    padding: 0.5rem;
+    font-weight: bold;
+    border-bottom-right-radius: 0.5rem; /* Arrondir les coins en bas à droite */
+}

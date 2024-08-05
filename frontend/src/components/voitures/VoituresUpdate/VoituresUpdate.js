@@ -258,14 +258,14 @@ function VoitureUpdate({ t }) {
      
 
     return (
-        <div className="flex">
+        <div className="flex flex-wrap">
             <div>
                 <MenuDashboardAdmin t={t} />
             </div>
 
-            <div className='flex flex-col w-[40%] mx-[3rem] mt-24 mb-[4rem]'>
-                <h2 className="mx-[4rem]">{t("voitureUpdate_titre")}</h2>
-                <div className="w-full mx-[4rem] mt-12 bg-[#F96C25] rounded-lg">
+            <div className='flex flex-col w-[100%] mx-[1rem] mt-24 mb-[4rem]'>
+                <h2 >{t("voitureUpdate_titre")}</h2>
+                <div className="mt-12 bg-[#F96C25] rounded-lg">
                     <form onSubmit={handleSubmit} className="p-3 bg-[#21283B] rounded-lg">
                         <div>
                             <label className="text-[#F5F5F5]">{t("voitureCreate_date_label")}</label>
@@ -400,7 +400,7 @@ function VoitureUpdate({ t }) {
                         </Bouton>
                     </form>
                 </div>
-                <div className="w-full mx-[4rem] mt-12 rounded-lg p-3 bg-[#21283B]">
+                <div className="w-full mt-12 rounded-lg p-3 bg-[#21283B]">
                     <h3 className="text-[#F5F5F5]">{t("voitureUpdate_images_titre")}</h3>
                     <div className="grid grid-cols-3 gap-4">
                         {images.length > 0 ? (

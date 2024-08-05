@@ -59,12 +59,12 @@ function CarburantCreate({ t }) {
     };
 
     return (
-        <div className="flex">
+        <div className="flex flex-wrap">
             <div>
                 <MenuDashboardAdmin t={t} />
             </div>
 
-            <div className="w-[30%] mx-[4rem] mt-24">
+            <div className="w-[100%] mx-[4rem] mt-24">
                 <h2 className="p-3">{t("carburantCreate_titre")}</h2>
 
                 <form onSubmit={handleSubmit} className="p-3">

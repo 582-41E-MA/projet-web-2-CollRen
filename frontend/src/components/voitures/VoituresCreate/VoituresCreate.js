@@ -171,162 +171,163 @@ function VoitureCreate({ t }) {
     };
 
     return (
-        <div className="flex">
-            <div>
-                <MenuDashboardAdmin t={t} />
-            </div>
+        <div className="flex flex-wrap">
+    <div className="w-full sm:w-auto">
+        <MenuDashboardAdmin t={t} />
+    </div>
 
-            <div className='flex flex-col w-[40%] mx-[3rem] mt-24 mb-[4rem]'>
-                <h2 className="mx-[4rem]">{t("voitureCreate_titre")}</h2>
-                <div className="w-full mx-[4rem] mt-12 bg-[#F96C25] rounded-lg">
-                    <form onSubmit={handleSubmit} className="p-3 bg-[#21283B] rounded-lg" encType='multipart/form-data'>
-                        <div>
-                            <label className='text-[#f5f5f5]'>{t("voitureCreate_date_label")}</label>
-                            <input
-                                type="number"
-                                placeholder={t("voitureCreate_date_placeholder")}
-                                required={true}
-                                onChange={(e) => setDate(e.target.value)}
-                                value={date}
-                                name="date"
-                                className='my-2 mb-6 p-3 block bg-[#f5f5f5]  placeholder:text-slate-300 rounded border focus:border-teal-500'
-                            />
-                        </div>
-                        <ChampTextArea
-                            label={t("voitureCreate_description_label_en")}
-                            content={descriptionEn}
-                            whenChanged={setDescriptionEn}
-                            mandatory={true}
-                            placeholder={t("voitureCreate_description_placeholder_en")}
-                        />
-                        <ChampTextArea
-                            label={t("voitureCreate_description_label_fr")}
-                            content={descriptionFr}
-                            whenChanged={setDescriptionFr}
-                            mandatory={true}
-                            placeholder={t("voitureCreate_description_placeholder_fr")}
-                        />
-                        <ChampText
-                            label={t("voitureCreate_prix_label")}
-                            type="number"
-                            placeholder={t("voitureCreate_prix_placeholder")}
-                            mandatory={true}
-                            onChange={(e) => setPrix(e.target.value)}
-                            value={prix}
-                            name="prix"
-                        />
-                        <div className="mb-3">
-                            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="modele">
-                                {t("voitureCreate_modele_label")}
-                            </label>
-                            <select
-                                id="modele"
-                                className="block appearance-none w-full bg-white border border-gray-200 text-gray-800 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                value={selectedModele}
-                                onChange={(e) => setSelectedModele(e.target.value)}
-                            >
-                                <option value="">{t("voitureCreate_select_modele")}</option>
-                                {modeles.map((modele) => (
-                                    <option key={modele.id} value={modele.id}>
-                                        {modele.type}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="mb-3">
-                            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="transmission">
-                                {t("voitureCreate_transmission_label")}
-                            </label>
-                            <select
-                                id="transmission"
-                                className="block appearance-none w-full bg-white border border-gray-200 text-gray-800 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                value={selectedTransmission}
-                                onChange={(e) => setSelectedTransmission(e.target.value)}
-                            >
-                                <option value="">{t("voitureCreate_select_transmission")}</option>
-                                {transmissions.map((transmission) => (
-                                    <option key={transmission.id} value={transmission.id}>
-                                        {transmission.type[language]}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="mb-3">
-                            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="motopropulseur">
-                                {t("voitureCreate_motopropulseur_label")}
-                            </label>
-                            <select
-                                id="motopropulseur"
-                                className="block appearance-none w-full bg-white border border-gray-200 text-gray-800 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                value={selectedMotopropulseur}
-                                onChange={(e) => setSelectedMotopropulseur(e.target.value)}
-                            >
-                                <option value="">{t("voitureCreate_select_motopropulseur")}</option>
-                                {motopropulseurs.map((motopropulseur) => (
-                                    <option key={motopropulseur.id} value={motopropulseur.id}>
-                                        {motopropulseur.type[language]}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="mb-3">
-                            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="carburant">
-                                {t("voitureCreate_carburant_label")}
-                            </label>
-                            <select
-                                id="carburant"
-                                className="block appearance-none w-full bg-white border border-gray-200 text-gray-800 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                value={selectedCarburant}
-                                onChange={(e) => setSelectedCarburant(e.target.value)}
-                            >
-                                <option value="">{t("voitureCreate_select_carburant")}</option>
-                                {carburants.map((carburant) => (
-                                    <option key={carburant.id} value={carburant.id}>
-                                        {carburant.type[language]}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="mb-3">
-                            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="corp">
-                                {t("voitureCreate_corps_label")}
-                            </label>
-                            <select
-                                id="corp"
-                                className="block appearance-none w-full bg-white border border-gray-200 text-gray-800 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                value={selectedCorp}
-                                onChange={(e) => setSelectedCorp(e.target.value)}
-                            >
-                                <option value="">{t("voitureCreate_select_corps")}</option>
-                                {corps.map((corp) => (
-                                    <option key={corp.id} value={corp.id}>
-                                        {corp.type[language]}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="mb-3">
-                            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="images">
-                                {t("voitureCreate_images_label")}
-                            </label>
-                            <input
-                                type="file"
-                                id="images"
-                                multiple
-                                onChange={handleImageChange}
-                                className="block appearance-none w-full bg-white border border-gray-200 text-gray-800 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            />
-                        </div>
-                        <Bouton
-                            type="submit"
-                            className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"
-                        >
-                            {t("CreateUser.btnSubmit")}
-                        </Bouton>
-                    </form>
+    <div className="flex flex-col w-full sm:w-11/12 mx-4 sm:mx-[2rem] mt-24 mb-16 sm:mb-[4rem]">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-6">{t("voitureCreate_titre")}</h2>
+        <div className="mt-8 bg-[#F96C25] rounded-lg">
+            <form onSubmit={handleSubmit} className="p-4 bg-[#21283B] rounded-lg" encType="multipart/form-data">
+                <div className="mb-4">
+                    <label className="block text-gray-300 text-sm font-semibold mb-2">{t("voitureCreate_date_label")}</label>
+                    <input
+                        type="number"
+                        placeholder={t("voitureCreate_date_placeholder")}
+                        required
+                        onChange={(e) => setDate(e.target.value)}
+                        value={date}
+                        name="date"
+                        className="w-full p-3 bg-[#f5f5f5] placeholder:text-slate-300 rounded border border-gray-300 focus:border-teal-500"
+                    />
                 </div>
-            </div>
+                <ChampTextArea
+                    label={t("voitureCreate_description_label_en")}
+                    content={descriptionEn}
+                    whenChanged={setDescriptionEn}
+                    mandatory
+                    placeholder={t("voitureCreate_description_placeholder_en")}
+                />
+                <ChampTextArea
+                    label={t("voitureCreate_description_label_fr")}
+                    content={descriptionFr}
+                    whenChanged={setDescriptionFr}
+                    mandatory
+                    placeholder={t("voitureCreate_description_placeholder_fr")}
+                />
+                <ChampText
+                    label={t("voitureCreate_prix_label")}
+                    type="number"
+                    placeholder={t("voitureCreate_prix_placeholder")}
+                    mandatory
+                    onChange={(e) => setPrix(e.target.value)}
+                    value={prix}
+                    name="prix"
+                />
+                <div className="mb-4">
+                    <label className="block text-gray-300 text-sm font-semibold mb-2" htmlFor="modele">
+                        {t("voitureCreate_modele_label")}
+                    </label>
+                    <select
+                        id="modele"
+                        className="block appearance-none w-full bg-white border border-gray-300 text-gray-800 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        value={selectedModele}
+                        onChange={(e) => setSelectedModele(e.target.value)}
+                    >
+                        <option value="">{t("voitureCreate_select_modele")}</option>
+                        {modeles.map((modele) => (
+                            <option key={modele.id} value={modele.id}>
+                                {modele.type}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-300 text-sm font-semibold mb-2" htmlFor="transmission">
+                        {t("voitureCreate_transmission_label")}
+                    </label>
+                    <select
+                        id="transmission"
+                        className="block appearance-none w-full bg-white border border-gray-300 text-gray-800 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        value={selectedTransmission}
+                        onChange={(e) => setSelectedTransmission(e.target.value)}
+                    >
+                        <option value="">{t("voitureCreate_select_transmission")}</option>
+                        {transmissions.map((transmission) => (
+                            <option key={transmission.id} value={transmission.id}>
+                                {transmission.type[language]}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-300 text-sm font-semibold mb-2" htmlFor="motopropulseur">
+                        {t("voitureCreate_motopropulseur_label")}
+                    </label>
+                    <select
+                        id="motopropulseur"
+                        className="block appearance-none w-full bg-white border border-gray-300 text-gray-800 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        value={selectedMotopropulseur}
+                        onChange={(e) => setSelectedMotopropulseur(e.target.value)}
+                    >
+                        <option value="">{t("voitureCreate_select_motopropulseur")}</option>
+                        {motopropulseurs.map((motopropulseur) => (
+                            <option key={motopropulseur.id} value={motopropulseur.id}>
+                                {motopropulseur.type[language]}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-300 text-sm font-semibold mb-2" htmlFor="carburant">
+                        {t("voitureCreate_carburant_label")}
+                    </label>
+                    <select
+                        id="carburant"
+                        className="block appearance-none w-full bg-white border border-gray-300 text-gray-800 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        value={selectedCarburant}
+                        onChange={(e) => setSelectedCarburant(e.target.value)}
+                    >
+                        <option value="">{t("voitureCreate_select_carburant")}</option>
+                        {carburants.map((carburant) => (
+                            <option key={carburant.id} value={carburant.id}>
+                                {carburant.type[language]}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-300 text-sm font-semibold mb-2" htmlFor="corp">
+                        {t("voitureCreate_corps_label")}
+                    </label>
+                    <select
+                        id="corp"
+                        className="block appearance-none w-full bg-white border border-gray-300 text-gray-800 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        value={selectedCorp}
+                        onChange={(e) => setSelectedCorp(e.target.value)}
+                    >
+                        <option value="">{t("voitureCreate_select_corps")}</option>
+                        {corps.map((corp) => (
+                            <option key={corp.id} value={corp.id}>
+                                {corp.type[language]}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-300 text-sm font-semibold mb-2" htmlFor="images">
+                    {t("voitureCreate_images_label")}
+                    </label>
+                    <input
+                        type="file"
+                        id="images"
+                        multiple
+                        onChange={handleImageChange}
+                        className="block w-full bg-white border border-gray-300 text-gray-800 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    />
+                </div>
+                <Bouton
+                    type="submit"
+                    className="inline-block text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-4 bg-blue-600 text-white hover:bg-blue-700"
+                >
+                    {t("CreateUser.btnSubmit")}
+                </Bouton>
+            </form>
         </div>
+    </div>
+</div>
+
     );
 }
 

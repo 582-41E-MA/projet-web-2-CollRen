@@ -213,7 +213,10 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
             courriel: user.courriel,
             adresse: user.adresse,
           },
-          description: `Achat de ${panier.map(voiture => `${voiture.modele?.type?.[language] || ''} ${voiture.constructeur?.type?.[language] || ''}`).join(', ')}`
+          description: `Achat de ${panier.map(voiture => `${voiture.modele?.type?.[language] || ''} ${voiture.constructeur?.type?.[language] || ''}`).join(', ')}`,
+          userId,
+          selectedModePaiement,
+          selectedExpedition
         }),
       });
   
@@ -237,6 +240,7 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
       setErrorMessage('Paiement échoué, veuillez réessayer.');
     }
   };
+  
 
 
   return (
