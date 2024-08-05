@@ -161,7 +161,7 @@ function DetailProduit({ t }) {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {confirmation && <div className="bg-green-200 text-green-800 p-3 mb-4 rounded">Voiture ajoutée au panier avec succès!</div>}
+      {confirmation && <div className="bg-green-200 text-green-800 p-3 mb-4 rounded">{t('car_added_to_cart_success')}</div>}
       <div className="flex flex-col md:flex-row justify-between items-center mb-8">
         <h1 className="text-4xl font-bold text-center mb-4 md:mb-0 text-bleuFonce">
           {voiture.modele.type[language]} {voiture.constructeur.type[language]}
@@ -208,27 +208,27 @@ function DetailProduit({ t }) {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 bg-white rounded-lg shadow-lg p-8">
             <div className="text-lg">
-              <strong>{t("Carburant")}:</strong> {voiture.carburant.type[language]}
+              <strong>{t("voituretableau_Carburant")}:</strong> {voiture.carburant.type[language]}
             </div>
             <div className="text-lg">
-              <strong>{t("Transmission")}:</strong> {voiture.transmission.type[language]}
+              <strong>{t("voituretableau_Transmission")}:</strong> {voiture.transmission.type[language]}
             </div>
             <div className="text-lg">
-              <strong>{t("Corps")}:</strong> {voiture.corp.type[language]}
+              <strong>{t("voituretableau_Corps")}:</strong> {voiture.corp.type[language]}
             </div>
             <div className="text-lg">
-              <strong>{t("Année")}:</strong> {voiture.date}
+              <strong>{t("voitureCreate_date_label")}:</strong> {voiture.date}
             </div>
             <div className="text-lg">
-              <strong>{t("Motopropulseur")}:</strong> {voiture.motopropulseur.type[language]}
+              <strong>{t("voituretableau_Motopropulseur")}:</strong> {voiture.motopropulseur.type[language]}
             </div>
           </div>
           <div className="flex justify-end space-x-4">
             <button className="bg-bleuFonce text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-bleuFonce-dark transition-colors duration-300">
-              Réserver
+            {t('reserve')}
             </button>
             <button onClick={handleAjouterAuPanier} className="bg-orange text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-orange-dark transition-colors duration-300">
-              Ajouter au panier
+            {t('add_to_cart')}
             </button>
           </div>
         </div>

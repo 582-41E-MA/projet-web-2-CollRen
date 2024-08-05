@@ -196,6 +196,20 @@
       "payment_method": "Payment method",
       "select_expedition": "Select expedition",
       "select_payment_method": "Select payment method",
-      "total": "Total"
+      "total": "Total",
+      "price": "Price",
+      "car_added_to_cart_success": "Car added to cart successfully!",
+      "reserve": "Reserve",
+      "more_details": "More details",
+      "your_cart": "Your Cart",
+      "your_cart_is_empty": "Your cart is empty.",
+      "my_cart": "My Cart",
+      "image": "Image",
+      "car": "Car",
+      "action": "Action",
+      "remove": "Remove",
+      "empty_cart": "Empty Cart",
+      "close": "Close"
+
     }
   }

@@ -193,9 +193,19 @@
       "payment_method": "Méthode de paiement",
       "select_expedition": "Selectionner le mode d'expedition",
       "select_payment_method": "Selectionner le mode de paiement",
-      "total": "Total"  
-       
-
-
+      "total": "Total",  
+       "price": "Prix",
+      "car_added_to_cart_success": "Voiture ajoutée au panier avec succès!",
+      "reserve": "Réserver",
+      "more_details": "+ de détails",
+      "your_cart": "Votre Panier",
+      "your_cart_is_empty": "Votre panier est vide.",
+      "my_cart": "Mon panier",
+      "image": "Image",
+      "car": "Voiture",
+      "action": "Action",
+      "remove": "Supprimer",
+      "empty_cart": "Vider le Panier",
+      "close": "Fermer"
     }
   }
