@@ -398,12 +398,12 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
               </div>
             </div>
             <div className="my-8 ">
-              <h3 className="text-lg font-semibold mb-4">Résumé du Panier</h3>
+              <h3 className="text-lg font-semibold mb-4">{t("cart_summary")}</h3>
               <table className="min-w-full bg-white rounded-lg shadow-lg overflow-hidden">
                 <thead>
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Voiture</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('car')}</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('price')}</th>
                   </tr>
                 </thead>
                 <tbody>

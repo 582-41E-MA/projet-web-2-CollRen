@@ -7,6 +7,10 @@
       "navItem.apropos": "About us",
       "navItem.home": "Home",
       "navItem.signup": "Sign up",
+      
+      "privacy_policy": "Privacy Policy",
+      "find_vehicle": "Find a car",
+
 
 
       "login":"Login",
@@ -209,7 +213,18 @@
       "action": "Action",
       "remove": "Remove",
       "empty_cart": "Empty Cart",
-      "close": "Close"
+      "close": "Close",
+      "reservation": "Reservation",
+      "cart_summary": "Cart Summary",
 
+      "confirmation.reservation": "Order Reservation Confirmation",
+      "confirmation.order": "Order Confirmation",
+      "confirmation.thank_you": "Thank you for your purchase",
+      "confirmation.reservation_summary": "Reservation Summary",
+      "confirmation.order_summary": "Order Summary",
+      "confirmation.name": "Name",
+      "confirmation.car": "Car",
+      "total_price_with_taxes": "Total Price (with taxes):",
+      "confirmation.return_home": "Return to Home"
     }
   }

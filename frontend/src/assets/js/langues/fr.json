@@ -6,6 +6,9 @@
      "navItem.home": "Accueil",
      "navItem.signup": "S'inscrire",
 
+     "privacy_policy": "Politique de confidentialité",
+      "find_vehicle": "Trouver un véhicule",
+
      "btnEditer": "Éditer",
      "btnDeleter": "Éffacer",
      "btnSubmit": "Soumettre",
@@ -206,6 +209,18 @@
       "action": "Action",
       "remove": "Supprimer",
       "empty_cart": "Vider le Panier",
-      "close": "Fermer"
+      "close": "Fermer",
+      "reservation": "Réservation",
+      "cart_summary": "Résumé du Panier",
+
+      "confirmation.reservation": "Confirmation de commande de réservation",
+      "confirmation.order": "Confirmation de commande",
+      "confirmation.thank_you": "Merci pour votre achat",
+      "confirmation.reservation_summary": "Résumé de la réservation",
+      "confirmation.order_summary": "Résumé de la commande",
+      "confirmation.name": "Nom",
+      "confirmation.car": "Voiture",
+      "total_price_with_taxes": "Prix total (avec taxes):",
+      "confirmation.return_home": "Retourner à l'accueil"
     }
   }

@@ -294,8 +294,8 @@ function App() {
                         <Route path="/panier" element={<PrivateRoute requiredPrivilege={[3]} />}>
                             <Route element={<Panier t={t} />} />
                         </Route>
-                        <Route path="/confirmation" element={<Confirmation t={t} requiredPrivilege={[3]} />} />
-                        <Route path="/confirmation-reservation" element={<ConfirmationReservation t={t} requiredPrivilege={[3]} />} />
+                        <Route path="/confirmation" element={<Confirmation t={t} changeLanguage={handleTrans} requiredPrivilege={[3]} />} />
+                        <Route path="/confirmation-reservation" element={<ConfirmationReservation t={t} changeLanguage={handleTrans} requiredPrivilege={[3]} />} />
 
                     </Routes>
                 </AnimatePresence>
