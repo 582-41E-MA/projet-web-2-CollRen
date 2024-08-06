@@ -225,6 +225,8 @@
       "confirmation.name": "Name",
       "confirmation.car": "Car",
       "total_price_with_taxes": "Total Price (with taxes):",
+      "reserved": "RESERVED",
+      "sold": "SOLD",
       "confirmation.return_home": "Return to Home"
     }
   }

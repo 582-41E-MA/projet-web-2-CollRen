@@ -1,5 +1,4 @@
 import React from 'react';
-import Nav from '../Nav/Nav';
 import { Link } from 'react-router-dom';
 import "./Footer.css";
 

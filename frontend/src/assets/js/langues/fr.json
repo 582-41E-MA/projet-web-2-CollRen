@@ -221,6 +221,8 @@
       "confirmation.name": "Nom",
       "confirmation.car": "Voiture",
       "total_price_with_taxes": "Prix total (avec taxes):",
+      "reserved": "RÉSERVÉE",
+      "sold": "VENDUE",
       "confirmation.return_home": "Retourner à l'accueil"
     }
   }

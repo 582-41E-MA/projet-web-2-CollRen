@@ -245,7 +245,7 @@ function FormReservation({ t, userId, panier, userName }) {
 
     <div className="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md">
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2">
         <div>
                 <label className="block text-sm font-medium text-gray-700">{t("user.prenom")}</label>
                 <ChampText
@@ -316,7 +316,16 @@ function FormReservation({ t, userId, panier, userName }) {
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>
-          
+              <div>
+                <label className="block text-sm font-medium text-gray-700">{t("user.cellulaire")}</label>
+                <ChampText
+                  type="text"
+                  name="cellulaire"
+                  value={user.cellulaire || ''}
+                  onChange={handleChange}
+                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700">{t("user.province")}</label>
@@ -375,14 +384,14 @@ function FormReservation({ t, userId, panier, userName }) {
           </div>
         </div>
 
-        <div className='mt-8'>
+        <div className='mt-8 text-right'>
             <p>{t("panier.total")}: {total} €</p>
             <p>{t("taxes.incluses")}: {taxName} ({tauxTaxe}%)</p>
-            <p className='mb-6'>{t("total")}: {totalWithTax} €</p>
+            <p className='mb-8'>{t("total")}: {totalWithTax} €</p>
             {message && <div className="mb-4 p-4 text-green-700 bg-green-100 rounded">{message}</div>}
         {errorMessage && <div className="mb-4 p-4 text-red-700 bg-red-100 rounded">{errorMessage}</div>}
             <CardElement />
-            <button type="submit"  className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" disabled={!stripe}>{t("pay_now")}</button>
+            <button type="submit"  className="mt-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" disabled={!stripe}>{t("pay_now")}</button>
         </div>
       </form>
     </div>

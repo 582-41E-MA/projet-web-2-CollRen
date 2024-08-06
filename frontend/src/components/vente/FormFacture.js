@@ -255,7 +255,7 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
         
           <form onSubmit={handleSubmit}>
             <h3 className="mt-6 text-lg font-semibold text-left my-4">Informations personnelles</h3>
-            <div className="grid grid-cols-1 gap-6">
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2">
               <div>
                 <label className="block text-sm font-medium text-gray-700">{t("user.prenom")}</label>
                 <ChampText

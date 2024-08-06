@@ -17,9 +17,9 @@ function Tuile({ voiture, language, t }) {
     // Déterminer si la voiture est réservée ou vendue
     const estGrise = voiture.commande_id && (voiture.commande.statut_id === 1 || voiture.commande.statut_id === 2);
     const statutVoiture = voiture.commande_id && voiture.commande.statut_id === 1 
-        ? 'RÉSERVÉE' 
+        ? t('reserved')  
         : voiture.commande_id && voiture.commande.statut_id === 2 
-        ? 'VENDUE' 
+        ? t('sold') 
         : '';
 
     return (
@@ -62,7 +62,6 @@ function Tuile({ voiture, language, t }) {
                 {/* <p className="text-gray-700 mt-1">{voiture.corp.type[language]}</p> */}
             </div>
             <div className="flex justify-end mt-1 pr-4 pb-4">
-                <button className="bg-orange text-white font-titre p-2 rounded-lg">{t('reserve')}</button>
                 <Link to={`/voitures/${voiture.id}`} className="block"> 
                     <button className="bg-bleuFonce text-white font-titre ml-4 p-2 rounded-lg">{t('more_details')}</button>
                 </Link>

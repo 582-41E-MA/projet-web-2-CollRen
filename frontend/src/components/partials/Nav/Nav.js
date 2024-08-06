@@ -2,7 +2,7 @@
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../../App/App';
 import { Link, useNavigate } from 'react-router-dom';
-import './Nav.css'; // Importer le fichier CSS pour les styles du menu burger
+import './Nav.css'; 
 
 function Nav({ t }) {
     const { user, logout, handleTrans, language } = useContext(AppContext);
