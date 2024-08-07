@@ -39,6 +39,9 @@ router.post('/payment', async (req, res) => {
     if (voiture) {
       voiture.commande_id = newCommande.id;
       await voiture.save();
+      console.log('Voiture updated:', voiture);
+    } else {
+      console.log('Voiture not found with id:', voitureId);
     }
 
     res.json({ success: true, paymentIntent, newCommande });

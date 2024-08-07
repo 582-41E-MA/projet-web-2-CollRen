@@ -1,5 +1,4 @@
 import React from "react";
-import Footer from "../partials/Footer/Footer";
 import "./Accueil.css";
 import BarreRecherche from "../site/BarreRecherche/BarreRecherche";
 import { Link } from "react-router-dom";

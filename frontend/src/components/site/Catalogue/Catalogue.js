@@ -117,7 +117,7 @@ function Catalogue({ t, changeLanguage }) {
                 <h1 className="text-4xl font-bold text-center mb-8 text-bleuFonce">{t("catalog.title")}</h1>
                 <div className="grid grid-cols-1 justify-items-center sm:grid-cols-2 md-lg:grid-cols-3 lg:grid-cols-4 gap-6">
                     {voitures.map(voiture => (
-                        <Tuile key={voiture.id} voiture={voiture} language={language} />
+                        <Tuile key={voiture.id} voiture={voiture} language={language}  t={t} changeLanguage={changeLanguage} />
                 ))}
                 </div>
             </div>

@@ -214,9 +214,11 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
             adresse: user.adresse,
           },
           description: `Achat de ${panier.map(voiture => `${voiture.modele?.type?.[language] || ''} ${voiture.constructeur?.type?.[language] || ''}`).join(', ')}`,
-          userId,
+          userId: user.id,
+          voitureId: panier[0].id,
           selectedModePaiement,
-          selectedExpedition
+          selectedExpedition,
+          statut_id: 2 // Statut pour vente
         }),
       });
   
@@ -253,7 +255,7 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
         
           <form onSubmit={handleSubmit}>
             <h3 className="mt-6 text-lg font-semibold text-left my-4">Informations personnelles</h3>
-            <div className="grid grid-cols-1 gap-6">
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2">
               <div>
                 <label className="block text-sm font-medium text-gray-700">{t("user.prenom")}</label>
                 <ChampText
@@ -398,12 +400,12 @@ function FormFacture({ t, userId, totalPanier, panier, userName }) {
               </div>
             </div>
             <div className="my-8 ">
-              <h3 className="text-lg font-semibold mb-4">Résumé du Panier</h3>
+              <h3 className="text-lg font-semibold mb-4">{t("cart_summary")}</h3>
               <table className="min-w-full bg-white rounded-lg shadow-lg overflow-hidden">
                 <thead>
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Voiture</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('car')}</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('price')}</th>
                   </tr>
                 </thead>
                 <tbody>

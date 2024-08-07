@@ -241,11 +241,11 @@ function FormReservation({ t, userId, panier, userName }) {
   return (
     <div className="flex absolute top-7 right-7">
   <div className="w-full">
-    <h2 className="text-center text-xl my-6">{t('Réservation')}</h2>
+    <h2 className="text-center text-xl my-6">{t('reservation')}</h2>
 
     <div className="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md">
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2">
         <div>
                 <label className="block text-sm font-medium text-gray-700">{t("user.prenom")}</label>
                 <ChampText
@@ -316,44 +316,53 @@ function FormReservation({ t, userId, panier, userName }) {
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>
-          
+              <div>
+                <label className="block text-sm font-medium text-gray-700">{t("user.cellulaire")}</label>
+                <ChampText
+                  type="text"
+                  name="cellulaire"
+                  value={user.cellulaire || ''}
+                  onChange={handleChange}
+                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">{t('Choisir une province')}</label>
+            <label className="block text-sm font-medium text-gray-700">{t("user.province")}</label>
             <select
               name="province_id"
               value={user.province_id || ''}
               onChange={handleChange}
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             >
-              <option value="">{t('Choisir une province')}</option>
+              <option value="">{t("selectionner")}</option>
               {provinces.map(province => (
                 <option key={province.id} value={province.id || ''}>{province.nom[language]}</option>
               ))}
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">{t('Choisir une ville')}</label>
+            <label className="block text-sm font-medium text-gray-700">{t("user.ville")}</label>
             <select
               name="ville_id"
               value={user.ville_id || ''}
               onChange={handleChange}
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             >
-              <option value="">{t('Choisir une ville')}</option>
+              <option value="">{t("selectionner")}</option>
               {filteredVilles.map(ville => (
                 <option key={ville.id} value={ville.id || ''}>{ville.nom[language]}</option>
               ))}
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">{t('Mode de paiement')}</label>
+            <label className="block text-sm font-medium text-gray-700">{t("payment_method")}</label>
             <select
               value={selectedModePaiement}
               onChange={e => setSelectedModePaiement(e.target.value)}
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             >
-              <option value="">{t('Choisir un mode de paiement')}</option>
+              <option value="">{t("select_payment_method")}</option>
               {modePaiements.map(mode => (
                 <option key={mode.id} value={mode.id}>{mode.type[language]}</option>
               ))}
@@ -361,13 +370,13 @@ function FormReservation({ t, userId, panier, userName }) {
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-gray-700">{t('Expédition')}</label>
+            <label className="block text-sm font-medium text-gray-700">{t("expedition")}</label>
             <select
               value={selectedExpedition}
               onChange={e => setSelectedExpedition(e.target.value)}
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             >
-              <option value="">{t('Choisir une expédition')}</option>
+              <option value="">{t("select_expedition")}</option>
               {expeditions.map(expedition => (
                 <option key={expedition.id} value={expedition.id || ''}>{expedition.type[language]}</option>
               ))}
@@ -375,14 +384,14 @@ function FormReservation({ t, userId, panier, userName }) {
           </div>
         </div>
 
-        <div className='mt-8'>
-            <p>{t('Total sans taxes')}: {total} €</p>
-            <p>{t('Nom de la taxe')}: {taxName} ({tauxTaxe}%)</p>
-            <p className='mb-6'>{t('Total avec taxes')}: {totalWithTax} €</p>
+        <div className='mt-8 text-right'>
+            <p>{t("panier.total")}: {total} €</p>
+            <p>{t("taxes.incluses")}: {taxName} ({tauxTaxe}%)</p>
+            <p className='mb-8'>{t("total")}: {totalWithTax} €</p>
             {message && <div className="mb-4 p-4 text-green-700 bg-green-100 rounded">{message}</div>}
         {errorMessage && <div className="mb-4 p-4 text-red-700 bg-red-100 rounded">{errorMessage}</div>}
             <CardElement />
-            <button type="submit"  className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" disabled={!stripe}>{t('Payer')}</button>
+            <button type="submit"  className="mt-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" disabled={!stripe}>{t("pay_now")}</button>
         </div>
       </form>
     </div>

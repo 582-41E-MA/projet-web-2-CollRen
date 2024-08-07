@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { PanierContext } from '../Panier/Panier'; 
 import './Tuile.css';
 
-function Tuile({ voiture, language }) {
+function Tuile({ voiture, language, t }) {
     const principaleImage = voiture.images.find(image => image.est_principale === 1 && image.voiture_id === voiture.id);
     const { ajouterAuPanier } = useContext(PanierContext); 
     const [confirmation, setConfirmation] = useState(false);
@@ -17,14 +17,14 @@ function Tuile({ voiture, language }) {
     // Déterminer si la voiture est réservée ou vendue
     const estGrise = voiture.commande_id && (voiture.commande.statut_id === 1 || voiture.commande.statut_id === 2);
     const statutVoiture = voiture.commande_id && voiture.commande.statut_id === 1 
-        ? 'RÉSERVÉE' 
+        ? t('reserved')  
         : voiture.commande_id && voiture.commande.statut_id === 2 
-        ? 'VENDUE' 
+        ? t('sold') 
         : '';
 
     return (
         <div className={`border border-gray-300 rounded-lg overflow-hidden w-72 bg-white shadow-md ${estGrise ? 'grise' : ''}`}>
-            {confirmation && <div className="bg-green-200 text-green-800 p-3 mb-4 rounded">Voiture ajoutée au panier avec succès!</div>}
+            {confirmation && <div className="bg-green-200 text-green-800 p-3 mb-4 rounded">{t('car_added_to_cart_success')}</div>}
             
             {principaleImage && (
                 <img 
@@ -62,9 +62,8 @@ function Tuile({ voiture, language }) {
                 {/* <p className="text-gray-700 mt-1">{voiture.corp.type[language]}</p> */}
             </div>
             <div className="flex justify-end mt-1 pr-4 pb-4">
-                <button className="bg-orange text-white font-titre p-2 rounded-lg">Réserver</button>
                 <Link to={`/voitures/${voiture.id}`} className="block"> 
-                    <button className="bg-bleuFonce text-white font-titre ml-4 p-2 rounded-lg">+ de détails</button>
+                    <button className="bg-bleuFonce text-white font-titre ml-4 p-2 rounded-lg">{t('more_details')}</button>
                 </Link>
             </div>
         </div>

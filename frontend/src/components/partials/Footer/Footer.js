@@ -1,5 +1,4 @@
 import React from 'react';
-import Nav from '../Nav/Nav';
 import { Link } from 'react-router-dom';
 import "./Footer.css";
 
@@ -24,9 +23,9 @@ function Footer({ t }) {
                     <a href="#" className="py-2 px-6 flex text-lg"> Contact</a>
                 </div>
                 <div className='font-titre'>
-                    <a href="/politique" className="py-2 px-6 flex text-lg">Politique de confidentialité
+                    <a href="/politique" className="py-2 px-6 flex text-lg">{t("privacy_policy")}
                     </a>
-                    <a href="#" className="py-2 px-6 flex text-lg">Trouver un véhicule</a>
+                    <a href="#" className="py-2 px-6 flex text-lg">{t("find_vehicle")}</a>
                     <a href="#" className="py-2 px-6 flex color-red text-lg">+1 888 888 8888</a>
                     <a href="/apropos" className="py-2 px-6 flex text-lg">contact@beauxbazous.ca</a>
                 </div>
