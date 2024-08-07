@@ -20,6 +20,8 @@ function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handl
     const [leFiltreDesAnnees, setLeFiltreDesAnnees] = useState('');
     let results = []
 
+    
+
     function setFiltres(e) {
         let nomFiltre = e.target.attributes[1].value
         let valeur = e.target.value
@@ -78,17 +80,43 @@ function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handl
     }
 
     async function fetchConstructeurs() {
-
         try {
             const response = await fetch(`${t("fetch")}constructeurs`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            setConstructeurs(data);
+            setConstructeurs(creerArrayConstructeur(arrayVoituresImuable))
         } catch (error) {
             console.error('Error fetching constructeurs:', error);
         }
+    }
+
+    useEffect(() => {
+
+        console.log(arrayVoituresImuable)
+        setConstructeurs(creerArrayConstructeur(arrayVoituresImuable))
+    }, [arrayVoituresImuable])
+    
+
+    function creerArrayConstructeur(arrayDeVoitures){
+        let lesConstructeursSont = []
+
+        for (let i = 0; i < arrayDeVoitures.length; i++) {
+
+            // Créer un array d'objet pour chacune des catégories dans lesquelles effectuer la recherche
+            const elementConstructeur = arrayDeVoitures[i].modele.constructeur.type;
+
+            //Envoyer tous les objets Modèles des voitures de ce constructeur
+            if (lesConstructeursSont.indexOf(elementConstructeur) === -1) {
+
+                lesConstructeursSont.push(elementConstructeur)
+                
+            }
+            
+        }
+        console.log(lesConstructeursSont)
+        return lesConstructeursSont
     }
 
     function arraySelectModeles(voituresDeCeConstructeur, modelesConstructeurs = []) {
