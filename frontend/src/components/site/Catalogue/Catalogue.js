@@ -110,7 +110,7 @@ function Catalogue({ t, changeLanguage }) {
             </button>
 
             <div className={`filter-panel ${isFilterOpen ? 'open' : 'closed'}`}>
-                <Filtres t={t} changeLanguage={changeLanguage} arrayVoitures={arrvoitures} handleSetVoitures={onFiltered}  />
+                <Filtres t={t} changeLanguage={changeLanguage} arrayVoitures={voitures} arrayVoituresImuable={arrvoitures} handleSetVoitures={onFiltered} />
             </div>
 
             <div className="container mx-auto px-4 py-8">

@@ -4,160 +4,190 @@ import Bouton from '../../partialsFormulaire/Bouton/Bouton';
 import SelectOptions from '../../partialsFormulaire/SelectOptions/SelectOptions';
 import filtreRecherche from '../BarreRecherche/FiltreRecherche';
 
-
-
-function Filtres({ t, changeLanguage, arrayVoitures, handleSetVoitures }) {
-    const [voitures, setVoitures] = useState([]);
-    const [modeles, setModeles] = useState([]);
+function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handleSetVoitures }) {
+    const [anneesFabrication, setAnneesFabrication] = useState([]);
+    const [arrayAEnvoyer, setArrayAEnvoyer] = useState([]);
     const [constructeurs, setConstructeurs] = useState([]);
+    const [modelesConstructeurs, setModelesConstructeurs] = useState([]);
+    const [lesObjetsModelesDeCeModele, setLesObjetsModelesDeCeModele] = useState([]);
+    const [voituresConstructeurs, setVoituresConstructeurs] = useState([]);
     const [language, setLanguage] = useState(localStorage.getItem('langueChoisie'));
     const labelModele = 'Modèles';
     const labelConstructeur = 'Constructeurs';
+    const labelAnnee = 'Années';
+    const [leFiltreDesConstructeurs, setLeFiltreDesConstructeurs] = useState('');
+    const [leFiltreDesModeles, setLeFiltreDesModeles] = useState('');
+    const [leFiltreDesAnnees, setLeFiltreDesAnnees] = useState('');
     let results = []
 
-    useEffect(() => {
+    function setFiltres(e) {
+        let nomFiltre = e.target.attributes[1].value
+        let valeur = e.target.value
 
-        const fetchModeles = async () => {
-            try {
-                const response = await fetch(`${t("fetch")}modeles`);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                setModeles(data);
-            } catch (error) {
-                console.error('Error fetching modeles:', error);
+        // Assigne une valeur à chacun des filtre
+        switch (nomFiltre) {
+            case 'Constructeurs': {
+
+                setModelesConstructeurs([])
+                setAnneesFabrication([])
+                setLeFiltreDesConstructeurs(valeur)
+                setLeFiltreDesModeles([])
+                setLeFiltreDesAnnees('')
             }
-        };
 
-
-        const fetchConstructeurs = async () => {
-            try {
-                const response = await fetch(`${t("fetch")}constructeurs`);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                setConstructeurs(data);
-            } catch (error) {
-                console.error('Error fetching constructeurs:', error);
+                break;
+            case 'Modèles': {
+                setLeFiltreDesModeles(valeur)
+                setAnneesFabrication([])
+                setLeFiltreDesAnnees('')
             }
-        };
 
+                break;
+            case 'Années': setLeFiltreDesAnnees(valeur)
 
-        fetchModeles();
-        fetchConstructeurs();
-    }, [language, t]);
+                break;
 
-    useEffect(() => {
-        const storedLanguage = localStorage.getItem('langueChoisie') || '';
-        setLanguage(storedLanguage);
-    }, [changeLanguage]);
+            default:
+                break;
+        }
+    }
 
+    /**
+     * 
+     * @param {array} voitures 
+     * @returns array des dates unique de fabrication
+     */
+    function getAnnees(voitures = []) {
+        let anneeFabrication = []
+        for (let i = 0; i < voitures.length; i++) {
+            const elementAnnee = voitures[i].date;
+            //Créer tableau de toutes les années, unique, pour le Select Annéees
 
+            if (anneeFabrication.indexOf(elementAnnee) === -1) {
 
-    const handleDeleteVoiture = async (id) => {
+                anneeFabrication.push(elementAnnee)
+            }
+        }
+        return anneeFabrication.sort();
+    }
+
+    function appliquerFiltreModele(e, arrayVoitures) {
+        results = []
+        let objetCeModele = filtreRecherche(e, arrayVoitures)
+        return objetCeModele
+    }
+
+    async function fetchConstructeurs() {
+
         try {
-            const response = await fetch(`${t("fetch")}voitures/${id}`, {
-                method: 'DELETE',
-            });
+            const response = await fetch(`${t("fetch")}constructeurs`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-
-            const updatedVoitures = voitures.filter(voiture => voiture.id !== id);
-            setVoitures(updatedVoitures);
-
-            alert('Voiture supprimée avec succès!');
+            const data = await response.json();
+            setConstructeurs(data);
         } catch (error) {
-            console.error('Error deleting voiture:', error);
-            alert('Error deleting voiture. Please try again.');
+            console.error('Error fetching constructeurs:', error);
         }
-    };
+    }
 
-    const getConstructeurType = (modeleId) => {
-        const modele = modeles.find(m => m.id === modeleId);
-        return modele ? modele.constructeur.type : '';
-    };
-    
-    function setUrl(e) {
+    function arraySelectModeles(voituresDeCeConstructeur, modelesConstructeurs = []) {
+        let lesModelesDeCeConstructeurSont = []
+
+        for (let i = 0; i < voituresDeCeConstructeur.length; i++) {
+
+            // Créer un array d'objet pour chacune des catégories dans lesquelles effectuer la recherche
+            const elementModele = voituresDeCeConstructeur[i].modele.type;
+
+            //Envoyer tous les objets Modèles des voitures de ce constructeur
+            if (lesModelesDeCeConstructeurSont.indexOf(elementModele) === -1) {
+
+                lesModelesDeCeConstructeurSont.push(elementModele)
+                modelesConstructeurs.push(voituresDeCeConstructeur[i].modele)
+            }
+            setAnneesFabrication(getAnnees(voituresDeCeConstructeur
+            ))
+        }
+        return modelesConstructeurs
+    }
 
 
-        /**
-         * Utilise la barre de recherche pour recevoir le nom d'un modèle ou d'une marque
-         * @return array contenant les voitures
-         * 
-         */
-        let ObjetContientRecherche = filtreRecherche(e, arrayVoitures, results)
-        handleSetVoitures(ObjetContientRecherche)
+    useEffect(() => {
+        arrayVoitures = arrayVoituresImuable
+        fetchConstructeurs()
+
+        const storedLanguage = localStorage.getItem('langueChoisie') || ''
+        setLanguage(storedLanguage)
+    }, [changeLanguage, language, t]);
 
 
-        // Renvoyer le tableau contenant les voitures après filtrage
-        //handleSetVoitures(arrayvoitureFiltrees)
+    useEffect(() => {
+        arrayVoitures = arrayVoituresImuable
+
+        if (leFiltreDesConstructeurs == 'Constructeurs') {
+            setVoituresConstructeurs(arrayVoitures)
+            setModelesConstructeurs([])
+        }
+
+        // Gestion du filtre constructeur
+        if (leFiltreDesConstructeurs != '' && leFiltreDesConstructeurs != 'Constructeurs') {
+
+
+            arrayVoitures = filtreRecherche(leFiltreDesConstructeurs, arrayVoitures, results)
+
+            // Montage de l'array pour le Select des modèles
+            setVoituresConstructeurs(arrayVoitures)
+            if (voituresConstructeurs != []) {
+                setModelesConstructeurs(arraySelectModeles(arrayVoitures))
+            }
+        }
+        if (leFiltreDesModeles != '' && leFiltreDesConstructeurs != '' && leFiltreDesModeles != 'Modèles') {
+            arrayVoitures = appliquerFiltreModele(leFiltreDesModeles, arrayVoitures)
+            setAnneesFabrication(getAnnees(arrayVoitures))
+        }
+
+        if (leFiltreDesAnnees != 'Années' && leFiltreDesAnnees != '') {
+
+            // Si réinitialisé, on remet tous les modèles de ce constructeur
+            // setModelesConstructeurs(filtreRecherche(leFiltreDesAnnees, arrayVoitures, results))
+            results = []
+            arrayVoitures = filtreRecherche(leFiltreDesAnnees, arrayVoitures, results)
+            setModelesConstructeurs(arraySelectModeles(arrayVoitures))
+        }
+
+        setArrayAEnvoyer(arrayVoitures)
+    }, [leFiltreDesConstructeurs, leFiltreDesModeles, leFiltreDesAnnees])
+
+
+    // Envoyer le nouvel array de voitures au composant Catalogue
+    useEffect(() => {
+        handleSetVoitures(arrayAEnvoyer)
+    }, [arrayAEnvoyer])
+
+    // Affecter au bouton de réinitialisation
+    const reinitialiser = () => {
+        let valeur = 'Constructeurs'
+        setConstructeurs([])
+        setModelesConstructeurs([])
+        setAnneesFabrication([])
+        setLeFiltreDesConstructeurs(valeur)
+        setLeFiltreDesModeles([])
+        setLeFiltreDesAnnees('')
+        fetchConstructeurs()
     }
 
     return (
         <div className="bg-white p-4 rounded-lg shadow-md mb-8 mt-12">
             <h2 className="text-2xl font-bold mb-4">Filtres</h2>
             <div className="flex flex-col gap-4">
+                <SelectOptions list={constructeurs} whenChanged={setFiltres} itemAFiltrer={labelConstructeur} arrayVoitures={arrayVoitures} ></SelectOptions>
+                <SelectOptions list={modelesConstructeurs} whenChanged={setFiltres} itemAFiltrer={labelModele} arrayVoitures={arrayVoitures} ></SelectOptions>
+                <SelectOptions list={anneesFabrication} whenChanged={setFiltres} itemAFiltrer={labelAnnee} arrayVoitures={arrayVoitures} ></SelectOptions>
                 <div>
-                    <label className="block text-gray-700 font-bold mb-2">Type de carburant</label>
-                    <select className="block w-full p-2 border border-gray-300 rounded-md">
-                        <option value="">Tous</option>
-                        <option value="Essence">Essence</option>
-                        <option value="Diesel">Diesel</option>
-                        <option value="Electrique">Électrique</option>
-                        <option value="Hybride">Hybride</option>
-                    </select>
-                </div>
-
-
-                <SelectOptions list={constructeurs} whenChanged={setUrl} itemAFiltrer={labelConstructeur} arrayVoitures={arrayVoitures} ></SelectOptions>
-                <SelectOptions list={modeles} whenChanged={setUrl} itemAFiltrer={labelModele} arrayVoitures={arrayVoitures} ></SelectOptions>
-                    
-                <div>
-                    <label className="block text-gray-700 font-bold mb-2">Année</label>
-                    <input type="number" className="block w-full p-2 border border-gray-300 rounded-md" placeholder="Année" />
-                </div>
-                <div>
-                    <label className="block text-gray-700 font-bold mb-2">Prix</label>
-                    <input type="number" className="block w-full p-2 border border-gray-300 rounded-md" placeholder="Prix maximum" />
-                </div>
-                <div>
-                    <label className="block text-gray-700 font-bold mb-2">Motopropulseur</label>
-                    <select className="block w-full p-2 border border-gray-300 rounded-md">
-                        <option value="">Tous</option>
-                        <option value="FWD">FWD (Traction)</option>
-                        <option value="RWD">RWD (Propulsion)</option>
-                        <option value="AWD">AWD (Intégrale)</option>
-                        <option value="4WD">4WD (4 roues motrices)</option>
-                    </select>
-                </div>
-                <div>
-                    <label className="block text-gray-700 font-bold mb-2">Corps</label>
-                    <select className="block w-full p-2 border border-gray-300 rounded-md">
-                        <option value="">Tous</option>
-                        <option value="Sedan">Sedan</option>
-                        <option value="SUV">SUV</option>
-                        <option value="Hatchback">Hatchback</option>
-                        <option value="Coupe">Coupe</option>
-                    </select>
-                </div>
-                <div>
-                    <label className="block text-gray-700 font-bold mb-2">Transmission</label>
-                    <select className="block w-full p-2 border border-gray-300 rounded-md">
-                        <option value="">Toutes</option>
-                        <option value="Automatique">Automatique</option>
-                        <option value="Manuelle">Manuelle</option>
-                    </select>
-                </div>
-                <div>
-                    <Bouton type="">Filtrer</Bouton>
-                    
+                    <Bouton type="" onClick={reinitialiser}>Réinitialiser</Bouton>
                 </div>
             </div>
         </div>
     );
 }
-
 export default Filtres;
