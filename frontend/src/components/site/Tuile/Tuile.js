@@ -35,6 +35,7 @@ function Tuile({ voiture, language, t }) {
 
     // Si la réservation a plus de 6 jours, mettre à jour le statut
     if (isReserved && daysReserved > 6) {
+
         voiture.commande.statut_id = 0; // Mettre à jour le statut en 'disponible'
     }
 
