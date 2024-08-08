@@ -6,21 +6,21 @@ import filtreRecherche from '../BarreRecherche/FiltreRecherche';
 
 function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handleSetVoitures }) {
     const [anneesFabrication, setAnneesFabrication] = useState([]);
+    const [statutsVoiture, setStatutsVoiture] = useState([]);
     const [arrayAEnvoyer, setArrayAEnvoyer] = useState([]);
     const [constructeurs, setConstructeurs] = useState([]);
     const [modelesConstructeurs, setModelesConstructeurs] = useState([]);
-    const [lesObjetsModelesDeCeModele, setLesObjetsModelesDeCeModele] = useState([]);
     const [voituresConstructeurs, setVoituresConstructeurs] = useState([]);
     const [language, setLanguage] = useState(localStorage.getItem('langueChoisie'));
     const labelModele = 'Modèles';
     const labelConstructeur = 'Constructeurs';
     const labelAnnee = 'Années';
+    const labelStatuts = 'Status';
     const [leFiltreDesConstructeurs, setLeFiltreDesConstructeurs] = useState('');
     const [leFiltreDesModeles, setLeFiltreDesModeles] = useState('');
     const [leFiltreDesAnnees, setLeFiltreDesAnnees] = useState('');
+    const [leFiltreDesStatus, setLeFiltreDesStatus] = useState('');
     let results = []
-
-    
 
     function setFiltres(e) {
         let nomFiltre = e.target.attributes[1].value
@@ -29,23 +29,25 @@ function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handl
         // Assigne une valeur à chacun des filtre
         switch (nomFiltre) {
             case 'Constructeurs': {
-
                 setModelesConstructeurs([])
-                setAnneesFabrication([])
                 setLeFiltreDesConstructeurs(valeur)
-                setLeFiltreDesModeles([])
-                setLeFiltreDesAnnees('')
+                setLeFiltreDesModeles('Modèles')
             }
 
                 break;
             case 'Modèles': {
                 setLeFiltreDesModeles(valeur)
-                setAnneesFabrication([])
-                setLeFiltreDesAnnees('')
             }
 
                 break;
             case 'Années': setLeFiltreDesAnnees(valeur)
+
+                break;
+
+            case 'Status': {
+                setLeFiltreDesStatus(valeur)
+                // reset()
+            }
 
                 break;
 
@@ -86,37 +88,38 @@ function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handl
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            setConstructeurs(creerArrayConstructeur(arrayVoituresImuable))
+            setConstructeurs(creerArrayElement(arrayVoituresImuable))
         } catch (error) {
             console.error('Error fetching constructeurs:', error);
         }
     }
 
     useEffect(() => {
+        setConstructeurs(creerArrayElement(arrayVoituresImuable))
+    }, [arrayVoituresImuable, anneesFabrication])
 
-        console.log(arrayVoituresImuable)
-        setConstructeurs(creerArrayConstructeur(arrayVoituresImuable))
-    }, [arrayVoituresImuable])
-    
 
-    function creerArrayConstructeur(arrayDeVoitures){
-        let lesConstructeursSont = []
+    function creerArrayElement(arrayDeVoitures, quoi = 'Constructeurs') {
+        let array = []
 
         for (let i = 0; i < arrayDeVoitures.length; i++) {
-
+            let element = ''
             // Créer un array d'objet pour chacune des catégories dans lesquelles effectuer la recherche
-            const elementConstructeur = arrayDeVoitures[i].modele.constructeur.type;
+            if (quoi == 'Constructeurs') {
+                element = arrayDeVoitures[i].modele.constructeur.type;
+            } else if (quoi == 'Statuts' && arrayDeVoitures[i].commande != null) {
+
+                const elementStatutJson = JSON.parse(arrayDeVoitures[i].commande.statut.type)
+                element = elementStatutJson[language]
+            }
+
 
             //Envoyer tous les objets Modèles des voitures de ce constructeur
-            if (lesConstructeursSont.indexOf(elementConstructeur) === -1) {
-
-                lesConstructeursSont.push(elementConstructeur)
-                
+            if (array.indexOf(element) === -1 && element != '') {
+                array.push(element)
             }
-            
         }
-        console.log(lesConstructeursSont)
-        return lesConstructeursSont
+        return array
     }
 
     function arraySelectModeles(voituresDeCeConstructeur, modelesConstructeurs = []) {
@@ -149,31 +152,23 @@ function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handl
     }, [changeLanguage, language, t]);
 
 
+    //!SECTION Passer tous les filtres actif
     useEffect(() => {
         arrayVoitures = arrayVoituresImuable
 
+        console.log(arrayVoitures)
+        //ANCHOR - Constructeurs inactif
         if (leFiltreDesConstructeurs == 'Constructeurs') {
             setVoituresConstructeurs(arrayVoitures)
             setModelesConstructeurs([])
         }
 
-        // Gestion du filtre constructeur
-        if (leFiltreDesConstructeurs != '' && leFiltreDesConstructeurs != 'Constructeurs') {
 
-
-            arrayVoitures = filtreRecherche(leFiltreDesConstructeurs, arrayVoitures, results)
-
-            // Montage de l'array pour le Select des modèles
-            setVoituresConstructeurs(arrayVoitures)
-            if (voituresConstructeurs != []) {
-                setModelesConstructeurs(arraySelectModeles(arrayVoitures))
-            }
-        }
         if (leFiltreDesModeles != '' && leFiltreDesConstructeurs != '' && leFiltreDesModeles != 'Modèles') {
             arrayVoitures = appliquerFiltreModele(leFiltreDesModeles, arrayVoitures)
-            setAnneesFabrication(getAnnees(arrayVoitures))
         }
 
+        //ANCHOR - Années
         if (leFiltreDesAnnees != 'Années' && leFiltreDesAnnees != '') {
 
             // Si réinitialisé, on remet tous les modèles de ce constructeur
@@ -182,9 +177,37 @@ function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handl
             arrayVoitures = filtreRecherche(leFiltreDesAnnees, arrayVoitures, results)
             setModelesConstructeurs(arraySelectModeles(arrayVoitures))
         }
+        console.log(arrayVoitures)
+        console.log(leFiltreDesStatus)
+        //ANCHOR - Statut
+        if (leFiltreDesStatus != '' && leFiltreDesStatus != 'Status' ) {
+            arrayVoitures = appliquerFiltreModele(leFiltreDesStatus, arrayVoitures)
+        }
 
+        //ANCHOR - Constructeurs ACTIF
+        if (leFiltreDesConstructeurs != '' && leFiltreDesConstructeurs != 'Constructeurs') {
+
+            arrayVoitures = filtreRecherche(leFiltreDesConstructeurs, arrayVoitures, results, language)
+
+            if (leFiltreDesModeles == 'Modèles') {
+
+                // Montage de l'array pour le Select des modèles selon ce constructeur.
+                setVoituresConstructeurs(arrayVoitures)
+                if (voituresConstructeurs != []) {
+                    console.log(arrayVoitures)
+                    setModelesConstructeurs(arraySelectModeles(arrayVoitures))
+                }
+            }
+        }
+
+        //!SECTION Passer par touts les filtre
+        setAnneesFabrication(getAnnees(arrayVoitures))
+        setStatutsVoiture(creerArrayElement(arrayVoitures, 'Statuts'))
+
+
+        //LINK - Fin gestion des filtres, on envoie le tableau travaillé
         setArrayAEnvoyer(arrayVoitures)
-    }, [leFiltreDesConstructeurs, leFiltreDesModeles, leFiltreDesAnnees])
+    }, [leFiltreDesConstructeurs, leFiltreDesModeles, leFiltreDesAnnees, leFiltreDesStatus])
 
 
     // Envoyer le nouvel array de voitures au composant Catalogue
@@ -194,14 +217,22 @@ function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handl
 
     // Affecter au bouton de réinitialisation
     const reinitialiser = () => {
-        let valeur = 'Constructeurs'
+        setLeFiltreDesConstructeurs('Constructeurs')
         setConstructeurs([])
+        setStatutsVoiture([])
         setModelesConstructeurs([])
         setAnneesFabrication([])
-        setLeFiltreDesConstructeurs(valeur)
         setLeFiltreDesModeles([])
         setLeFiltreDesAnnees('')
+        setLeFiltreDesStatus('')
         fetchConstructeurs()
+    }
+
+    const reset = () => {
+        setModelesConstructeurs([])
+        setAnneesFabrication([])
+        setLeFiltreDesModeles([])
+        setLeFiltreDesAnnees('')
     }
 
     return (
@@ -211,6 +242,7 @@ function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handl
                 <SelectOptions list={constructeurs} whenChanged={setFiltres} itemAFiltrer={labelConstructeur} arrayVoitures={arrayVoitures} ></SelectOptions>
                 <SelectOptions list={modelesConstructeurs} whenChanged={setFiltres} itemAFiltrer={labelModele} arrayVoitures={arrayVoitures} ></SelectOptions>
                 <SelectOptions list={anneesFabrication} whenChanged={setFiltres} itemAFiltrer={labelAnnee} arrayVoitures={arrayVoitures} ></SelectOptions>
+                <SelectOptions list={statutsVoiture} whenChanged={setFiltres} itemAFiltrer={labelStatuts} arrayVoitures={arrayVoitures} ></SelectOptions>
                 <div>
                     <Bouton type="" onClick={reinitialiser}>Réinitialiser</Bouton>
                 </div>
