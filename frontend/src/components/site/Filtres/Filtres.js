@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import Bouton from '../../partialsFormulaire/Bouton/Bouton';
 import SelectOptions from '../../partialsFormulaire/SelectOptions/SelectOptions';
 import filtreRecherche from '../BarreRecherche/FiltreRecherche';
+import creerArrayElement from './createArrayElement';
+import getAnnees from './getAnnees';
+import arraySelectModeles from './arraySelectModele';
 
 function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handleSetVoitures }) {
     const [anneesFabrication, setAnneesFabrication] = useState([]);
@@ -56,26 +59,7 @@ function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handl
         }
     }
 
-    /**
-     * 
-     * @param {array} voitures 
-     * @returns array des dates unique de fabrication
-     */
-    function getAnnees(voitures = []) {
-        let anneeFabrication = []
-        for (let i = 0; i < voitures.length; i++) {
-            const elementAnnee = voitures[i].date;
-            //Créer tableau de toutes les années, unique, pour le Select Annéees
-
-            if (anneeFabrication.indexOf(elementAnnee) === -1) {
-
-                anneeFabrication.push(elementAnnee)
-            }
-        }
-        return anneeFabrication.sort();
-    }
-
-    function appliquerFiltreModele(e, arrayVoitures) {
+    function appliquerFiltre(e, arrayVoitures) {
         results = []
         let objetCeModele = filtreRecherche(e, arrayVoitures)
         return objetCeModele
@@ -96,52 +80,7 @@ function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handl
 
     useEffect(() => {
         setConstructeurs(creerArrayElement(arrayVoituresImuable))
-    }, [arrayVoituresImuable, anneesFabrication])
-
-
-    function creerArrayElement(arrayDeVoitures, quoi = 'Constructeurs') {
-        let array = []
-
-        for (let i = 0; i < arrayDeVoitures.length; i++) {
-            let element = ''
-            // Créer un array d'objet pour chacune des catégories dans lesquelles effectuer la recherche
-            if (quoi == 'Constructeurs') {
-                element = arrayDeVoitures[i].modele.constructeur.type;
-            } else if (quoi == 'Statuts' && arrayDeVoitures[i].commande != null) {
-
-                const elementStatutJson = JSON.parse(arrayDeVoitures[i].commande.statut.type)
-                element = elementStatutJson[language]
-            }
-
-
-            //Envoyer tous les objets Modèles des voitures de ce constructeur
-            if (array.indexOf(element) === -1 && element != '') {
-                array.push(element)
-            }
-        }
-        return array
-    }
-
-    function arraySelectModeles(voituresDeCeConstructeur, modelesConstructeurs = []) {
-        let lesModelesDeCeConstructeurSont = []
-
-        for (let i = 0; i < voituresDeCeConstructeur.length; i++) {
-
-            // Créer un array d'objet pour chacune des catégories dans lesquelles effectuer la recherche
-            const elementModele = voituresDeCeConstructeur[i].modele.type;
-
-            //Envoyer tous les objets Modèles des voitures de ce constructeur
-            if (lesModelesDeCeConstructeurSont.indexOf(elementModele) === -1) {
-
-                lesModelesDeCeConstructeurSont.push(elementModele)
-                modelesConstructeurs.push(voituresDeCeConstructeur[i].modele)
-            }
-            setAnneesFabrication(getAnnees(voituresDeCeConstructeur
-            ))
-        }
-        return modelesConstructeurs
-    }
-
+    }, [arrayVoituresImuable])
 
     useEffect(() => {
         arrayVoitures = arrayVoituresImuable
@@ -156,7 +95,6 @@ function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handl
     useEffect(() => {
         arrayVoitures = arrayVoituresImuable
 
-        console.log(arrayVoitures)
         //ANCHOR - Constructeurs inactif
         if (leFiltreDesConstructeurs == 'Constructeurs') {
             setVoituresConstructeurs(arrayVoitures)
@@ -165,7 +103,9 @@ function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handl
 
 
         if (leFiltreDesModeles != '' && leFiltreDesConstructeurs != '' && leFiltreDesModeles != 'Modèles') {
-            arrayVoitures = appliquerFiltreModele(leFiltreDesModeles, arrayVoitures)
+
+            arrayVoitures = appliquerFiltre(leFiltreDesModeles, arrayVoitures)
+
         }
 
         //ANCHOR - Années
@@ -177,16 +117,14 @@ function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handl
             arrayVoitures = filtreRecherche(leFiltreDesAnnees, arrayVoitures, results)
             setModelesConstructeurs(arraySelectModeles(arrayVoitures))
         }
-        console.log(arrayVoitures)
-        console.log(leFiltreDesStatus)
+
         //ANCHOR - Statut
-        if (leFiltreDesStatus != '' && leFiltreDesStatus != 'Status' ) {
-            arrayVoitures = appliquerFiltreModele(leFiltreDesStatus, arrayVoitures)
+        if (leFiltreDesStatus != '' && leFiltreDesStatus != 'Status') {
+            arrayVoitures = appliquerFiltre(leFiltreDesStatus, arrayVoitures)
         }
 
         //ANCHOR - Constructeurs ACTIF
         if (leFiltreDesConstructeurs != '' && leFiltreDesConstructeurs != 'Constructeurs') {
-
             arrayVoitures = filtreRecherche(leFiltreDesConstructeurs, arrayVoitures, results, language)
 
             if (leFiltreDesModeles == 'Modèles') {
@@ -194,15 +132,14 @@ function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handl
                 // Montage de l'array pour le Select des modèles selon ce constructeur.
                 setVoituresConstructeurs(arrayVoitures)
                 if (voituresConstructeurs != []) {
-                    console.log(arrayVoitures)
+
                     setModelesConstructeurs(arraySelectModeles(arrayVoitures))
                 }
             }
         }
-
-        //!SECTION Passer par touts les filtre
+        //!SECTION Cration des tableaux de SELECT
         setAnneesFabrication(getAnnees(arrayVoitures))
-        setStatutsVoiture(creerArrayElement(arrayVoitures, 'Statuts'))
+        setStatutsVoiture(creerArrayElement(arrayVoitures, 'Statuts', language))
 
 
         //LINK - Fin gestion des filtres, on envoie le tableau travaillé
@@ -226,13 +163,6 @@ function Filtres({ t, changeLanguage, arrayVoitures, arrayVoituresImuable, handl
         setLeFiltreDesAnnees('')
         setLeFiltreDesStatus('')
         fetchConstructeurs()
-    }
-
-    const reset = () => {
-        setModelesConstructeurs([])
-        setAnneesFabrication([])
-        setLeFiltreDesModeles([])
-        setLeFiltreDesAnnees('')
     }
 
     return (
