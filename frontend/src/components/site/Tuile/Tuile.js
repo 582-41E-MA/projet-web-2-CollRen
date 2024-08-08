@@ -29,7 +29,7 @@ function Tuile({ voiture, language, t }) {
 
     // Vérifier si la voiture est réservée
     const isReserved = voiture.commande_id && voiture.commande.statut_id === 1;
-    const reservationDate = new Date(voiture.commande.date);
+    const reservationDate = new Date(voiture?.commande?.date);
     const today = new Date();
     const daysReserved = Math.floor((today - reservationDate) / (1000 * 60 * 60 * 24));
 

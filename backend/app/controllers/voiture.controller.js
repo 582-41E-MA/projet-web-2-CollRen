@@ -11,6 +11,7 @@ const Image = db.images
 const Modele = db.modeles
 const Motopropulseur = db.motopropulseurs
 const Transmission = db.transmissions
+const Statuts = db.statuts
 
 // Create and Save a new Voiture
 exports.create = (req, res) => {
@@ -87,7 +88,7 @@ exports.findAll = (req, res) => {
                 },
                 { model: Motopropulseur, where: condition.motopropulseur },
                 { model: Transmission, where: condition.transmission },
-                { model: Image }, {model: Commande}
+                { model: Image }, { model: Commande, include: { model: Statuts }}
             ]
 
     })
