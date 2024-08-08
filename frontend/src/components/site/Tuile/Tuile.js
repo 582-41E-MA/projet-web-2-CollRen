@@ -22,6 +22,11 @@ function Tuile({ voiture, language, t }) {
         ? t('sold') 
         : '';
 
+    // Si la voiture est vendue (statut = 2), ne pas afficher la tuile
+    if (voiture.commande_id && voiture.commande.statut_id === 2) {
+        return null;
+    }
+
     return (
         <div className={`border border-gray-300 rounded-lg overflow-hidden w-72 bg-white shadow-md ${estGrise ? 'grise' : ''}`}>
             {confirmation && <div className="bg-green-200 text-green-800 p-3 mb-4 rounded">{t('car_added_to_cart_success')}</div>}
