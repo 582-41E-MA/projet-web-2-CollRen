@@ -58,11 +58,11 @@ function MotopropulseurIndex({ t, changeLanguage }) {
 
     return (
         <div className="flex flex-wrap">
-    <div className="w-full sm:w-auto">
+    <div className="w-full sm:w-[20%] sm:pr-4">
         <MenuDashboardAdmin t={t} />
     </div>
 
-    <div className="w-full sm:w-[80%] mx-4 sm:mx-[4rem] mt-24 mb-16 sm:mb-[4rem]">
+    <div className="w-full px-3 sm:w-[80%] sm:mx-0 mt-24 mb-16 sm:mb-24">
         <h1 className="text-2xl sm:text-3xl text-bleuFonce mb-4">{t("motopropulseurIndex_titre")}</h1>
 
         <Link to={"/motopropulseur-create"}>

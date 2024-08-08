@@ -59,8 +59,8 @@ function MotopropulseurCreate({ t }) {
     };
 
     return (
-        <div className="flex flex-wrap">
-            <div>
+        <div className="flex flex-wrap sm:flex-nowrap">
+            <div className="w-full sm:w-[20%] sm:pr-4">
                 <MenuDashboardAdmin t={t} />
             </div>
 

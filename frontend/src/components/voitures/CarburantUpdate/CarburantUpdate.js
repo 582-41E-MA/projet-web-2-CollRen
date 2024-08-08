@@ -81,31 +81,31 @@ function CarburantUpdate({ t }) {
     };
 
     return (
-        <div className="flex flex-wrap">
-            <div>
+        <div className="flex flex-wrap sm:flex-nowrap">
+            <div className="w-full sm:w-[25%] sm:pr-4">
                 <MenuDashboardAdmin t={t} />
             </div>
 
-            <div className="w-[100%] mx-[4rem] mt-24 mb-[4rem]">
-                <h2 className="text-[#21283B] p-3">{t("carburantUpdate_titre")}</h2>
+            <div className="w-full sm:w-[75%] px-3 mx-4 sm:mx-0 mt-24 mb-16 sm:mb-24">
+                <h2 className="text-[#21283B] text-xl sm:text-2xl p-3">{t("carburantUpdate_titre")}</h2>
 
-                <form onSubmit={handleSubmit} className="p-3 bg-[#21283B] rounded-lg">
-                    <div className="mb-3">
+                <form onSubmit={handleSubmit} className="p-4 bg-[#21283B] rounded-lg">
+                    <div className="mb-4">
                         <ChampText
                             label={"Carburant in English"}
                             type="text"
-                            className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                            className="block w-full py-2 px-3 mb-2 text-base bg-white text-gray-800 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             id="carburant_en"
                             name="carburant_en"
                             value={formData.carburant_en}
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-4">
                         <ChampText
                             label={"Carburant in French"}
                             type="text"
-                            className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                            className="block w-full py-2 px-3 mb-2 text-base bg-white text-gray-800 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             id="carburant_fr"
                             name="carburant_fr"
                             value={formData.carburant_fr}
@@ -114,13 +114,14 @@ function CarburantUpdate({ t }) {
                     </div>
                     <Bouton
                         type="submit"
-                        className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"
+                        className="mt-4 py-2 px-6 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                     >
                         {t("btnSubmit")}
                     </Bouton>
                 </form>
             </div>
         </div>
+
     );
 }
 

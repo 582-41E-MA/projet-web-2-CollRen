@@ -7,7 +7,8 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const stripeRoutes = require('./app/routes/stripe/stripe.routes.js');
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(`${process.env.STRIPE_SECRET_KEY}`);
 
 
 app.use(cors({ credentials: true, origin: '*' }));

@@ -34,35 +34,36 @@ function ConstructeurCreate({ t }) {
     };
 
     return (
-        <div className="flex flex-wrap">
-    <div className="w-full sm:w-auto">
-        <MenuDashboardAdmin t={t} />
-    </div>
+        <div className="flex flex-wrap sm:flex-nowrap">
+            <div className="w-full sm:w-[20%] sm:pr-4">
+                <MenuDashboardAdmin t={t} />
+            </div>
 
-    <div className='flex flex-col w-full sm:w-[80%] mx-4 sm:mx-[4rem] mb-16 sm:mb-[4rem]'>
-        <h2 className="text-2xl sm:text-3xl text-bleuFonce mt-24 mb-6">{t("constructeurCreate_titre")}</h2>
+            <div className="flex flex-col w-full px-3 sm:w-[80%] mx-4 sm:mx-0 mt-24 mb-16 sm:mb-24">
+                <h2 className="text-bleuFonce text-2xl sm:text-3xl mb-6">{t("constructeurCreate_titre")}</h2>
 
-        <div className=" rounded-lg ">
-            <form onSubmit={handleSubmit} className="p-6 bg-[#21283B] rounded-lg">
-                <div className="mb-4">
-                    <ChampText
-                        label={t("constructeurType_label")}
-                        type="text"
-                        className="block appearance-none w-full py-2 px-3 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
-                        value={constructeurType}
-                        onChange={(e) => setConstructeurType(e.target.value)}
-                    />
+                <div className="rounded-lg">
+                    <form onSubmit={handleSubmit} className="p-6 bg-[#21283B] rounded-lg">
+                        <div className="mb-4">
+                            <ChampText
+                                label={t("constructeurType_label")}
+                                type="text"
+                                className="block w-full py-2 px-3 text-base bg-white text-gray-800 border border-gray-200 rounded"
+                                value={constructeurType}
+                                onChange={(e) => setConstructeurType(e.target.value)}
+                            />
+                        </div>
+                        <Bouton
+                            type="submit"
+                            className="inline-block text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-4 bg-blue-600 text-white hover:bg-blue-700"
+                        >
+                            {t("btnSubmit")}
+                        </Bouton>
+                    </form>
                 </div>
-                <Bouton
-                    type="submit"
-                    className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-4 bg-blue-600 text-white hover:bg-blue-700"
-                >
-                    {t("btnSubmit")}
-                </Bouton>
-            </form>
+            </div>
         </div>
-    </div>
-</div>
+
 
     );
 }

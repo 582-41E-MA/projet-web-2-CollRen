@@ -57,47 +57,48 @@ function CarburantIndex({ t, changeLanguage }) {
     };
 
     return (
-        <div className="flex flex-wrap">
-    <div>
-        <MenuDashboardAdmin t={t} />
-    </div>
+        <div className="flex flex-wrap sm:flex-nowrap">
+            <div className="w-full sm:w-[25%] sm:pr-4">
+                <MenuDashboardAdmin t={t} />
+            </div>
 
-    <div className="w-full sm:w-[30%] mx-4 sm:mx-[4rem] mt-24 mb-16 sm:mb-[4rem]">
-        <h1 className="text-[#21283B]">{t("carburantIndex_titre")}</h1>
-        <Link to={"/carburant-create"}>
-            <p className="my-4 sm:my-[1rem]">+ {t("carburantIndex_create")}</p>
-        </Link>
+            <div className="w-full sm:w-[75%] mx-4 sm:mx-0 mt-24 mb-16 sm:mb-[4rem]">
+                <h1 className="text-[#21283B]">{t("carburantIndex_titre")}</h1>
+                <Link to={"/carburant-create"}>
+                    <p className="my-4 sm:my-[1rem] text-blue-500 hover:text-blue-700">+ {t("carburantIndex_create")}</p>
+                </Link>
 
-        <div className="overflow-x-auto">
-            <table className="w-full sm:w-[60%] divide-y divide-gray-200 bg-[#21283B] my-4 sm:my-[2rem] rounded-lg">
-                <thead>
-                    <tr>
-                        <th className="px-4 sm:px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Type</th>
-                        <th className="px-4 sm:px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">Action</th>
-                    </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 bg-[#21283B] my-4 sm:my-[2rem] rounded-lg">
-                    {carburants.map(carburant => (
-                        <tr key={carburant.id}>
-                            <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-white">{carburant.type[language]}</td>
-                            <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
-                                <Link to={`/carburant-update/${carburant.id}`} className="bg-[#F96C25] hover:bg-[#868E9B] text-white font-bold py-2 px-4 rounded-full mx-2 sm:mx-[1rem]">
-                                    {t("btnEditer")}
-                                </Link>
-                                <Bouton
-                                    onClick={() => handleDeleteCarburant(carburant.id)}
-                                    className="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out"
-                                >
-                                    {t("btnDeleter")}
-                                </Bouton>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+                <div className="overflow-x-auto">
+                    <table className="w-full sm:w-[80%] divide-y divide-gray-200 bg-[#21283B] my-4 sm:my-[2rem] rounded-lg mx-auto">
+                        <thead>
+                            <tr>
+                                <th className="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-large text-gray-500 uppercase tracking-wider">Type</th>
+                                <th className="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-large text-gray-500 uppercase tracking-wider">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-200 bg-[#21283B] my-4 sm:my-[2rem] rounded-lg">
+                            {carburants.map(carburant => (
+                                <tr key={carburant.id}>
+                                    <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-white">{carburant.type[language]}</td>
+                                    <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
+                                        <Link to={`/carburant-update/${carburant.id}`} className="bg-[#F96C25] hover:bg-[#868E9B] text-white font-bold py-2 px-4 rounded-full mx-2 sm:mx-[1rem]">
+                                            {t("btnEditer")}
+                                        </Link>
+                                        <Bouton
+                                            onClick={() => handleDeleteCarburant(carburant.id)}
+                                            className="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out"
+                                        >
+                                            {t("btnDeleter")}
+                                        </Bouton>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+
 
     );
 }
