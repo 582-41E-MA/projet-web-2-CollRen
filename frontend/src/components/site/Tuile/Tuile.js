@@ -33,8 +33,8 @@ function Tuile({ voiture, language, t }) {
     const today = new Date();
     const daysReserved = Math.floor((today - reservationDate) / (1000 * 60 * 60 * 24));
 
-    // Si la réservation a plus de 5 jours, mettre à jour le statut
-    if (isReserved && daysReserved > 5) {
+    // Si la réservation a plus de 6 jours, mettre à jour le statut
+    if (isReserved && daysReserved > 6) {
         voiture.commande.statut_id = 0; // Mettre à jour le statut en 'disponible'
     }
 
