@@ -51,12 +51,19 @@
 
      "apropos.titre": "Bienvenue chez Beaux Bazous",
      "apropos.soustitre": "Qualité, confiance et service personnalisé au cœur de chaque transaction",
+     "apropos.sub1": "La voiture qui vous convient le mieux",
+     "apropos.sub2": "Plus que clients: des ami.es",
      "apropos.p1": "Bienvenue chez Beaux Bazous, votre meilleur choix pour l'achat de voitures d'occasion de qualité à Montréal, QC. Nous nous engageons à offrir une expérience d'achat de véhicules exceptionnelle en alliant qualité supérieure, confiance et service personnalisé.",
      "apropos.p2": "Situés à Montréal, chez Beaux Bazous, nous sommes fiers de ne proposer que les meilleurs véhicules d'occasion. Chaque voiture dans notre showroom est soumise à une inspection rigoureuse pour garantir qu'elle réponde aux normes les plus élevées en matière de performance et de sécurité, offrant ainsi à nos clients une tranquillité d'esprit lors de leur choix.",
      "apropos.p3": "Nous comprenons que l'achat d'une voiture est une décision importante. Notre équipe expérimentée est là pour vous guider à chaque étape du processus, de la sélection du véhicule idéal au financement adapté à vos besoins. Notre engagement envers la transparence signifie que vous recevrez toujours des informations claires et détaillées sur chaque voiture de notre inventaire.",
      "apropos.p4": "De plus, chez Beaux Bazous, nous attachons une grande importance aux relations à long terme avec nos clients. Nous offrons un soutien continu et des services d'entretien après-vente pour assurer que votre voiture continue de vous offrir des performances exceptionnelles au fil des ans.",
      "apropos.p5": "Visitez-nous aujourd'hui chez Beaux Bazous et découvrez pourquoi nous sommes le choix préféré de ceux qui recherchent qualité, intégrité et service exceptionnel en matière de voitures d'occasion à Montréal.",
-  
+      "apropos.open1": "Beaux Bazous est une concessionnaire de voitures d'occasion qui se distingue par ses excellents services. Depuis des années, nous nous efforçons de fournir à nos clients des véhicules de qualité supérieure, soigneusement inspectés et préparés pour garantir leur satisfaction. Le nom Beaux Bazous est une petite touche d'humour, un clin d'œil affectueux aux vieilles voitures, que nous transformons en véritables beautés prêtes à rouler.",
+      "apropos.open2": "Notre amour pour les voitures est au cœur de notre entreprise. Chaque membre de notre équipe est passionné par l'automobile et dévoué à trouver la voiture parfaite pour chaque client. Que vous cherchiez une voiture pour vos trajets quotidiens ou une pièce de collection spéciale, chez Beaux Bazous, vous êtes sûr de trouver ce que vous cherchez, accompagné par un service exceptionnel et une expertise inégalée.",
+      
+
+
+
      "menuDashboardAdmin_voiture": "Voiture - gérer les détails", 
       "MenuDashboardAdmin.itemUser": "Utilisateurs",
       "MenuDashboardAdmin.itemProduct": "Voitures",
@@ -155,27 +162,27 @@
       "voituretableau_Carburant" : "Carburant",
       "voituretableau_Prix" : "Prix",
 
-        "voitureCreate_date_label": "Année",
-        "voitureCreate_date_placeholder": "Année de lancement",
-        "voitureCreate_description_label_en": "Entrez une description en Anglais",
-        "voitureCreate_description_label_fr": "Entrez une description en Français",
-        "voitureCreate_description_placeholder_en": "Entrez la description",
-        "voitureCreate_description_placeholder_fr": "Entrez la description",
-        "voitureCreate_prix_label": "Prix",
-        "voitureCreate_prix_placeholder": "Entrez le prix",
-        "voitureCreate_modele_label": "Modèle",
-        "voitureCreate_select_modele": "Selectionez un modèle",
-        "voitureCreate_transmission_label": "Transmission",
-        "voitureCreate_select_transmission": "Selectionez un type de transmission",
-        "voitureCreate_motopropulseur_label": "Motopropulseur",
-        "voitureCreate_select_motopropulseur": "Selectionez un type de motopropulseur",
-        "voitureCreate_corps_label": "Corps",
-        "voitureCreate_select_corps": "Selectionez un type de corps",
-        "voitureCreate_carburant_label": "Carburant",
-        "voitureCreate_select_carburant": "Selectionez un type de carburant",
-        "voitureUpdate_images_titre": "Images de cette voiture",
-        "btnNonPrincipale": "Image principale?",
-        "btnPrincipale": "Non principale",
+      "voitureCreate_date_placeholder": "Année de lancement",
+      "voitureCreate_date_label": "Année",
+      "voitureCreate_description_label_fr": "Entrez une description en Français",
+      "voitureCreate_description_placeholder_en": "Entrez la description",
+      "voitureCreate_description_placeholder_fr": "Entrez la description",
+      "voitureCreate_prix_label": "Prix",
+      "voitureCreate_prix_placeholder": "Entrez le prix",
+      "voitureCreate_modele_label": "Modèle",
+      "voitureCreate_select_modele": "Selectionez un modèle",
+      "voitureCreate_transmission_label": "Transmission",
+      "voitureCreate_select_transmission": "Selectionez un type de transmission",
+      "voitureCreate_motopropulseur_label": "Motopropulseur",
+      "voitureCreate_select_motopropulseur": "Selectionez un type de motopropulseur",
+      "voitureCreate_corps_label": "Corps",
+      "voitureCreate_select_corps": "Selectionez un type de corps",
+      "voitureCreate_carburant_label": "Carburant",
+      "voitureCreate_select_carburant": "Selectionez un type de carburant",
+      "voitureUpdate_images_titre": "Images de cette voiture",
+      "btnNonPrincipale": "Image principale?",
+      "btnPrincipale": "Non principale",
+      "voitureCreate_description_label_en": "Entrez une description en Anglais",
    
       "panier": "Panier",
       "produit": "Produit",
@@ -223,6 +230,13 @@
       "total_price_with_taxes": "Prix total (avec taxes):",
       "reserved": "RÉSERVÉE",
       "sold": "VENDUE",
-      "confirmation.return_home": "Retourner à l'accueil"
+      "confirmation.return_home": "Retourner à l'accueil",
+
+      "contact.title": "Contactez-nous!",
+      "contact.text": "Nous serons ravis de répondre à toutes vos questions",
+      "contact.nom": "Nom",
+      "contact.message": "Entrez votre message",
+      "contact.envoyer": "Envoyer"
+
     }
   }

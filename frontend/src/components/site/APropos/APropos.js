@@ -13,24 +13,20 @@ function APropos({ t }) {
                                 <p className="text-center mb-12 text-lg md:text-xl leading-8 text-coolGray-500 font-semibold">{t("apropos.soustitre")}</p>
                                 <div className="flex flex-col md:flex-row">
                                     <div className='font-paragraphe text-lg mb-6 md:mb-0 md:mr-6'>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                    {t("apropos.open1")}
                                     </div>
                                     <div className='font-paragraphe text-lg'>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                    {t("apropos.open2")}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="w-full lg:w-1/2 px-4 mb-5 lg:mb-0">
-                        <h4 className="font-titre text-left mb-4 text-3xl md:text-3xl text-coolGray-900 font-bold">What is Lorem Ipsum?</h4>
+                        <h4 className="font-titre text-left mb-4 text-3xl md:text-3xl text-coolGray-900 font-bold">{t("apropos.sub1")}</h4>
                         <p className="font-paragraphe mb-6 text-lg leading-7 text-coolGray-500">{t("apropos.p1")}</p>
                         <p className="font-paragraphe mb-6 text-lg leading-7 text-coolGray-500">{t("apropos.p2")}</p>
-                        <p className="font-paragraphe mb-6 text-lg leading-7 text-coolGray-500">{t("apropos.p3")}</p>
-                        <p className="font-paragraphe mb-6 text-lg leading-7 text-coolGray-500">{t("apropos.p4")}</p>
-                        <p className="font-paragraphe mb-6 text-lg leading-7 text-coolGray-500">{t("apropos.p5")}</p>
+                       
                     </div>
                     <div className="w-full lg:w-1/2 px-4">
                         <div className="border-4 border-orange border-opacity-45 rounded-3xl overflow-hidden mb-6 lg:mb-0">
@@ -41,9 +37,8 @@ function APropos({ t }) {
                         <img className="border-4 border-orange border-opacity-45 rounded-3xl overflow-hidden" src="/imgs/garantie.jpg" alt=""/>
                     </div>
                     <div className="mt-12 w-full lg:w-1/2 px-4 mb-5 lg:mb-0">
-                        <h4 className="font-titre text-left mb-4 text-3xl md:text-3xl text-coolGray-900 font-bold">What is Lorem Ipsum?</h4>
-                        <p className="font-paragraphe mb-6 text-lg leading-7 text-coolGray-500">{t("apropos.p1")}</p>
-                        <p className="font-paragraphe mb-6 text-lg leading-7 text-coolGray-500">{t("apropos.p2")}</p>
+                        <h4 className="font-titre text-left mb-4 text-3xl md:text-3xl text-coolGray-900 font-bold">{t("apropos.sub2")}</h4>
+                        
                         <p className="font-paragraphe mb-6 text-lg leading-7 text-coolGray-500">{t("apropos.p3")}</p>
                         <p className="font-paragraphe mb-6 text-lg leading-7 text-coolGray-500">{t("apropos.p4")}</p>
                         <p className="font-paragraphe mb-6 text-lg leading-7 text-coolGray-500">{t("apropos.p5")}</p>

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); 
+const stripe = require('stripe')(`${process.env.STRIPE_SECRET_KEY}`); 
 const db = require('../../models'); 
 const Commande = db.commandes; 
 const Voiture = db.voitures; // Assurez-vous d'avoir importé le modèle Voiture

@@ -52,11 +52,16 @@
 
       "apropos.titre": "Welcome to Beaux Bazous",
       "apropos.soustitre": "Quality, Trust, and Personalized Service at the Heart of Every Transaction",
+      "apropos.sub1": "The best car for your needs",
+     "apropos.sub2": "More than clients: friends",
       "apropos.p1": "Welcome to Beaux Bazous, your best choice for purchasing quality used cars in Montreal, QC. We are committed to offering an exceptional vehicle-buying experience, combining superior quality, trust, and personalized service.",
       "apropos.p2": "Located in Montreal, at Beaux Bazous, we take pride in offering only the finest used vehicles. Every car in our showroom undergoes rigorous inspection to ensure it meets the highest standards of performance and safety, providing our customers with peace of mind in their choice.",
       "apropos.p3": "We understand that buying a car is a significant decision. Our experienced team is here to guide you through every step of the process, from selecting the perfect vehicle to financing tailored to your needs. Our commitment to transparency means you will always receive clear and detailed information about every car in our inventory.",
       "apropos.p4": "Furthermore, at Beaux Bazous, we place great importance on long-term relationships with our customers. We offer ongoing support and aftersales maintenance services to ensure your car continues to deliver exceptional performance over the years.",
       "apropos.p5": "Visit us today at Beaux Bazous and discover why we are the preferred choice for those seeking quality, integrity, and exceptional service in used cars in Montreal.",
+      "apropos.open1": "Beaux Bazous is a used car dealership that stands out for its excellent service. For years, we've strived to provide our customers with top-quality vehicles, carefully inspected and prepared to guarantee their satisfaction. The name Beaux Bazous is a touch of humor, an affectionate nod to old cars, which we transform into real beauties ready to roll.",
+      "apropos.open2": "Our love of cars is at the heart of our business. Every member of our team is passionate about cars and dedicated to finding the perfect car for every customer. Whether you're looking for a car for your daily commute or a special collector's item, at Beaux Bazous you're sure to find what you're looking for, backed by exceptional service and unrivalled expertise.",
+
       
       "menuDashboardAdmin_voiture": "Car - manage details", 
       "MenuDashboardAdmin.itemUser": "Users",
@@ -227,6 +232,12 @@
       "total_price_with_taxes": "Total Price (with taxes):",
       "reserved": "RESERVED",
       "sold": "SOLD",
-      "confirmation.return_home": "Return to Home"
+      "confirmation.return_home": "Return to Home",
+
+      "contact.title": "Get in touch!",
+      "contact.text": "We will be happy to answer all your questions",
+      "contact.nom": "Name",
+      "contact.message": "Enter your message",
+      "contact.envoyer": "Send"
     }
   }

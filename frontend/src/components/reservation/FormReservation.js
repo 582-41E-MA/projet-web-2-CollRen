@@ -6,7 +6,7 @@ import ChampText from '../partialsFormulaire/ChampText/ChampText';
 import Bouton from '../partialsFormulaire/Bouton/Bouton';
 
 // Charger Stripe avec votre clé publique
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`);
 
 function FormReservation({ t, userId, panier, userName }) {
   const [user, setUser] = useState({
