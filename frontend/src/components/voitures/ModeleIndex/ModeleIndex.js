@@ -50,11 +50,11 @@ function ModeleIndex({ t }) {
 
     return (
         <main className="flex flex-wrap">
-    <div className="w-full sm:w-auto">
+    <div className="w-full sm:w-[20%] sm:pr-4">
         <MenuDashboardAdmin t={t} />
     </div>
 
-    <div className="w-full sm:w-[80%] mx-4 sm:mx-[4rem] mt-24 mb-16 sm:mb-[4rem]">
+    <div className="w-full px-3 sm:w-[80%] mr-4 sm:mx-0 mt-24 mb-16 sm:mb-24">
         <h1 className="text-2xl sm:text-3xl text-[#21283B] mb-4">{t("modeleIndex_titre")}</h1>
 
         <Link to={"/model-create"}>
@@ -66,7 +66,7 @@ function ModeleIndex({ t }) {
                 <thead>
                     <tr>
                         <th className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Type</th>
-                        <th className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Constructeur Type</th>
+                        
                         <th className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Action</th>
                     </tr>
                 </thead>
@@ -74,7 +74,6 @@ function ModeleIndex({ t }) {
                     {models.map(model => (
                         <tr key={model.id}>
                             <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-white">{model.type}</td>
-                            <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-white">{model.constructeur ? model.constructeur.type : '-'}</td>
                             <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
                                 <Link to={`/model-edit/${model.id}`}
                                     className="bg-[#F96C25] hover:bg-[#868E9B] text-white font-bold py-2 px-3 sm:px-4 rounded-full">

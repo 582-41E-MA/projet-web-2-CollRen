@@ -171,7 +171,7 @@ function VoitureCreate({ t }) {
     };
 
     return (
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap justify-center">
     <div className="w-full sm:w-auto">
         <MenuDashboardAdmin t={t} />
     </div>
