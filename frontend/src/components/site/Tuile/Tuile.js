@@ -27,6 +27,18 @@ function Tuile({ voiture, language, t }) {
         return null;
     }
 
+    // Vérifier si la voiture est réservée
+    const isReserved = voiture.commande_id && voiture.commande.statut_id === 1;
+    const reservationDate = new Date(voiture.commande.date);
+    const today = new Date();
+    const daysReserved = Math.floor((today - reservationDate) / (1000 * 60 * 60 * 24));
+
+    // Si la réservation a plus de 5 jours, mettre à jour le statut
+    if (isReserved && daysReserved > 5) {
+        voiture.commande.statut_id = 0; // Mettre à jour le statut en 'disponible'
+    }
+
+
     return (
         <div className={`border border-gray-300 rounded-lg overflow-hidden w-72 bg-white shadow-md ${estGrise ? 'grise' : ''}`}>
             {confirmation && <div className="bg-green-200 text-green-800 p-3 mb-4 rounded">{t('car_added_to_cart_success')}</div>}
