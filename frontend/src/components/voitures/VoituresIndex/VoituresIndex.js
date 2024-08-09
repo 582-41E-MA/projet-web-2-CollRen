@@ -145,12 +145,12 @@ function VoitureIndex({ t, changeLanguage }) {
     });
 
     return (
-        <main className="flex justify-center flex-wrap">
-            <div className='flex '>
+        <main className="flex flex-wrap">
+            <div className="w-full sm:w-[20%] sm:pr-4">
                 <MenuDashboardAdmin t={t} />
             </div>
 
-            <div className="w-full mt-24 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+            <div className="w-full px-3 sm:w-[80%] sm:mx-0 mt-24 mb-16 sm:mb-24">
                 <h1 className='text-[#182036] mb-8 text-center text-2xl sm:text-3xl'>{t("voitureIndex_titre")}</h1>
                 <BarreRecherche t={t} />
 
@@ -159,7 +159,7 @@ function VoitureIndex({ t, changeLanguage }) {
                 </Link>
 
                 <div className='overflow-x-auto w-full'>
-                    <table className="w-full sm:w-5/6 lg:w-4/5 divide-y divide-gray-200 bg-[#21283B] mt-4 rounded-lg mb-16 mx-auto">
+                    <table className="w-full  divide-y divide-gray-200 bg-[#21283B] mt-4 rounded-lg mb-16 ">
                         <thead>
                             <tr>
                                 <th className="px-2 py-2 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-large text-gray-500 uppercase tracking-wider cursor-pointer"

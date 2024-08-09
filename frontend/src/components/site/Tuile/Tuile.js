@@ -22,11 +22,6 @@ function Tuile({ voiture, language, t }) {
         ? t('sold') 
         : '';
 
-    // Si la voiture est vendue (statut = 2), ne pas afficher la tuile
-    if (voiture.commande_id && voiture.commande.statut_id === 2) {
-        return null;
-    }
-
     // Vérifier si la voiture est réservée
     const isReserved = voiture.commande_id && voiture.commande.statut_id === 1;
     const reservationDate = new Date(voiture?.commande?.date);
