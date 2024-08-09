@@ -125,23 +125,6 @@ function UserIndex({ t }) {
                 <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">
                   {t("user.courriel")}
                 </th>
-                <th
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-                  onClick={() => handleSort("privilege_id")}
-                >
-                  <span
-                    className={
-                      sortConfig.key === "privilege_id" ? "font-bold" : ""
-                    }
-                  >
-                    {t("user.privilege")}{" "}
-                    {sortConfig.key === "privilege_id"
-                      ? sortConfig.direction === "asc"
-                        ? "▲"
-                        : "▼"
-                      : "⇅"}
-                  </span>
-                </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Actions
                 </th>
@@ -161,9 +144,6 @@ function UserIndex({ t }) {
                   </td>
                   <td className="px-4 py-2 whitespace-nowrap text-white">
                     {user.courriel || ''}
-                  </td>
-                  <td className="px-4 py-2 whitespace-nowrap text-white">
-                  {user.privilege && user.privilege.type ? user.privilege.type[language] || '' : ''}
                   </td>
                   <td className="px-4 py-2 whitespace-nowrap text-white">
                     <Link to={`/user/${user.id}`}>

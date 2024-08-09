@@ -173,7 +173,6 @@ function CommandeIndex({ t, changeLanguage }) {
                 <div className='overflow-x-auto w-full'>
                     <table className="w-full sm:w-5/6 lg:w-4/5 divide-y divide-gray-200 bg-[#21283B] mt-4 rounded-lg mb-16 mx-auto">
                         <thead>
-                            <tr>
                                 <th className="px-2 py-2 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-large text-gray-500 uppercase tracking-wider cursor-pointer"
                                     onClick={() => handleSort('id')}>
                                     <span className={sortConfig.key === 'id' ? 'font-bold' : ''}>
@@ -201,7 +200,6 @@ function CommandeIndex({ t, changeLanguage }) {
                                 <th className="px-2 py-2 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-large text-gray-500 uppercase tracking-wider">
                                     Action
                                 </th>
-                            </tr>
                         </thead>
                         <tbody className="bg-[#21283B] divide-y divide-gray-200">
                             {sortedCommandes.map(commande => (
