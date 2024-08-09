@@ -147,7 +147,7 @@
       "carburantCreate_titre": "Fuel - create",
       "carburantType_label": "Enter a new type of fuel",
       "carburantIndex_create": "Create a new type of fuel",
-      "fetch": "http://localhost:5000/api/",
+      "fetch": "http://localhost:5001/api/",
        
       "voitureIndex_titre": "Car list",
       "voitureUpdate_titre": "Car - edit",
@@ -238,6 +238,13 @@
       "contact.text": "We will be happy to answer all your questions",
       "contact.nom": "Name",
       "contact.message": "Enter your message",
-      "contact.envoyer": "Send"
+      "contact.envoyer": "Send",
+
+      "form.requis": "Required",
+      "form.maxcaractere": "characters max",
+      "form.mincaractere": "characters min",
+      "form.invalide": "invalid",
+      "form.envoyes.succes": "Form has been submitted successfully, Thank You!"
+
     }
   }

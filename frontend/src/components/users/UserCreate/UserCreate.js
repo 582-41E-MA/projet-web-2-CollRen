@@ -1,29 +1,29 @@
+import { Input } from '../../Input'
 import Bouton from '../../partialsFormulaire/Bouton/Bouton';
-import { useState } from 'react';
-import ChampText from '../../partialsFormulaire/ChampText/ChampText';
+import { FormProvider, useForm } from 'react-hook-form'
+import { useState } from 'react'
+import { BsFillCheckSquareFill } from 'react-icons/bs'
 import './UserCreate.css';  // Assurez-vous d'importer le CSS
 
 function UserCreate({ t }) {
-    const [prenom, setPrenom] = useState('');
-    const [nom, setNom] = useState('');
-    const [courriel, setCourriel] = useState('');   
-    const [nomUtilisateur, setNomUtilisateur] = useState('') 
-    const [mdp, setMdp] = useState('');
+
+    const methods = useForm()
+    const [success, setSuccess] = useState(false)
+
     const [privilegeId, setPrivilegeId] = useState('3');
     const [error, setError] = useState('');
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        if (name === 'prenom') setPrenom(value);
-        if (name === 'nom') setNom(value);
-        if (name === 'courriel') setCourriel(value);
-        if (name === 'mdp') setMdp(value);
-        if (name === 'nomUtilisateur') setNomUtilisateur(value);
-    }
+    let prenom, nom, courriel, mdp, nomUtilisateur
 
-    function createUser(e) {
-        e.preventDefault();
-        console.log("create user");
+    const onSubmit = methods.handleSubmit(data => {
+        console.log(data)
+        prenom = data.prenom
+        nom = data.nom
+        courriel = data.courriel
+        mdp = data.mdp
+        nomUtilisateur = data.nomUtilisateur
+
+        console.log(prenom)
 
         const newUser = {
             prenom: prenom,
@@ -34,38 +34,142 @@ function UserCreate({ t }) {
             privilege_id: privilegeId
         };
 
-        console.log(newUser);
-
-        fetch(`http://localhost:5000/api/utilisateurs`, {
+        fetch(`http://localhost:5001/api/utilisateurs`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(newUser)
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Success:', data);
-            setPrenom('');
-            setNom('');
-            setCourriel('');
-            setMdp('');
-            setPrivilegeId('3');
-            setNomUtilisateur('');
-            setError('');
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            setError('Some error occurred while creating the user.');
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                setPrivilegeId('3');
+                setError('');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                setError('Some error occurred while creating the user.');
+            });
 
-        // Clear form
-        e.target.reset();
+        methods.reset()
+
+        setSuccess(true)
+    })
+
+    let test = `${t("CreateUser.prenom")}`
+    const first_name_validation = {
+        name: 'prenom',
+        label: t("CreateUser.prenom"),
+        type: 'text',
+        id: 'name',
+        placeholder: t("CreateUser.prenomPlaceHolder"),
+        validation: {
+            required: {
+                value: true,
+                message: t("form.requis"),
+            },
+            maxLength: {
+                value: 30,
+                message: `30 ${t("form.maxcaractere")}`,
+            },
+        }
+    }
+
+    const name_validation = {
+        name: 'nom',
+        label: t("CreateUser.nom"),
+        type: 'text',
+        id: 'name',
+        placeholder: t("CreateUser.nomPlaceHolder"),
+        validation: {
+            required: {
+                value: true,
+                message: t("form.requis"),
+            },
+            maxLength: {
+                value: 30,
+                message: `30 ${t("form.maxcaractere")}`,
+            },
+        }
+    }
+
+    const nom_utilisateur_validation = {
+        name: 'nomUtilisateur',
+        label: t("CreateUser.nomUtilisateur"),
+        type: 'text',
+        id: 'name',
+        placeholder: t("CreateUser.nomUtilisateurPlaceHolder"),
+        validation: {
+            required: {
+                value: true,
+                message: t("form.requis"),
+            },
+            maxLength: {
+                value: 30,
+                message: `30 ${t("form.maxcaractere")}`,
+            },
+        }
+    }
+
+    const password_validation = {
+        name: 'mdp',
+        label: t("CreateUser.mdp"),
+        type: 'password',
+        id: 'password',
+        placeholder: `${t("CreateUser.mdpPlaceHolder")}...`,
+        validation: {
+            required: {
+                value: true,
+                message: t("form.requis"),
+            },
+            minLength: {
+                value: 6,
+                message: `6 ${t("form.mincaractere")}`,
+            },
+        },
+    }
+
+    const num_validation = {
+        name: 'num',
+        label: 'number',
+        type: 'number',
+        id: 'num',
+        placeholder: 'write a random number',
+        validation: {
+            required: {
+                value: true,
+                message: t("form.requis"),
+            },
+        },
+    }
+
+    const email_validation = {
+        name: 'courriel',
+        label: t("CreateUser.courriel"),
+        type: 'text',
+        id: 'name',
+        placeholder: t("CreateUser.courrielPlaceHolder"),
+        validation: {
+            required: {
+                value: true,
+                message: t("form.requis"),
+            },
+            maxLength: {
+                value: 30,
+                message: `30 ${t("form.maxcaractere")}`,
+            },
+            pattern: {
+                value:
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                message: t("form.invalide"),
+            },
+        },
     }
 
 
@@ -74,67 +178,39 @@ function UserCreate({ t }) {
             <div className="form-container ">
                 <h1 className="text-4xl  font-titre font-bold">{t("CreateUser.soustitre")}</h1>
                 <div className='rounded-2xl'>
-                    <form onSubmit={createUser} className='my-4 p-4 rounded-2xl'>
-                        <ChampText
-                                mandatory={true} 
-                                label={t("CreateUser.prenom")}
-                                type="text"
-                                name="prenom"
-                                placeholder={t("CreateUser.prenomPlaceHolder")}
-                                value={prenom} 
-                                onChange={handleChange}
-                            />
+                    <FormProvider {...methods}>
+                        <form
+                            onSubmit={e => e.preventDefault()}
+                            noValidate
+                            autoComplete="off"
+                            className='my-4 p-4 rounded-2xl'
+                        >
 
-                            <ChampText
-                                mandatory={true} 
-                                label={t("CreateUser.nom")}
-                                type="text"
-                                name="nom"
-                                placeholder={t("CreateUser.nomPlaceHolder")}
-                                value={nom} 
-                                onChange={handleChange}
-                            />
+                            <Input {...first_name_validation} />
+                            <Input {...name_validation} />
+                            <Input {...email_validation} />
+                            <Input {...nom_utilisateur_validation} />
+                            <Input {...password_validation} />
 
-                            <ChampText
-                                mandatory={true} 
-                                label={t("CreateUser.nomUtilisateur")}
-                                type="text"
-                                name="nomUtilisateur"
-                                placeholder={t("CreateUser.nomUtilisateurPlaceHolder")}
-                                value={nomUtilisateur} 
-                                onChange={handleChange}
-                            />
+                            <div className="mt-5">
+                                {success && (
+                                    <p className="font-semibold text-green-500 mb-5 flex items-center gap-1">
+                                        <BsFillCheckSquareFill /> {t("form.envoyes.succes")}
+                                    </p>
+                                )}
 
-                            <ChampText
-                                mandatory={true} 
-                                label={t("CreateUser.courriel")}
-                                type="email"
-                                name="courriel"
-                                placeholder={t("CreateUser.courrielPlaceHolder")}
-                                value={courriel} 
-                                onChange={handleChange}
-                            />
-                                    
-                            <ChampText
-                                mandatory={true} 
-                                label={t("CreateUser.mdp")}
-                                type="password"
-                                name="mdp"
-                                placeholder={t("CreateUser.mdpPlaceHolder")}
-                                value={mdp} 
-                                onChange={handleChange}
-                            />
+                                <div onClick={onSubmit}>
 
-                        
+                                    <Bouton type="submit">{t("CreateUser.btnSubmit")} </Bouton>
+                                </div>
 
-                            {error && <p className="text-red-500">{error}</p>}
-
-                            <Bouton type="submit">{t("CreateUser.btnSubmit")} </Bouton>
+                            </div>
                         </form>
+                    </FormProvider>
                 </div>
             </div>
         </main>
-    );
+    )
 }
 
 export default UserCreate;
