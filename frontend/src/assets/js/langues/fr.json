@@ -73,6 +73,7 @@
       "MenuDashboardAdmin_voiture_modele": "Modèle",
       "MenuDashboardAdmin_voiture_motopropulseur": "Motopropulseur",
       "MenuDashboardAdmin_voiture_transmission": "Transmission",
+      "MenuDashboardAdmin_commandes": "Commandes",
 
       
       "user.EditTitle": "Éditer utilisateur",
@@ -147,7 +148,7 @@
       "carburantCreate_titre": "Carburant - créer",
       "carburantType_label": "Entrez un nouveau type de carburant",
       "carburantIndex_create": "Crèe un nouveau type de carburant",
-      "fetch": "http://localhost:5001/api/",
+      "fetch": "http://localhost:5000/api/",
       
       "voitureIndex_titre": "Liste de voitures",
       "voitureUpdate_titre": "Voiture - éditer",
@@ -242,7 +243,9 @@
       "form.maxcaractere": "Caractères maximum",
       "form.mincaractere": "Caractères minimum",
       "form.invalide": "invalide",
-      "form.envoyes.succes": "Merci, votre formulaire nous a bien été soumis!"
+      "form.envoyes.succes": "Merci, votre formulaire nous a bien été soumis!",
+
+      "commandeIndex_titre" : "Tous les commandes"
 
 
 

@@ -47,6 +47,7 @@ import DetailProduit from '../site/DetailProduit/DetailProduit';
 import Panier, { PanierProvider } from '../site/Panier/Panier'; 
 import Confirmation from '../vente/Confirmation';
 import ConfirmationReservation from '../reservation/ConfirmationReservation';
+import CommandeIndex from '../dashboards/CommandeIndex/CommandeIndex';
 
 
 
@@ -280,6 +281,9 @@ function App() {
                             <Route path="/user/:id" element={<UserShow t={t} />} />
                         </Route>
 
+                        <Route path='/commandes' element={<PrivateRoute requiredPrivilege={[1, 2]} />}>
+                            <Route path='/commandes' element={<CommandeIndex t={t} />} />
+                        </Route>
 
                         <Route path='/login' element={<Login t={t} user={user} handleLogin={login} handleLogout={logout} />} />
                         <Route path='/usercreate' element={<UserCreate t={t} />} />

@@ -181,8 +181,10 @@ const DashboardClient = ({ t }) => {
               onChange={handleInputChange}
               className='p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
             />
-            <ChampText
-              label={t('dashC_nom_utilisateur')}
+
+            <label className='text-gray-400'>{t('dashC_nom_utilisateur')}</label>
+            <input
+              disabled
               type="text"
               name="nom_utilisateur"
               value={formData.nom_utilisateur}
