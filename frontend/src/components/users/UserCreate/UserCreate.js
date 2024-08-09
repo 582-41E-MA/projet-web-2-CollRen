@@ -34,7 +34,7 @@ function UserCreate({ t }) {
             privilege_id: privilegeId
         };
 
-        fetch(`http://localhost:5001/api/utilisateurs`, {
+        fetch(`${t("fetch")}utilisateurs`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

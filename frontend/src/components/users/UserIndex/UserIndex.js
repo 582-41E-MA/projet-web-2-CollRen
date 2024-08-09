@@ -10,45 +10,19 @@ function UserIndex({ t }) {
     localStorage.getItem("langueChoisie") || "en"
   );
 
+  
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(`${t("fetch")}utilisateurs`);
         const usersData = await response.json();
 
-        const fetchCityAndProvince = async (user) => {
-          try {
-            const cityResponse = await fetch(
-              `${t("fetch")}villes/${user.ville_id}`
-            );
-            const cityData = await cityResponse.json();
-            const provinceResponse = await fetch(
-              `${t("fetch")}provinces/${cityData.province_id}`
-            );
-            const provinceData = await provinceResponse.json();
+        console.log(usersData);
+        
 
-            return {
-              ...user,
-              privilege: {
-                ...user.privilege,
-                type: JSON.parse(user.privilege.type),
-              },
-              ville: {
-                ...cityData,
-                nom: JSON.parse(cityData.nom),
-                province: JSON.parse(provinceData.nom),
-              },
-            };
-          } catch (error) {
-            console.error("Error fetching city or province:", error);
-            return user;
-          }
-        };
-
-        const updatedUsers = await Promise.all(
-          usersData.map(fetchCityAndProvince)
-        );
-        setUsers(updatedUsers);
+        
+        setUsers(usersData);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -100,6 +74,11 @@ function UserIndex({ t }) {
     return 0;
   });
 
+  console.log(users.ville);
+  // let test = JSON.parse(users.ville.nom);
+  // console.log(test);
+  
+
   return (
     <div className="flex flex-wrap">
       <div className="w-full sm:w-[20%] sm:pr-4">
@@ -146,53 +125,6 @@ function UserIndex({ t }) {
                 <th className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider">
                   {t("user.courriel")}
                 </th>
-                <th
-                  className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
-                  onClick={() => handleSort("ville")}
-                >
-                  <span
-                    className={sortConfig.key === "ville" ? "font-bold" : ""}
-                  >
-                    {t("user.ville")}{" "}
-                    {sortConfig.key === "ville"
-                      ? sortConfig.direction === "asc"
-                        ? "▲"
-                        : "▼"
-                      : "⇅"}
-                  </span>
-                </th>
-                <th
-                  className="px-6 py-3 text-left text-xs font-large text-gray-500 uppercase tracking-wider cursor-pointer"
-                  onClick={() => handleSort("province")}
-                >
-                  <span
-                    className={sortConfig.key === "province" ? "font-bold" : ""}
-                  >
-                    {t("user.province")}{" "}
-                    {sortConfig.key === "province"
-                      ? sortConfig.direction === "asc"
-                        ? "▲"
-                        : "▼"
-                      : "⇅"}
-                  </span>
-                </th>
-                <th
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-                  onClick={() => handleSort("privilege_id")}
-                >
-                  <span
-                    className={
-                      sortConfig.key === "privilege_id" ? "font-bold" : ""
-                    }
-                  >
-                    {t("user.privilege")}{" "}
-                    {sortConfig.key === "privilege_id"
-                      ? sortConfig.direction === "asc"
-                        ? "▲"
-                        : "▼"
-                      : "⇅"}
-                  </span>
-                </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Actions
                 </th>
@@ -202,26 +134,16 @@ function UserIndex({ t }) {
               {sortedUsers.map((user, index) => (
                 <tr key={index}>
                   <td className="px-4 py-2 whitespace-nowrap text-white">
-                    {user.prenom}
+                    {user.prenom || ''}
                   </td>
                   <td className="px-4 py-2 whitespace-nowrap text-white">
-                    {user.nom}
+                    {user.nom || ''}
                   </td>
                   <td className="px-4 py-2 whitespace-nowrap text-white">
                     {user.anniversaire}
                   </td>
                   <td className="px-4 py-2 whitespace-nowrap text-white">
-                    {user.courriel}
-                  </td>
-
-                  <td className="px-4 py-2 whitespace-nowrap text-white">
-                    {user.ville.nom[language]}
-                  </td>
-                  <td className="px-4 py-2 whitespace-nowrap text-white">
-                    {user.ville.province ? user.ville.province[language] : ""}
-                  </td>
-                  <td className="px-4 py-2 whitespace-nowrap text-white">
-                    {user.privilege.type[language]}
+                    {user.courriel || ''}
                   </td>
                   <td className="px-4 py-2 whitespace-nowrap text-white">
                     <Link to={`/user/${user.id}`}>
